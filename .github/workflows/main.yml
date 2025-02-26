@@ -1,6 +1,7 @@
 name: Deploy to Production
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - dev
@@ -30,6 +31,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           script: |
+            source ~/.bashrc
             cd /home/achamster/codepaint-client
             git pull origin dev  
             npm install
