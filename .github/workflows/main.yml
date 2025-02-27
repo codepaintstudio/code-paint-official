@@ -1,6 +1,7 @@
 name: Deploy to Production
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - dev
@@ -30,6 +31,8 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           script: |
+            export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+            nvm use 20.18.1
             cd /home/achamster/codepaint-client
             git pull origin dev  
             npm install
