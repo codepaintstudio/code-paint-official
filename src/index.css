@@ -59,12 +59,4 @@
   --font-PingFangSC: "PingFang SC", sans-serif;
   --color-font-primary: #0030ae;
 }
-/* *,
-::after,
-::before,
-::backdrop,
-::file-selector-button {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-} */
+
