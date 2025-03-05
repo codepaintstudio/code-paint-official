@@ -1,7 +1,5 @@
 @import "tailwindcss";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
 
 @font-face {
   font-family: "PingFang SC";
@@ -54,6 +52,7 @@
   .font-semibold {
     font-weight: 600;
   }
+  
 }
 
 @theme {
@@ -61,3 +60,4 @@
   --color-font-primary: #0030ae;
   --color-font-scendary: #6476A7;
 }
+
