@@ -1,7 +1,5 @@
 @import "tailwindcss";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
 
 @font-face {
   font-family: "PingFang SC";
@@ -54,9 +52,19 @@
   .font-semibold {
     font-weight: 600;
   }
+  
 }
 
 @theme {
   --font-PingFangSC: "PingFang SC", sans-serif;
   --color-font-primary: #0030ae;
 }
+/* *,
+::after,
+::before,
+::backdrop,
+::file-selector-button {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+} */
