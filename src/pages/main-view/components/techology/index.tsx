@@ -160,19 +160,20 @@ const TechnologyPage = () => {
         {technologyItems.map((item) => (
           <div key={item.id}>
             <div
-              className="flex items-center justify-between px-6 py-5 hover:bg-gray-100 transition-colors duration-200 border-b border-gray-200"
+              className={`flex items-center justify-between px-6 py-5 transition-colors duration-200 border-b border-gray-200
+              ${expandedItem === item.id ? 'bg-[#2246C6]' : 'bg-white hover:bg-gray-100 '}`}
             >
               <div className="flex items-center">
                 <div
                   className={`w-20 text-center ${
-                    expandedItem === item.id ? 'text-blue-500' : 'text-gray-300'
+                    expandedItem === item.id ? 'text-[#FF6A00]' : 'text-gray-300'
                   }`}
                 >
                   <span className="text-6xl font-thin">{item.number}</span>
                 </div>
                 <div className="ml-6">
-                  <h2 className="text-2xl font-bold">{item.title}</h2>
-                  <p className="mt-1 text-sm">{item.description}</p>
+                  <h2 className={`text-2xl font-bold ${expandedItem === item.id ? 'text-[#FF6A00]' : 'text-black'} `}>{item.title}</h2>
+                  <p className={`mt-1 text-sm ${expandedItem === item.id ? 'text-[#FF6A00]' : 'text-black'}`}>{item.description}</p>
                 </div>
               </div>
               <button
