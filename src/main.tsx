@@ -5,6 +5,7 @@ import './index.css';
 
 import Products from './pages/products';
 import MainView from '@/pages/main-view';
+import Activity from '@/pages/activity';
 
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
@@ -12,6 +13,7 @@ createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route index element={<MainView />} />
         <Route path="products" element={<Products />} />
+        <Route path="activity" element={<Activity />} />
       </Routes>
     </StrictMode>
   </BrowserRouter>,
