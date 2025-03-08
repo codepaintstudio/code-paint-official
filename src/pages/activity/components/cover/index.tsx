@@ -147,7 +147,14 @@ const Cover = () => {
             background: 'linear-gradient(135deg, rgba(96, 165, 250, 0.3) 0%, rgba(59, 130, 246, 0.1) 100%)',
           }}
         />
-
+        <div className="relative w-4/5 h-20 mx-auto -mt-12">
+          <div
+            className="absolute inset-0 transform translate-x-1 translate-y-1 bg-[url(/images/activity-title-double-line.webp)] bg-contain bg-no-repeat bg-center"
+          />
+          <div
+            className="absolute inset-0 bg-[url(/images/activity-title-double-line.webp)] bg-contain bg-no-repeat bg-center"
+          />
+        </div>
       </div>
       {/*文字介绍*/}
       <div className="w-full flex justify-center">

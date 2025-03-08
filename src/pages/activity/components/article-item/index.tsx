@@ -1,6 +1,5 @@
 import React from 'react';
-import { NavLink } from "react-router";
-// import { ArrowRight } from 'lucide-react';
+import { NavLink } from 'react-router';
 
 interface ArticleItemProps {
   type: 'UI交互' | '活动' | '博客' | string;
@@ -73,12 +72,12 @@ const ArticleItem: React.FC<ArticleItemProps> = ({
               className="group flex justify-center items-center w-10 h-10 rounded-full hover:bg-blue-700 transition-colors">
               <NavLink to={'/'}>
                 <img
-                  src="public/svg/arrow-right-blue.svg"
+                  src="/svg/arrow-right-blue.svg"
                   className="block group-hover:hidden"
                   alt="arrow"
                 />
                 <img
-                  src="public/svg/arrow-right-orange.svg"
+                  src="/svg/arrow-right-orange.svg"
                   className="hidden group-hover:block"
                   alt="arrow"
                 />

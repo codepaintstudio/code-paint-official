@@ -1,6 +1,21 @@
 import ArticleItem from '@/pages/activity/components/article-item';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { useRef } from 'react';
 
 const MainContent = () => {
+  useGSAP(()=>{
+    gsap.set(circleRef.current, { y: 10, opacity: 1 });
+    gsap.to(circleRef.current, {
+      duration: 1.5,
+      y: 100,
+      repeat: -1,
+      repeatDelay: 0.5,
+      ease: 'power4.inOut',
+      yoyo: true,
+    });
+  });
+
   const articles = [
     {
       id: '0',
@@ -27,22 +42,44 @@ const MainContent = () => {
       date: '2025/2/23',
       image: 'images/88426823_p0.png' ,// Placeholder for the statue image
     }];
+  const circleRef = useRef<HTMLDivElement>(null);
+
+  gsap.registerPlugin(useGSAP);
 
   return (
     <>
       {/*标题*/}
-      <div className="w-1/3 relative ml-12">
-        <h3
-          className="text-3xl md:text-8xl font-semibold tracking-widest text-transparent [-webkit-text-stroke:1px_#0030ae]"
-        >
-          ACTIVITY
-        </h3>
-        <h2 className="text-font-primary text-2xl font-PingFangSC font-semibold absolute bottom-2 right-0 -mb-4">
-          活动中心
-        </h2>
+      <div className="w-1/3 relative ml-12 flex items-start">
+        <div className="relative">
+          <h3
+            className="mt-8 text-3xl md:text-8xl font-semibold tracking-widest text-transparent [-webkit-text-stroke:1px_#0030ae]"
+          >
+            ACTIVITY
+          </h3>
+          <h2 className="text-font-primary text-2xl font-PingFangSC font-semibold absolute bottom-2 right-0 -mb-4">
+            活动中心
+          </h2>
+        </div>
+
+        {/*图形*/}
+        <div className="ml-8 mt-4 hidden md:block">
+
+          <div className="w-full flex justify-center">
+            <div
+              ref={circleRef}
+              className="size-8 rounded-full bg-radial from-blue-primary from-5% to-[#FFF]"
+            />
+          </div>
+
+          <div className="w-22 h-9 rounded-[50%] border-blue-primary border-1" />
+          <div className="w-22 h-9 rounded-[50%] border-blue-primary border-1 transform -translate-y-8" />
+          <div className="w-22 h-9 rounded-[50%] border-blue-primary border-1 transform -translate-y-12" />
+          <div className="w-22 h-9 rounded-[50%] border-blue-primary border-1 transform -translate-y-17" />
+          <div className="w-22 h-9 rounded-[50%] border-blue-primary border-1 transform -translate-y-25" />
+        </div>
       </div>
       {/*文章列表*/}
-      <div className="max-w-5xl mx-auto mt-28">
+      <div className="max-w-5xl mx-auto mt-20">
         {articles.map((article) => (
           <ArticleItem key={`article-${article.id}`} {...article} />
         ))}
