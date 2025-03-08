@@ -180,8 +180,14 @@ const TechnologyPage = () => {
                 onClick={() => toggleExpand(item.id)}
                 className="w-10 h-10 flex items-center justify-center border rounded-md cursor-pointer relative"
               >
-                <span ref={(el) => setLineRefs(item.id)(el, 0)} className="w-8 h-0.5 bg-black absolute" />
-                <span ref={(el) => setLineRefs(item.id)(el, 1)} className="w-8 h-0.5 bg-black absolute" />
+                <span
+                  ref={(el) => setLineRefs(item.id)(el, 0)}
+                  className={`w-8 h-0.5 absolute ${expandedItem === item.id ? 'bg-[#FF6A00]' : 'bg-black'}`}
+                />
+                <span
+                  ref={(el) => setLineRefs(item.id)(el, 1)}
+                  className={`w-8 h-0.5 absolute ${expandedItem === item.id ? 'bg-[#FF6A00]' : 'bg-black'}`}
+                />
               </button>
             </div>
 

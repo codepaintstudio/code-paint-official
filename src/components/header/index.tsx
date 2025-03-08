@@ -5,7 +5,7 @@ const Header = () => {
     <div className="h-16 flex m-5 justify-around items-center">
       {/*logo*/}
       <div className="flex items-center w-1/5 h-full">
-        <a href="#" className="h-full w-1/5 flex items-center">
+        <a href="/" className="h-full w-1/5 flex items-center">
           <img
             className="h-3/4 w-3/4"
             src="/images/cp-logo-blue.webp"
