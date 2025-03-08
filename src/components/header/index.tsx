@@ -5,7 +5,7 @@ const Header = () => {
     <div className="h-16 flex m-5 justify-around items-center">
       {/*logo*/}
       <div className="flex items-center w-1/5 h-full">
-        <a href="#" className="h-full w-1/5 flex items-center">
+        <a href="/" className="h-full w-1/5 flex items-center">
           <img
             className="h-3/4 w-3/4"
             src="/images/cp-logo-blue.webp"
@@ -26,8 +26,8 @@ const Header = () => {
         className="w-1/2 h-full font-PingFangSC text-font-primary flex justify-around items-center text-base font-medium ml-60"
       >
         <NavLink to={'/'} className="h-full flex items-center">首页</NavLink>
+        <NavLink to={'/activity'} className="h-full flex items-center">活动中心</NavLink>
         <NavLink to={'/products'}  className="h-full flex items-center">产品</NavLink>
-        <NavLink to={'/about'} className="h-full flex items-center">关于我们</NavLink>
         <NavLink to={'/join'} className="h-full flex items-center">加入我们</NavLink>
       </div>
       <div className="flex items-center">
