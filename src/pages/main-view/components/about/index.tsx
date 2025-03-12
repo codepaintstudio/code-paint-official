@@ -1,17 +1,46 @@
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import ScrollTrigger from 'gsap/ScrollTrigger';
 
 const About = () => {
   useGSAP(() => {
-    // 创建滚动动画
-    // @ts-ignore
-    const marquee = gsap.to('.marquee-container', {
-      x: '-50%', // 向左移动一半距离
+    gsap.registerPlugin(ScrollTrigger);
+
+    // 自动播放时间轴
+    const timeline = gsap.timeline({ repeat: -1, paused: false });
+    timeline.to('.marquee-container', {
+      x: '-50%',
       duration: 20,
       ease: 'none',
-      repeat: -1, // 无限循环
     });
+
+    let resumeTimeout: number | undefined;
+
+    const st = ScrollTrigger.create({
+      trigger: '.marquee-section',
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: 2,
+      onUpdate: (self) => {
+        if (self.isActive) {
+          timeline.pause();
+          // 将时间轴进度同步到 ScrollTrigger 的进度
+          timeline.progress(self.progress);
+          clearTimeout(resumeTimeout);
+          resumeTimeout = setTimeout(() => {
+            timeline.play();
+          }, 200);
+        }
+      },
+    });
+
+    return () => {
+      clearTimeout(resumeTimeout);
+      st.kill();
+    };
   }, []);
+
+
 
   return (
     <div className="m-8 px-8">
@@ -79,20 +108,19 @@ const About = () => {
 
       {/*CodePaint滚动*/}
       <div
-        className="absolute h-32 z-0 bottom-0 right-0 text-[#FF6A00]/10 text-9xl tracking-widest pointer-events-none select-none overflow-hidden w-full"
-      >
+        className="marquee-section absolute h-32 z-0 bottom-0 right-0 text-[#FF6A00]/10 text-9xl tracking-widest pointer-events-none select-none overflow-hidden w-full">
         <div className="flex marquee-container whitespace-nowrap">
           <div className="flex">
-            <span className="mx-8">CodePaint</span>
-            <span className="mx-8">CodePaint</span>
-            <span className="mx-8">CodePaint</span>
-            <span className="mx-8">CodePaint</span>
+            <span className="me-8">CodePaint</span>
+            <span className="me-8">CodePaint</span>
+            <span className="me-8">CodePaint</span>
+            <span className="me-8">CodePaint</span>
           </div>
           <div className="flex">
-            <span className="mx-8">CodePaint</span>
-            <span className="mx-8">CodePaint</span>
-            <span className="mx-8">CodePaint</span>
-            <span className="mx-8">CodePaint</span>
+            <span className="me-8">CodePaint</span>
+            <span className="me-8">CodePaint</span>
+            <span className="me-8">CodePaint</span>
+            <span className="me-8">CodePaint</span>
           </div>
         </div>
       </div>

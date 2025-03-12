@@ -47,7 +47,7 @@ const ArticleItem: React.FC<ArticleItemProps> = ({
 
           <div className="flex-1">
             <NavLink to={'/'}>
-              <h2 className="text-xl font-medium mb-2">{title}</h2>
+              <h2 className="text-xl font-medium mb-2 hover:text-font-primary">{title}</h2>
             </NavLink>
 
             {subtitle && (
