@@ -1,19 +1,15 @@
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import Homeone from "./components/Home_one";
-import Header from '@/pages/main-view/components/header';
-import About from '@/pages/main-view/components/about';
-import TechnologyPage from '@/pages/main-view/components/techology';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import Homeone from './components/Home_one';
+import Hometwo from '@/pages/main-view/components/Home_two';
 
 gsap.registerPlugin(useGSAP);
 
 const MainView = () => {
   return (
     <>
+      <Hometwo />
       <Homeone />
-      <Header />
-      <About />
-      <TechnologyPage />
     </>
   );
 };

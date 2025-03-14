@@ -52,12 +52,34 @@
   .font-semibold {
     font-weight: 600;
   }
-  
+  .custom-bg {
+    background-image: url('../public/images/JoinUs/orange_lace.webp');
+    background-repeat: no-repeat;
+  }
+  .line-bg{
+    background-image: url('../public/images/JoinUs/line.webp');
+  }
+.text-stroke {
+  -webkit-text-stroke: 1px #0030ae; /* 描边宽度和颜色 */
+}
+.text-stroke-secondary {
+  -webkit-text-stroke: 1px #85A2EE; /* 描边宽度和颜色 */
+}
+.text-stroke-tertiary {
+  -webkit-text-stroke: 0.5px #ffffff; /* 描边宽度和颜色 */
+}
 }
 
 @theme {
   --font-PingFangSC: "PingFang SC", sans-serif;
   --color-font-primary: #0030ae;
   --color-font-scendary: #6476A7;
+  --color-font-tertiary: #D9D9D9;
+  --color-font-quaternary:#FF6A00;
+  --color-font-quinary:#85A2EE;
+  --color-b-primary: #3359be;
+  --color-b-secondary: #191A1E;
+  --color-border-primary: #EFEFEF;
+  --tracking-widest:0.25em;
 }
 
