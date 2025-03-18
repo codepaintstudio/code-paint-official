@@ -74,7 +74,8 @@
 
 @theme {
   --font-PingFangSC: "PingFang SC", sans-serif;
-  --color-font-primary: #0030ae;
+  --color-font-primary: #0030AE;
+  --color-blue-primary: #0030AE;
   --color-font-scendary: #6476A7;
   --color-font-tertiary: #D9D9D9;
   --color-font-quaternary:#FF6A00;
