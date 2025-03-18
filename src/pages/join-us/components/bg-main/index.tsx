@@ -1,4 +1,4 @@
-import Header from '@/pages/main-view/components/header/index';
+import Header from '@/components/header/index';
 
 const Bgmain = () => {
   return (

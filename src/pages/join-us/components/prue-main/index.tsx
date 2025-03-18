@@ -1,4 +1,4 @@
-import Header from '@/pages/main-view/components/header';
+import Header from '@/components/header';
 
 const Pruemain = () => {
   return (
