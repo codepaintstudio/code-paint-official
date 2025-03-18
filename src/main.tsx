@@ -4,10 +4,10 @@ import { BrowserRouter, Route, Routes } from 'react-router';
 import './index.css';
 
 import Products from './pages/products';
-import MainView from '@/pages/main-view';
-import Join from './pages/join_us/index';
-import Login from './pages/join_us/Login';
-import Submission from './pages/join_us/Submisstion';
+import MainView from './pages/main-view/index';
+import Join from './pages/join-us/index';
+import Login from './pages/join-us/login/index';
+import Submission from './pages/join-us/submission/index';
 
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>

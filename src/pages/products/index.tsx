@@ -59,7 +59,7 @@ const Products = () => {
         </div>
         {/* codepaint */}
         <div>
-          <img src="public\images\Products\codepaint.webp" alt="" />
+          <img src="/public/images/products/codepaint.webp" alt="codepaint" />
         </div>
         <div className="max-w-2/3 mt-20 mx-auto  flex justify-center">
           {/* logo 与文字 */}
@@ -84,11 +84,11 @@ const Products = () => {
         </div>
         {/* codepaint */}
         <div>
-          <img src="public\images\Products\codepaint.webp" alt="" />
+          <img src="/public/images/mainview/codepaint.webp" alt="codepaint" />
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Products
+export default Products;
