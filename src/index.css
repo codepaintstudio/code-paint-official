@@ -38,6 +38,12 @@
   src: url("/fonts/PingFangSC/PingFangSC-Semibold.woff2") format("woff2");
 }
 
+@font-face {
+  font-family: "ZQKfreefont";
+  font-style: normal;
+  src: url("/fonts/ZQKfreefont/ZQKfreefont.ttf") format("truetype");
+}
+
 @layer utilities {
   .font-thin {
     font-weight: 200;
@@ -74,6 +80,7 @@
 
 @theme {
   --font-PingFangSC: "PingFang SC", sans-serif;
+  --font-ZQK: "ZQKfreefont", sans-serif;
   --color-font-primary: #0030AE;
   --color-blue-primary: #0030AE;
   --color-font-scendary: #6476A7;

@@ -62,7 +62,7 @@ const MainContent = () => {
         </div>
 
         {/*图形*/}
-        <div className="ml-8 mt-4 hidden md:block">
+        <div className="md:ml-8 md:mt-4 block scale-65 md:scale-100">
 
           <div className="w-full flex justify-center">
             <div
@@ -79,7 +79,7 @@ const MainContent = () => {
         </div>
       </div>
       {/*文章列表*/}
-      <div className="max-w-5xl mx-auto mt-20">
+      <div className="max-w-5xl mx-auto mt-2 md:mt-20">
         {articles.map((article) => (
           <ArticleItem key={`article-${article.id}`} {...article} />
         ))}

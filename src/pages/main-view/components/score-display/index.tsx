@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import ScrollTrigger from 'gsap/ScrollTrigger';
-import Particles from '@/components/particles-background.tsx';
+import Particles from '@/components/particles/particles-background.tsx';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -12,22 +12,6 @@ const ScoreDisplay: React.FC = () => {
 
   useGSAP(() => {
     if (!pageRef.current || !ringsRef.current) return;
-
-    gsap.set(pageRef.current, {
-      backgroundColor: '#ffffff',
-    });
-
-    // 创建背景色过渡动画
-    gsap.to(pageRef.current, {
-      backgroundColor: '#000000',
-      duration: 1,
-      scrollTrigger: {
-        trigger: pageRef.current,
-        start: 'top center',
-        end: 'top center',
-        toggleActions: 'play none none reverse',
-      },
-    });
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -92,9 +76,9 @@ const ScoreDisplay: React.FC = () => {
   return (
     <div
       ref={pageRef}
-      className="bg-black text-gray-800 min-h-screen px-6 overflow-hidden"
+      className="text-gray-800 md:min-h-screen px-6 overflow-hidden"
     >
-      <div className="absolute z-90 h-11/12 w-11/12 mt-10">
+      <div className="hidden md:block absolute z-90 h-11/12 w-11/12 mt-10">
         <Particles
           particleColors={['#ffffff', '#ffffff']}
           particleCount={200}
@@ -107,17 +91,28 @@ const ScoreDisplay: React.FC = () => {
         />
       </div>
       <div className="w-full mx-auto p-8 flex justify-center flex-wrap">
-        {/* 头部标题 */}
-        <div className="w-full flex justify-between items-center mb-12">
-          <h1 className="flex-shrink text-5xl font-bold text-blue-primary">成绩展示</h1>
+        {/* 头部标题 桌面样式 */}
+        <div className="w-full hidden md:flex justify-between items-center mb-12">
+          <h1 className="flex-shrink md:text-5xl font-bold text-blue-primary">成绩展示</h1>
           <div
             className="flex-grow border-b border-blue-primary mx-8"
           />
-          <div className="flex-shrink text-7xl font-extrabold text-blue-primary">SCORE</div>
+          <div className="flex-shrink text-4xl md:text-7xl font-extrabold text-blue-primary">SCORE</div>
+        </div>
+
+        {/* 头部标题 移动端样式 */}
+        <div className="block md:hidden py-5 text-center">
+          <h1
+            className="text-4xl md:text-6xl font-bold tracking-wider font-ZQK text-transparent bg-clip-text bg-gradient-to-r from-[#0047FF] to-[#001448] md:bg-none md:text-blue-primary"
+          >Score
+          </h1>
+          <p className="mt-1 text-lg">成绩展示</p>
         </div>
 
         {/*圆环*/}
-        <div className="h-[640px] hidden md:block w-full max-w-7xl aspect-square max-w-full border-x border-blue-primary">
+        <div
+          className="h-[640px] hidden md:block w-full max-w-7xl aspect-square max-w-full border-x border-blue-primary"
+        >
           <ul
             ref={ringsRef}
             className="relative h-[640px] w-[640px] list-none transition-all duration-100 ease-in my-0 mx-auto"
@@ -197,11 +192,20 @@ const ScoreDisplay: React.FC = () => {
         </div>
 
         {/* 底部描述 */}
-        <div className="w-full mt-8 max-w-3xl mx-auto text-center text-sm text-white space-y-2 bottom-description">
-          <p style={{ opacity: 0, transform: 'translateY(20px)' }}>学科竞赛上累计获得省级国家级奖项 5 次，省以下40 余次；</p>
-          <p style={{ opacity: 0, transform: 'translateY(20px)' }}>商业项目交付上累计交付 10 余个；</p>
-          <p style={{ opacity: 0, transform: 'translateY(20px)' }}>有 8 位同学成功拿到大厂 OFFER；</p>
-          <p style={{ opacity: 0, transform: 'translateY(20px)' }}>工作室除了技术培养外还有学科竞赛、和商业项目等待大家参与！</p>
+        <div className="w-full mt-8 max-w-3xl mx-auto text-center text-sm text-[#191A1E] md:text-white space-y-2 bottom-description">
+          <p className="opacity-100 md:opacity-100">学科竞赛上累计获得省级国家级奖项 5 次，省以下40
+            余次；
+          </p>
+          <p className="opacity-100 md:opacity-100">商业项目交付上累计交付 10 余个；</p>
+          <p className="opacity-100 md:opacity-100">有 8 位同学成功拿到大厂 OFFER；</p>
+          <p
+            style={{
+              opacity: 0,
+              transform: 'translateY(20px)',
+            }}
+          >
+            工作室除了技术培养外还有学科竞赛、和商业项目等待大家参与！
+          </p>
         </div>
       </div>
     </div>

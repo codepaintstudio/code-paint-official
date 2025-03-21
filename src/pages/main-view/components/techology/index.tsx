@@ -148,11 +148,13 @@ const TechnologyPage = () => {
       detailsRefs.current.set(id, element);
     }
   };
-
   return (
-    <div className="max-w-5xl mx-auto bg-white py-15">
+    <div className="max-w-5xl mx-auto py-15">
       <div className="py-10 text-center">
-        <h1 className="text-6xl font-bold tracking-wider">TECHNOLOGY</h1>
+        <h1
+          className="text-4xl md:text-6xl font-bold tracking-wider font-ZQK text-transparent bg-clip-text bg-gradient-to-r from-[#0047FF] to-[#001448] md:bg-none md:text-black"
+        >TECHNOLOGY
+        </h1>
         <p className="mt-2 text-lg">技术领域</p>
       </div>
 
@@ -161,7 +163,7 @@ const TechnologyPage = () => {
           <div key={item.id}>
             <div
               className={`flex items-center justify-between px-6 py-5 transition-colors duration-200 border-b border-gray-200
-              ${expandedItem === item.id ? 'bg-[#2246C6]' : 'bg-white hover:bg-gray-100 '}`}
+              ${expandedItem === item.id ? 'bg-[#2246C6]' : 'hover:bg-gray-100 '}`}
             >
               <div className="flex items-center">
                 <div
@@ -172,21 +174,25 @@ const TechnologyPage = () => {
                   <span className="text-6xl font-thin">{item.number}</span>
                 </div>
                 <div className="ml-6">
-                  <h2 className={`text-2xl font-bold ${expandedItem === item.id ? 'text-[#FF6A00]' : 'text-black'} `}>{item.title}</h2>
-                  <p className={`mt-1 text-sm ${expandedItem === item.id ? 'text-[#FF6A00]' : 'text-black'}`}>{item.description}</p>
+                  <h2 className={`text-xl md:text-2xl font-bold ${expandedItem === item.id ? 'text-[#FF6A00]' : 'text-black'} `}>{item.title}</h2>
+                  <p
+                    className={`mt-1 text-sm ${expandedItem === item.id ? 'text-[#FF6A00]' : 'text-gray-300'} line-clamp-2`}
+                  >
+                    {item.description}
+                  </p>
                 </div>
               </div>
               <button
                 onClick={() => toggleExpand(item.id)}
-                className="w-10 h-10 flex items-center justify-center border rounded-md cursor-pointer relative"
+                className="w-6 h-6 md:w-10 md:h-10 aspect-square flex items-center justify-center border rounded-md cursor-pointer relative"
               >
                 <span
                   ref={(el) => setLineRefs(item.id)(el, 0)}
-                  className={`w-8 h-0.5 absolute ${expandedItem === item.id ? 'bg-[#FF6A00]' : 'bg-black'}`}
+                  className={`w-4 md:w-8 h-0.5 absolute ${expandedItem === item.id ? 'bg-[#FF6A00]' : 'bg-black'}`}
                 />
                 <span
                   ref={(el) => setLineRefs(item.id)(el, 1)}
-                  className={`w-8 h-0.5 absolute ${expandedItem === item.id ? 'bg-[#FF6A00]' : 'bg-black'}`}
+                  className={`w-4 md:w-8 h-0.5 absolute ${expandedItem === item.id ? 'bg-[#FF6A00]' : 'bg-black'}`}
                 />
               </button>
             </div>
@@ -198,7 +204,7 @@ const TechnologyPage = () => {
               >
                 <div className="overflow-hidden">
                   {item.details.map((detail) => (
-                    <p key={'${item.id}'} className="mb-4 text-[#01247E] font-thin">
+                    <p key={detail[0]} className="mb-4 text-[#01247E] font-thin">
                       {detail}
                     </p>
                   ))}

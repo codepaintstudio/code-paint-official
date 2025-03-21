@@ -159,7 +159,7 @@ const Cover = () => {
       {/*文字介绍*/}
       <div className="w-full flex justify-center">
         <div
-          className="w-1/4 h-48 mt-8 flex justify-center flex-wrap content-evenly text-font-primary"
+          className="w-full md:w-1/4 h-48 mt-8 flex justify-center flex-wrap content-evenly text-font-primary"
         >
           <div className="w-full flex justify-center" ref={paragraphRef1}>欢迎来到码绘工作室作品活动中心！</div>
           <div className="w-full flex justify-center" ref={paragraphRef2}>这里是代码与艺术交织的奇妙空间，</div>
