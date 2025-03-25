@@ -52,7 +52,7 @@ const MainContent = () => {
       <div className="w-1/3 relative ml-12 flex items-start">
         <div className="relative">
           <h3
-            className="mt-8 text-3xl md:text-8xl font-semibold tracking-widest text-transparent [-webkit-text-stroke:1px_#0030ae]"
+            className="mt-8 text-3xl md:text-8xl font-semibold tracking-widest text-white [text-shadow:-1px_-1px_0_#0030ae,1px_-1px_0_#0030ae,-1px_1px_0_#0030ae,1px_1px_0_#0030ae]"
           >
             ACTIVITY
           </h3>

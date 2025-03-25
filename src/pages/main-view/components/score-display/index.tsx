@@ -97,7 +97,7 @@ const ScoreDisplay: React.FC = () => {
           <div
             className="flex-grow border-b border-blue-primary mx-8"
           />
-          <div className="flex-shrink text-4xl md:text-7xl font-extrabold text-blue-primary">SCORE</div>
+          <div className="flex-shrink text-4xl md:text-7xl font-ZQK font-extrabold text-blue-primary">SCORE</div>
         </div>
 
         {/* 头部标题 移动端样式 */}
@@ -111,8 +111,9 @@ const ScoreDisplay: React.FC = () => {
 
         {/*圆环*/}
         <div
-          className="h-[640px] hidden md:block w-full max-w-7xl aspect-square max-w-full border-x border-blue-primary"
+          className="h-[640px] hidden md:block w-full max-w-7xl aspect-square max-w-full border-x border-blue-primary relative"
         >
+          <div className="absolute left-23 top-70 w-[80vw] h-40 bg-contain bg-no-repeat bg-[url(/images/score.webp)]" />
           <ul
             ref={ringsRef}
             className="relative h-[640px] w-[640px] list-none transition-all duration-100 ease-in my-0 mx-auto"

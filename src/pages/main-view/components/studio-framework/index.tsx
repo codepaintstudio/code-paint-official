@@ -54,18 +54,32 @@ const FrameworkPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="w-full flex flex-grow justify-end items-center flex-nowrap gap-8 pb-50">
+          <div className="w-full flex flex-grow justify-end items-center flex-nowrap gap-8 pb-50 relative">
             {/* 教师团队 */}
+            {/* Glow background at bottom */}
             <div
-              className="w-[15vw] h-[15vw] aspect-square rounded-full bg-[linear-gradient(25.42deg,#000000_-9.41%,rgba(12,16,26,0.6)_15.22%,rgba(30,40,65,0.5)_35.9%,#A66D45_89.97%,rgba(206,178,158,0.5)_101.22%)] flex flex-col items-center justify-center text-center"
+              className="opacity-40 absolute bottom-50 left-[-100px] w-96 h-96 rounded-b-full z-1 blur-3xl"
+              style={{
+                background:
+                  "linear-gradient(330.79deg, #004DFF 5.97%, rgba(255, 106, 0, 0.2) 106.59%)"
+              }}
+            />
+            <div
+              className="z-5 relative w-[15vw] h-[15vw] aspect-square rounded-full bg-[linear-gradient(25.42deg,#000000_-9.41%,rgba(12,16,26,0.6)_15.22%,rgba(30,40,65,0.5)_35.9%,#A66D45_89.97%,rgba(206,178,158,0.5)_101.22%)] flex flex-col items-center justify-center text-center"
             >
-              <div className="text-lg font-bold">老师团队</div>
-              <div className="text-xs">TEACHER TEAM</div>
+              <div className="relative z-10">
+                <div className="text-lg font-bold">教师团队</div>
+                <div className="text-xs">TEACHER TEAM</div>
+              </div>
             </div>
+
+            <div
+              className="opacity-32 bg-blue-primary absolute bottom-50 left-50 w-48 h-48 rounded-b-full z-1 blur-3xl"
+            />
 
             {/* 学生团队 */}
             <div
-              className="w-[20vw] h-[20vw] aspect-square rounded-full flex flex-col items-center justify-center text-center bg-[linear-gradient(32.57deg,#000000_15.09%,rgba(12,16,26,0.6)_27.68%,rgba(30,40,65,0.5)_42.29%,#687FBC_89.25%)]"
+              className="z-5 w-[20vw] h-[20vw] aspect-square rounded-full flex flex-col items-center justify-center text-center bg-[linear-gradient(32.57deg,#000000_15.09%,rgba(12,16,26,0.6)_27.68%,rgba(30,40,65,0.5)_42.29%,#687FBC_89.25%)]"
             >
               <div className="text-lg font-bold">学生团队</div>
               <div className="text-xs">STUDENT TEAMS</div>
