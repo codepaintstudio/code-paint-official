@@ -1,41 +1,41 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @font-face {
-  font-family: "PingFang SC";
+  font-family: 'PingFang SC';
   font-style: normal;
   font-weight: 200;
-  src: url("/fonts/PingFangSC/PingFangSC-Thin.woff2") format("woff2");
+  src: url('/fonts/PingFangSC/PingFangSC-Thin.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: "PingFang SC";
+  font-family: 'PingFang SC';
   font-style: normal;
   font-weight: 300;
-  src: url("/fonts/PingFangSC/PingFangSC-Light.woff2") format("woff2");
+  src: url('/fonts/PingFangSC/PingFangSC-Light.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: "PingFang SC";
+  font-family: 'PingFang SC';
   font-style: normal;
   font-weight: 400;
-  src: url("/fonts/PingFangSC/PingFangSC-Regular.woff2") format("woff2");
+  src: url('/fonts/PingFangSC/PingFangSC-Regular.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: "PingFang SC";
+  font-family: 'PingFang SC';
   font-style: normal;
   font-weight: 500;
-  src: url("/fonts/PingFangSC/PingFangSC-Medium.woff2") format("woff2");
+  src: url('/fonts/PingFangSC/PingFangSC-Medium.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: "PingFang SC";
+  font-family: 'PingFang SC';
   font-style: normal;
   font-weight: 600;
-  src: url("/fonts/PingFangSC/PingFangSC-Semibold.woff2") format("woff2");
+  src: url('/fonts/PingFangSC/PingFangSC-Semibold.woff2') format('woff2');
 }
 
 @layer utilities {
@@ -58,31 +58,75 @@
     background-image: url('../public/images/JoinUs/orange_lace.webp');
     background-repeat: no-repeat;
   }
-  .line-bg{
+  .line-bg {
     background-image: url('../public/images/JoinUs/line.webp');
   }
-.text-stroke {
-  -webkit-text-stroke: 1px #0030ae; /* 描边宽度和颜色 */
-}
-.text-stroke-secondary {
-  -webkit-text-stroke: 1px #85A2EE; /* 描边宽度和颜色 */
-}
-.text-stroke-tertiary {
-  -webkit-text-stroke: 0.5px #ffffff; /* 描边宽度和颜色 */
-}
+  .text-stroke {
+    -webkit-text-stroke: 1px #0030ae; /* 描边宽度和颜色 */
+  }
+  .text-stroke-secondary {
+    -webkit-text-stroke: 1px #85a2ee; /* 描边宽度和颜色 */
+  }
+  .text-stroke-tertiary {
+    -webkit-text-stroke: 0.5px #ffffff; /* 描边宽度和颜色 */
+  }
+  .text-stroke-quaternary {
+    -webkit-text-stroke: 3px #ffffff; /* 描边宽度和颜色 */
+  }
+  .text-stroke-fifth {
+    -webkit-text-stroke: 0.5px #888a90;
+  }
+  .bg-orange-side {
+    background-image: url('/public/svg/orange-side.svg');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: bottom;
+  }
+  /* 滚动条左侧定位 */
+  .scrollbar {  
+	margin-left: 30px;
+	 overflow-y: scroll; 
+	 margin-bottom: 25px; 
+  direction: rtl;
+  }
+  .scrollbar > * {
+    direction: ltr;
+  }
+  .scrollbar::-webkit-scrollbar {
+    width: 10px;
+  }
+  .scrollbar::-webkit-scrollbar-track {
+    background: linear-gradient(
+    to bottom,
+    transparent 100px,      /* 顶部留白100px */
+    #0030ae 100px,          /* 轨道实际颜色起始位置 */
+    #0030ae calc(100% - 100px), /* 轨道颜色结束位置 */
+    transparent 100px       /* 底部留白100px */
+  );
+    border-radius: 16px;
+  }
+  .scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 16px;
+    background: linear-gradient(
+      to bottom,
+      transparent 15%,    /* 顶部10%透明 */
+      #ffffff 10%,          /* 实际颜色起始位置 */
+      #ffffff 90%,          /* 实际颜色结束位置 */
+      transparent 75%    /* 底部10%透明 */
+    );
+  }
 }
 
 @theme {
-  --font-PingFangSC: "PingFang SC", sans-serif;
-  --color-font-primary: #0030AE;
-  --color-blue-primary: #0030AE;
-  --color-font-scendary: #6476A7;
-  --color-font-tertiary: #D9D9D9;
-  --color-font-quaternary:#FF6A00;
-  --color-font-quinary:#85A2EE;
+  --font-PingFangSC: 'PingFang SC', sans-serif;
+  --color-font-primary: #0030ae;
+  --color-blue-primary: #0030ae;
+  --color-font-scendary: #6476a7;
+  --color-font-tertiary: #d9d9d9;
+  --color-font-quaternary: #ff6a00;
+  --color-font-quinary: #85a2ee;
   --color-b-primary: #3359be;
-  --color-b-secondary: #191A1E;
-  --color-border-primary: #EFEFEF;
-  --tracking-widest:0.25em;
+  --color-b-secondary: #191a1e;
+  --color-border-primary: #efefef;
+  --tracking-widest: 0.25em;
 }
-

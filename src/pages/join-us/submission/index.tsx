@@ -1,3 +1,4 @@
+import { Mail, Phone, FileUp, FilePen } from 'lucide-react';
 import Pruemain from '../components/prue-main/index';
 const Submission = () => {
   return (
@@ -7,9 +8,7 @@ const Submission = () => {
       <div className="h-full w-full">
         <div className="relative w-2/7 h-3/5 mx-auto bg-font-primary border rounded-tr-4xl ">
           {/* 第一层 */}
-          <div
-            className="w-full h-full bg-b-secondary rounded-tr-4xl origin-top-left hover:-rotate-6 transition-all duration-700"
-          >
+          <div className="w-full h-full bg-b-secondary rounded-tr-4xl origin-top-left hover:-rotate-6 transition-all duration-700">
             {/*圆孔 */}
             <div className="w-6 h-6 absolute top-6 left-6  rounded-full bg-white">
               {''}
@@ -32,9 +31,9 @@ const Submission = () => {
                 {/* 邮箱 */}
                 <div className="flex text-white items-center w-4/5 h-10 mx-auto my-4 border-white border-1 rounded-xl rounded-t-xl">
                   <div className="flex items-center h-4/5 ml-1.5 border-r-3 border-border-primary opacity-30">
-                    <img
-                      src="/public/images/join/mail.webp"
-                      alt="邮箱"
+                    <Mail
+                      size={24}
+                      color="#8c8c8e"
                       className="w-6 h-6 mr-2 opacity-80"
                     />
                   </div>
@@ -48,9 +47,9 @@ const Submission = () => {
                 {/* 电话 */}
                 <div className="flex text-white items-center w-4/5 h-10 mx-auto my-4  border-white border-1 rounded-xl [image-rendering:crisp-edges]">
                   <div className="flex items-center h-4/5 ml-1.5 border-r-3 border-border-primary opacity-30">
-                    <img
-                      src="/public/images/join/phone.webp"
-                      alt="电话图标"
+                    <Phone
+                      size={24}
+                      color="#8c8c8e"
                       className="w-6 h-6 mr-2 opacity-80"
                     />
                   </div>
@@ -68,9 +67,10 @@ const Submission = () => {
                   <div>
                     <input type="file" id="resume" className="hidden" />{' '}
                     <label htmlFor="resume" className="">
-                      <img
-                        src="/public/images/join/file_upload.webp"
-                        alt="file_upload"
+                      <FileUp
+                        strokeWidth={2}
+                        size={20}
+                        color="#FF6A00"
                         className="inline-block"
                       />
                       上传简历
@@ -79,9 +79,10 @@ const Submission = () => {
                   {/* 制作 */}
                   <div>
                     <a href="#" className="">
-                      <img
-                        src="/public/images/join/file_edit.webp"
-                        alt="file_edit"
+                      <FilePen
+                        strokeWidth={2}
+                        size={20}
+                        color="#FF6A00"
                         className="inline-block"
                       />
                       制作简历

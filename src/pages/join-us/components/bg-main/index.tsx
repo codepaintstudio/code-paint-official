@@ -5,11 +5,38 @@ const Bgmain = () => {
     <>
       <Header />
       <div className="fixed w-screen">
-        <img
+        {/* <img
           className="w-full h-full object-cover"
           src="/public/images/join/orange_lace.webp"
           alt="orange_lace"
-        />
+        /> */}
+        <svg
+          className="w-full h-full object-cover"
+          width="1920"
+          height="802"
+          viewBox="0 0 1920 802"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            opacity="0.1"
+            d="M830.528 625.188C358.924 672.252 -95.5474 298.216 -314 0C-271.698 49.2662 111.815 42.8441 289.5 253C401.865 385.899 624.867 536.158 830.528 625.188C951.927 613.073 1074.46 573.054 1194.4 496.656C1340.16 403.804 1537.47 513.393 1743.5 626.169C1906.58 672.236 2078.59 740.272 2204.32 801.247C2057.88 797.352 1898.23 710.862 1743.5 626.169C1518.16 562.514 1309.87 540.803 1264.26 637.618C1215.71 740.687 1031.39 712.14 830.528 625.188Z"
+            fill="#FF6A00"
+          />
+        </svg>
+      </div>
+      <div className="absolute w-full">
+        <svg
+          className="w-full h-full object-cover"
+          width="1920"
+          height="343"
+          viewBox="0 0 1920 343"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M0 1C25.3333 76.8333 124.6 220.5 319 188.5C562 148.5 758.901 241.124 853.5 290C973.5 352 1382.5 251 1382.5 208.5C1538.17 134.667 1912.5 126 1927.5 342"
+            stroke="#0030AE"
+          />
+        </svg>
       </div>
       {/* 中间小标题 */}
       <div className="w-full relative font-bold font-PingFangSC flex justify-center">

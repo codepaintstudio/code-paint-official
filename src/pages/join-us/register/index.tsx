@@ -1,6 +1,6 @@
 import { Lock, Mail, EyeOff } from 'lucide-react';
-
-const Login = () => {
+import { NavLink } from 'react-router';
+const Register = () => {
   return (
     <>
       <div className="w-screen">
@@ -71,9 +71,8 @@ const Login = () => {
                 </div>
               </div>
               {/* 表单 */}
-
               <form className="w-3/5 mx-auto">
-                <p className="text-base font-semibold">登录以开始使用</p>
+                <p className="text-base font-semibold">创建用户以开始使用</p>
                 {/* 邮箱 */}
                 <div className="flex text-white items-center h-10 mx-auto my-4  border-white border-1 rounded-xl">
                   <div className="flex items-center h-4/5">
@@ -100,15 +99,20 @@ const Login = () => {
                   />
                   <EyeOff size={26} className="mx-2" />
                 </div>
-                {/* 登录 */}
+                {/* 注册 */}
                 <div className="w-full h-10 mt-10 bg-white rounded-xl text-font-primary text-center hover:opacity-80">
                   <input
                     className="h-full w-full my-auto font-semibold text-base cursor-pointer"
                     type="submit"
-                    value="登录"
+                    value="注册"
                   />
                 </div>
               </form>
+              <div className="w-3/5 mt-3 mx-auto text-center text-xs text-white cursor-pointer">
+                <NavLink to="/login" className="hover:opacity-80">
+                  已经有一个账户？
+                </NavLink>
+              </div>
             </div>
             {/* 小药丸 */}
             <div className="absolute bottom-0 h-1/5 flex w-full mx-auto font-PingFangSC font-semibold text-xs text-center text-white/40">
@@ -172,4 +176,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

@@ -40,22 +40,23 @@ const About = () => {
     };
   }, []);
 
-
-
   return (
     <div className="m-8 px-8">
       <div className="w-full flex items-center px-18">
         <div className="shrink-0">
-          <h1 className="text-5xl md:text-6xl text-font-primary font-bold">技术培养</h1>
+          <h1 className="text-5xl md:text-6xl text-font-primary font-bold">
+            技术培养
+          </h1>
         </div>
         <div className="flex-grow mx-6">
           <div className="w-full border-t border-gray-300" />
         </div>
         <div className="shrink-0">
-          <h1 className="text-5xl md:text-6xl text-font-primary font-bold">竞赛</h1>
+          <h1 className="text-5xl md:text-6xl text-font-primary font-bold">
+            竞赛
+          </h1>
         </div>
       </div>
-
 
       {/* Technology / Project / Competition */}
       <div className="mt-14 w-full flex items-center px-18">
@@ -65,27 +66,22 @@ const About = () => {
           </div>
         </div>
         <div className="shrink-0 ml-6">
-          <h1 className="text-5xl md:text-6xl text-font-primary font-bold">项目开发</h1>
+          <h1 className="text-5xl md:text-6xl text-font-primary font-bold">
+            项目开发
+          </h1>
         </div>
       </div>
 
       <div className="w-full mt-16 text-center flex justify-center">
-        <div
-          className="text-3xl md:text-4xl font-semibold mb-8 tracking-widest text-transparent [-webkit-text-stroke:1px_#0030ae]"
-        >
+        <div className="text-3xl md:text-4xl font-semibold mb-8 tracking-widest text-transparent [-webkit-text-stroke:1px_#0030ae]">
           关于我们
         </div>
-        <div
-          className="text-3xl md:text-4xl font-semibold mb-8 text-font-primary mx-16"
-        >
+        <div className="text-3xl md:text-4xl font-semibold mb-8 text-font-primary mx-16">
           X
         </div>
-        <div
-          className="text-3xl md:text-4xl font-semibold mb-8 tracking-widest text-transparent [-webkit-text-stroke:1px_#0030ae]"
-        >
+        <div className="text-3xl md:text-4xl font-semibold mb-8 tracking-widest text-transparent [-webkit-text-stroke:1px_#0030ae]">
           发展目标
         </div>
-
       </div>
 
       {/* Team Info */}
@@ -107,8 +103,7 @@ const About = () => {
       </div>
 
       {/*CodePaint滚动*/}
-      <div
-        className="marquee-section absolute h-32 z-0 bottom-0 right-0 text-[#FF6A00]/10 text-9xl tracking-widest pointer-events-none select-none overflow-hidden w-full">
+      <div className="marquee-section absolute h-32 z-0 right-0 text-[#FF6A00]/10 text-9xl tracking-widest pointer-events-none select-none overflow-hidden w-full">
         <div className="flex marquee-container whitespace-nowrap">
           <div className="flex">
             <span className="me-8">CodePaint</span>

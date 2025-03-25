@@ -5,11 +5,19 @@ const Pruemain = () => {
     <>
       <Header />
       <div className="fixed w-screen">
-        <img
+        <svg
           className="w-full h-full object-cover"
-          src="/public/images/join/orange_lace.webp"
-          alt="orange_lace"
-        />
+          width="1920"
+          height="802"
+          viewBox="0 0 1920 802"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            opacity="0.1"
+            d="M830.528 625.188C358.924 672.252 -95.5474 298.216 -314 0C-271.698 49.2662 111.815 42.8441 289.5 253C401.865 385.899 624.867 536.158 830.528 625.188C951.927 613.073 1074.46 573.054 1194.4 496.656C1340.16 403.804 1537.47 513.393 1743.5 626.169C1906.58 672.236 2078.59 740.272 2204.32 801.247C2057.88 797.352 1898.23 710.862 1743.5 626.169C1518.16 562.514 1309.87 540.803 1264.26 637.618C1215.71 740.687 1031.39 712.14 830.528 625.188Z"
+            fill="#FF6A00"
+          />
+        </svg>
       </div>
       {/* 中间小标题 */}
       <div className="w-full relative font-bold font-PingFangSC flex justify-center invisible">
@@ -46,12 +54,19 @@ const Pruemain = () => {
         </div>
       </div>
       {/* 黑线条 */}
-      <div className="absolute w-screen top-1/5">
-        <img
-          className="w-full h-full object-cover"
-          src="/public/images/join/line_black.webp"
-          alt="line_black"
-        />
+      <div className="absolute w-screen top-1/7">
+        <svg
+          className="w-full"
+          width="1920"
+          height="255"
+          viewBox="0 0 1920 255"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M-5.5 72.4997C206.5 -23.0005 386 -15.9998 540 51.5C694 119 807.859 164.977 1073.5 126C1269.5 97.2413 1652 450 1920.5 93.4997"
+            stroke="black"
+          />
+        </svg>
       </div>
     </>
   );

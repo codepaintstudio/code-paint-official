@@ -7,13 +7,14 @@ import About from '@/pages/main-view/components/about';
 import TechnologyPage from '@/pages/main-view/components/techology';
 import ScoreDisplay from '@/pages/main-view/components/score-display';
 import FrameworkPage from '@/pages/main-view/components/studio-framework';
+import Submission from '../join-us/submission';
 
 gsap.registerPlugin(useGSAP);
 
 const MainView = () => {
   return (
     <>
-
+      {/* <Submission /> */}
       <CoverOutside />
       <CoverInside />
       <Header />

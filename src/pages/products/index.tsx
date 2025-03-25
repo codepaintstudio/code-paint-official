@@ -18,7 +18,11 @@ const Products = () => {
             </div>
           </div>
         </div>
-
+        <div className="absolute bottom-1/4 -right-1/6 w-full">
+          <h1 className="text-9xl  text-white opacity-10 text-clip font-PingFangSC tracking-wider text-nowrap -rotate-25 font-black">
+            Code drawing products
+          </h1>
+        </div>
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
           <div className=" text-center font-medium text-4xl">
             欢迎来到码绘产品中心
@@ -34,57 +38,93 @@ const Products = () => {
           </div>
         </div>
       </div>
-
       {/* 产品展示 */}
-      <div className="aspect-3/1 overflow-auto bg-[url()]">
-        <div className="max-w-2/3 mt-20 mx-auto  flex justify-center">
-          {/* logo 与文字 */}
-          <div className="w-1/2 flex justify-center">
-            <div className="aspect-1/1 border-1 size-20 ml-10 rounded-full mt-6 text-center leading-20">
-              logo
-            </div>
-            {/* 邮件 */}
-            <div className="mx-6 font-semibold md:tracking-widest">
-              <h3 className="inline-block mt-16 text-2xl ">邮件群发</h3>
-              <p className="my-6 text-sm">
-                产品模块主要是提供一个多应用产品的展示和跳转链接。用户可在本模块快速了解工作室产品大致内容，点击跳抓后可跳转到体验页面。
-              </p>
+      <div className="px-20 bg-orange-side font-PingFangSC">
+        <div className="aspect-3/1 pt-20 relative scrollbar custom-scroll ">
+          {/* 展示 */}
 
-              <a className="text-font-primary">了解更多</a>
-            </div>
-          </div>
-          <div className="bg-amber-50 max-w-2xl h-80 w-1/2 rounded-2xl">
-            图片
-          </div>
-        </div>
-        {/* codepaint */}
-        <div>
-          <img src="/public/images/products/codepaint.webp" alt="codepaint" />
-        </div>
-        <div className="max-w-2/3 mt-20 mx-auto  flex justify-center">
-          {/* logo 与文字 */}
+          {/* 产品1 */}
+          <div className="max-w-2/3 mx-auto  flex justify-center">
+            {/* logo 与文字 */}
+            <div className="w-1/2 flex justify-center">
+              <div className="aspect-1/1 border-1 size-20 ml-10 rounded-full mt-6 text-center leading-20">
+                logo
+              </div>
+              {/* 邮件 */}
+              <div className="mx-6 font-semibold md:tracking-widest">
+                <h3 className="inline-block mt-16 text-2xl">邮件群发</h3>
+                <p className="my-6 text-sm font-medium">
+                  产品模块主要是提供一个多应用产品的展示和跳转链接。用户可在本模块快速了解工作室产品大致内容，点击跳抓后可跳转到体验页面。
+                </p>
 
-          <div className="bg-amber-50 max-w-2xl h-80 w-1/2 rounded-2xl">
-            图片
-          </div>
-          <div className="w-1/2 flex justify-center">
-            <div className="aspect-1/1 border-1 size-20 ml-10 rounded-full mt-6 text-center leading-20">
-              logo
+                <a className="text-font-primary">了解更多</a>
+              </div>
             </div>
-            {/* 邮件 */}
-            <div className="mx-6 font-semibold md:tracking-widest">
-              <h3 className="inline-block mt-16 text-2xl ">邮件群发</h3>
-              <p className="my-6 text-sm">
-                产品模块主要是提供一个多应用产品的展示和跳转链接。用户可在本模块快速了解工作室产品大致内容，点击跳抓后可跳转到体验页面。
-              </p>
+            <div className="bg-amber-50 max-w-2xl h-80 w-1/2 rounded-2xl">
+              图片
+            </div>
+          </div>
+          {/* codepaint */}
+          <div>
+            {/*CodePaint滚动*/}
+            <div className="marquee-section h-32 z-0 relative -bottom-2.5 right-0 text-transparent/10 my-16 text-stroke-sixth text-9xl pointer-events-none select-none overflow-hidden w-full font-black tracking-wider opacity-20">
+              <div className="flex marquee-container whitespace-nowrap">
+                <div className="flex">
+                  <span className="me-10">CodePaint</span>
+                  <span className="me-10">CodePaint</span>
+                  <span className="me-10">CodePaint</span>
+                  <span className="me-10">CodePaint</span>
+                </div>
+                <div className="flex">
+                  <span className="me-10">CodePaint</span>
+                  <span className="me-10">CodePaint</span>
+                  <span className="me-10">CodePaint</span>
+                  <span className="me-10">CodePaint</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* 产品2 */}
+          <div className="max-w-2/3 mx-auto  flex justify-center">
+            <div className="bg-amber-50 max-w-2xl h-80 w-1/2 rounded-2xl">
+              图片
+            </div>
+            {/* logo 与文字 */}
+            <div className="w-1/2 flex">
+              <div className="aspect-1/1 border-1 size-20 ml-10 rounded-full mt-6 text-center leading-20">
+                logo
+              </div>
+              {/* 邮件 */}
+              <div className="mx-6 font-semibold md:tracking-widest">
+                <h3 className="inline-block mt-16 text-2xl ">邮件群发</h3>
+                <p className="my-6 text-sm font-medium">
+                  产品模块主要是提供一个多应用产品的展示和跳转链接。用户可在本模块快速了解工作室产品大致内容，点击跳抓后可跳转到体验页面。
+                </p>
 
-              <a className="text-font-primary">了解更多</a>
+                <a className="text-font-primary">了解更多</a>
+              </div>
             </div>
           </div>
-        </div>
-        {/* codepaint */}
-        <div>
-          <img src="/public/images/mainview/codepaint.webp" alt="codepaint" />
+          {/* codepaint */}
+          <div>
+            {/*CodePaint滚动*/}
+            <div className="marquee-section h-32 z-0 relative -bottom-2.5 right-0 text-transparent/10 my-16 text-stroke-sixth text-9xl pointer-events-none select-none overflow-hidden w-full font-black tracking-wider opacity-20">
+              <div className="flex marquee-container whitespace-nowrap">
+                <div className="flex">
+                  <span className="me-10">CodePaint</span>
+                  <span className="me-10">CodePaint</span>
+                  <span className="me-10">CodePaint</span>
+                  <span className="me-10">CodePaint</span>
+                </div>
+                <div className="flex">
+                  <span className="me-10">CodePaint</span>
+                  <span className="me-10">CodePaint</span>
+                  <span className="me-10">CodePaint</span>
+                  <span className="me-10">CodePaint</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>
