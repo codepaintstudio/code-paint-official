@@ -1,5 +1,28 @@
 import Header from '@/components/header/index';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import ScrollTrigger from 'gsap/ScrollTrigger';
+import { useRef } from 'react';
 const Products = () => {
+  gsap.registerPlugin(useGSAP);
+  gsap.registerPlugin(ScrollTrigger);
+
+  const scrollBarRef = useRef<HTMLDivElement>(null);
+  const productRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    gsap.to(scrollBarRef.current, {
+      y: 100,
+      scrollTrigger: {
+        trigger: productRef.current,
+        start: 'top top',
+        end: 'bottom bottom',
+        // markers: true,
+        scrub: true,
+      },
+    });
+  },[]);
+
   return (
     <>
       <Header />
@@ -39,8 +62,13 @@ const Products = () => {
         </div>
       </div>
       {/* 产品展示 */}
-      <div className="px-20 bg-orange-side font-PingFangSC">
-        <div className="aspect-3/1 pt-20 relative scrollbar custom-scroll ">
+      <div ref={productRef} className="px-20 bg-orange-side font-PingFangSC">
+
+        <div className="aspect-3/1 pt-20 relative">
+          {/*滚动条*/}
+          <div className="bg-blue-primary w-2 h-52 rounded-xl sticky top-5">
+            <div ref={scrollBarRef} className="bg-white w-2 h-12 rounded-xl" />
+          </div>
           {/* 展示 */}
 
           {/* 产品1 */}

@@ -82,39 +82,6 @@
     background-repeat: no-repeat;
     background-position: bottom;
   }
-  /* 滚动条左侧定位 */
-  .scrollbar {  
-	margin-left: 30px;
-	 overflow-y: scroll; 
-	 margin-bottom: 25px; 
-  direction: rtl;
-  }
-  .scrollbar > * {
-    direction: ltr;
-  }
-  .scrollbar::-webkit-scrollbar {
-    width: 10px;
-  }
-  .scrollbar::-webkit-scrollbar-track {
-    background: linear-gradient(
-    to bottom,
-    transparent 100px,      /* 顶部留白100px */
-    #0030ae 100px,          /* 轨道实际颜色起始位置 */
-    #0030ae calc(100% - 100px), /* 轨道颜色结束位置 */
-    transparent 100px       /* 底部留白100px */
-  );
-    border-radius: 16px;
-  }
-  .scrollbar::-webkit-scrollbar-thumb {
-    border-radius: 16px;
-    background: linear-gradient(
-      to bottom,
-      transparent 15%,    /* 顶部10%透明 */
-      #ffffff 10%,          /* 实际颜色起始位置 */
-      #ffffff 90%,          /* 实际颜色结束位置 */
-      transparent 75%    /* 底部10%透明 */
-    );
-  }
 }
 
 @theme {
