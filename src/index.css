@@ -76,11 +76,8 @@
   .text-stroke-fifth {
     -webkit-text-stroke: 0.5px #888a90;
   }
-  .bg-orange-side {
-    background-image: url('/public/svg/orange-side.svg');
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-position: bottom;
+  .text-stroke-sixth {
+    -webkit-text-stroke: 0.5px #000000;
   }
 }
 
@@ -94,6 +91,7 @@
   --color-font-quinary: #85a2ee;
   --color-b-primary: #3359be;
   --color-b-secondary: #191a1e;
+  --color-b-tertiary: #111111;
   --color-border-primary: #efefef;
   --tracking-widest: 0.25em;
 }

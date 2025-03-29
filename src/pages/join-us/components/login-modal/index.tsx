@@ -31,13 +31,19 @@ const LoginModal: React.FC = () => {
               height="55"
               viewBox="0 0 56 55"
               fill="none"
-              xmlns="http://www.w3.org/2000/svg">
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path
                 d="M2.98828 53.474C16.8435 29.316 38.1593 29.3159 53.0804 53.4738"
                 stroke="#E5E5E5"
                 stroke-width="5"
               />
-              <circle cx="27.4992" cy="15.1056" r="14.9211" fill="#E5E5E5" />
+              <circle 
+                cx="27.4992" 
+                cy="15.1056" 
+                r="14.9211" 
+                fill="#E5E5E5" 
+              />
             </svg>
           </div>
           <p className="text-sm my-6 tracking-widest">您未登录</p>
