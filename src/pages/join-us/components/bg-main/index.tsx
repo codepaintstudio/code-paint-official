@@ -1,16 +1,54 @@
 import Header from '@/components/header/index';
+import { useEffect, useRef } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 
 const Bgmain = () => {
+  const svgRef1 = useRef<SVGSVGElement>(null);
+  const paragraph1Ref = useRef<HTMLDivElement>(null);
+  const paragraph2Ref = useRef<HTMLDivElement>(null);
+  const paragraph3Ref = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    gsap.from(paragraph1Ref.current, {
+      text: '',
+      duration: 2.5,
+    });
+
+    gsap.from(paragraph2Ref.current, {
+      text: '',
+      duration: 1.5,
+      delay: 2.5,
+    });
+  });
+
+  useEffect(() => {
+    // 给第一个SVG添加漂浮动画
+    if (svgRef1.current) {
+      // 创建无限循环的漂浮动画
+      gsap.to(svgRef1.current, {
+        y: -20,
+        duration: 3.5,
+        ease: 'sine.inOut',
+        yoyo: true,
+        repeat: -1,
+      });
+    }
+
+    // 清理函数
+    return () => {
+      if (svgRef1.current) {
+        gsap.killTweensOf(svgRef1.current);
+      }
+    };
+  }, []);
+
   return (
-    <>
+    <div>
       <Header />
       <div className="fixed w-screen">
-        {/* <img
-          className="w-full h-full object-cover"
-          src="/public/images/join/orange_lace.webp"
-          alt="orange_lace"
-        /> */}
         <svg
+          ref={svgRef1}
           className="w-full h-full object-cover"
           width="1920"
           height="802"
@@ -24,23 +62,12 @@ const Bgmain = () => {
           />
         </svg>
       </div>
-      <div className="absolute w-full">
-        <svg
-          className="w-full h-full object-cover"
-          width="1920"
-          height="343"
-          viewBox="0 0 1920 343"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M0 1C25.3333 76.8333 124.6 220.5 319 188.5C562 148.5 758.901 241.124 853.5 290C973.5 352 1382.5 251 1382.5 208.5C1538.17 134.667 1912.5 126 1927.5 342"
-            stroke="#0030AE"
-          />
-        </svg>
-      </div>
+
       {/* 中间小标题 */}
       <div className="w-full relative font-bold font-PingFangSC flex justify-center">
-        <div className="absolute text-center text-stroke text-transparent text-3xl opacity-20 tracking-widest">
+        <div
+          ref={paragraph3Ref}
+          className="absolute text-center text-stroke text-transparent text-3xl opacity-20 tracking-widest">
           Resume submission
         </div>
         <div className="text-4xl text-font-primary tracking-wider font-black">
@@ -48,10 +75,12 @@ const Bgmain = () => {
         </div>
       </div>
       <div className="w-full mx-auto flex flex-col items-center text-sm font-thin">
-        <p className="p-2.5">
+        <p ref={paragraph1Ref} className="p-2.5">
           展示可投递岗位和岗位内容简介展示可投递岗位和岗位内
         </p>
-        <p className="p-2.5">容简介展示可投递容简介简介</p>
+        <p ref={paragraph2Ref} className="p-2.5">
+          容简介展示可投递容简介简介
+        </p>
       </div>
       <div className="">
         {/* 左侧文字 */}
@@ -72,7 +101,7 @@ const Bgmain = () => {
           <p className="text-stroke text-transparent">Resume submission</p>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 export default Bgmain;

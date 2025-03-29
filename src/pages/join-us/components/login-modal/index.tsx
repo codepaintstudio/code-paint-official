@@ -46,7 +46,7 @@ const LoginModal: React.FC = () => {
               />
             </svg>
           </div>
-          <p className="text-sm my-6 tracking-widest">您未登录</p>
+          <p className="text-sm my-6 tracking-widest text-font-senary">您未登录</p>
           <button
             onClick={handleLogin}
             className="bg-font-primary text-white tracking-wider rounded-lg w-24 h-9 cursor-pointer hover:opacity-80"
