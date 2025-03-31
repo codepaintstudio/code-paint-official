@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import gsap from 'gsap';
 
 const MouseFollowing = () => {
@@ -20,7 +20,7 @@ const MouseFollowing = () => {
         onUpdate: () => {
           setRotation((prev) => prev + 1);
         },
-      }
+      },
     );
 
     return () => {
@@ -31,20 +31,16 @@ const MouseFollowing = () => {
 
   return (
     <svg
-      width="152"
-      height="152"
       viewBox="0 0 152 152"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className='opacity-60'
+      className="opacity-60 w-36 h-36 absolute z-50 pointer-events-none"
       style={{
-        position: 'absolute',
         left: mousePosition.x - 76,
         top: mousePosition.y - 76,
         transform: `rotate(${rotation}deg)`,
-        pointerEvents: 'none',
-        zIndex: 1000,
-      }}>
+      }}
+    >
       <path
         d="M75.88 8.072C78.0813 8.072 79.884 8.644 81.288 9.788C82.6227 10.8627 83.4373 12.3533 83.732 14.26H80.768C80.456 13.0467 79.8753 12.154 79.026 11.582C78.2113 11.0273 77.1453 10.75 75.828 10.75C73.8693 10.75 72.4047 11.4173 71.434 12.752C70.5327 13.9307 70.082 15.5947 70.082 17.744C70.082 19.928 70.524 21.6093 71.408 22.788C72.3787 24.0533 73.878 24.686 75.906 24.686C77.2233 24.686 78.3067 24.3653 79.156 23.724C80.04 23.0307 80.664 21.9733 81.028 20.552H83.992C83.576 22.736 82.6053 24.4347 81.08 25.648C79.6587 26.792 77.9427 27.364 75.932 27.364C72.8467 27.364 70.5413 26.3933 69.016 24.452C67.6987 22.8053 67.04 20.5693 67.04 17.744C67.04 14.9533 67.7247 12.7087 69.094 11.01C70.6367 9.05133 72.8987 8.072 75.88 8.072Z"
         fill="white"

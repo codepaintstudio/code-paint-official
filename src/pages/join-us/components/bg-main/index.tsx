@@ -1,26 +1,16 @@
 import Header from '@/components/header/index';
 import { useEffect, useRef } from 'react';
-import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 
 const Bgmain = () => {
   const svgRef1 = useRef<SVGSVGElement>(null);
-  const paragraph1Ref = useRef<HTMLDivElement>(null);
-  const paragraph2Ref = useRef<HTMLDivElement>(null);
-  const paragraph3Ref = useRef<HTMLDivElement>(null);
 
-  useGSAP(() => {
-    gsap.from(paragraph1Ref.current, {
-      text: '',
-      duration: 2.5,
-    });
-
-    gsap.from(paragraph2Ref.current, {
-      text: '',
-      duration: 1.5,
-      delay: 2.5,
-    });
-  });
+  const resumeText1Ref = useRef<HTMLParagraphElement>(null);
+  const resumeText2Ref = useRef<HTMLParagraphElement>(null);
+  const resumeText3Ref = useRef<HTMLParagraphElement>(null);
+  const resumeText4Ref = useRef<HTMLParagraphElement>(null);
+  const resumeText5Ref = useRef<HTMLParagraphElement>(null);
+  const resumeText6Ref = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
     // 给第一个SVG添加漂浮动画
@@ -35,11 +25,51 @@ const Bgmain = () => {
       });
     }
 
+    // 为Resume submission文字添加动画
+    const resumeTexts = [
+      resumeText1Ref.current,
+      resumeText2Ref.current,
+      resumeText3Ref.current,
+      resumeText4Ref.current,
+      resumeText5Ref.current,
+      resumeText6Ref.current,
+    ];
+
+    // 初始透明度设置
+    gsap.set(resumeTexts, { opacity: 0 });
+
+    // 为每个文本元素创建动画
+    resumeTexts.forEach((text, index) => {
+      if (text) {
+        gsap.to(text, {
+          opacity: 1,
+          duration: 1.2,
+          delay: 0.3 * index,
+          ease: 'power2.inOut',
+        });
+
+        // 添加永久的浮动效果
+        gsap.to(text, {
+          x: `+=${10 + Math.random() * 15}`,
+          duration: 3 + Math.random() * 2,
+          ease: 'sine.inOut',
+          yoyo: true,
+          repeat: -1,
+          delay: 0.4 * index,
+        });
+      }
+    });
+
     // 清理函数
     return () => {
       if (svgRef1.current) {
         gsap.killTweensOf(svgRef1.current);
       }
+      resumeTexts.forEach((text) => {
+        if (text) {
+          gsap.killTweensOf(text);
+        }
+      });
     };
   }, []);
 
@@ -62,44 +92,34 @@ const Bgmain = () => {
           />
         </svg>
       </div>
-
-      {/* 中间小标题 */}
-      <div className="w-full relative font-bold font-PingFangSC flex justify-center">
-        <div
-          ref={paragraph3Ref}
-          className="absolute text-center text-stroke text-transparent text-3xl opacity-20 tracking-widest">
+      {/* 左侧文字 */}
+      <div className=" fixed top-1/3 overflow-y-hidden font-PingFangSC overflow-clip w-full h-full object-cover  flex flex-col justify-around glow shrink text-font-primary text-stroke font-bold sm:text-3xl md:text-4xl lg:text-7xl opacity-15 pt-1/2 tracking-widest">
+        <p ref={resumeText1Ref} className="md:py-1.5 sm:py-1 lg:py-2">
           Resume submission
-        </div>
-        <div className="text-4xl text-font-primary tracking-wider font-black">
-          简历投递
-        </div>
-      </div>
-      <div className="w-full mx-auto flex flex-col items-center text-sm font-thin">
-        <p ref={paragraph1Ref} className="p-2.5">
-          展示可投递岗位和岗位内容简介展示可投递岗位和岗位内
         </p>
-        <p ref={paragraph2Ref} className="p-2.5">
-          容简介展示可投递容简介简介
+        <p
+          ref={resumeText2Ref}
+          className="transform -translate-x-11 md:py-4 sm:py-2 lg:py-4 text-stroke bg-gradient-to-b from-font-primary to-font-tertiary bg-clip-text text-transparent ">
+          Resume submission
         </p>
-      </div>
-      <div className="">
-        {/* 左侧文字 */}
-        <div className=" fixed font-PingFangSC overflow-clip w-full h-full object-cover  flex flex-col justify-around glow shrink text-font-primary text-stroke font-bold sm:text-3xl md:text-4xl lg:text-7xl opacity-15 pt-1/2 tracking-widest">
-          <p className="md:py-1.5 sm:py-1 lg:py-2">Resume submission</p>
-          <p className="transform -translate-x-11 md:py-4 sm:py-2 lg:py-4 text-stroke bg-gradient-to-b from-font-primary to-font-tertiary bg-clip-text text-transparent ">
-            Resume submission
-          </p>
-          <p className="transform -translate-x-16 md:py-2 sm:py-1 lg:py-4 text-stroke bg-gradient-to-b from-white via-font-tertiary to-font-primary bg-clip-text text-transparent ">
-            Resume submission
-          </p>
-          <p className="transform -translate-x-28 md:py-4 sm:py-2 lg:py-4 text-stroke text-transparent">
-            Resume submission
-          </p>
-          <p className="transform -translate-x-24 md:py-4 sm:py-2 lg:py-4 text-stroke text-transparent">
-            Resume submission
-          </p>
-          <p className="text-stroke text-transparent">Resume submission</p>
-        </div>
+        <p
+          ref={resumeText3Ref}
+          className="transform -translate-x-16 md:py-2 sm:py-1 lg:py-4 text-stroke bg-gradient-to-b from-white via-font-tertiary to-font-primary bg-clip-text text-transparent ">
+          Resume submission
+        </p>
+        <p
+          ref={resumeText4Ref}
+          className="transform -translate-x-28 md:py-4 sm:py-2 lg:py-4 text-stroke text-transparent">
+          Resume submission
+        </p>
+        <p
+          ref={resumeText5Ref}
+          className="transform -translate-x-24 md:py-4 sm:py-2 lg:py-4 text-stroke text-transparent">
+          Resume submission
+        </p>
+        <p ref={resumeText6Ref} className="text-stroke text-transparent">
+          Resume submission
+        </p>
       </div>
     </div>
   );

@@ -19,10 +19,8 @@ const LoginModal: React.FC = () => {
   return (
     <>
       {/* 登录弹窗 */}
-      <div className="fixed top-0 left-0 w-full bottom-0 bg-black opacity-60">
-        {}
-      </div>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1/3 h-60">
+      <div className="fixed top-0 left-0 w-full bottom-0 bg-black opacity-60 z-10" />
+      <div className="absolute top-1/5 left-1/2 -translate-x-1/2 w-1/3 h-60 z-20">
         <div className="w-full h-full bg-white flex flex-col justify-center items-center rounded-xl text-sm">
           <div className="w-20 h-20 flex shrink justify-center items-center bg-font-primary rounded-full">
             {' '}

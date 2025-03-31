@@ -1,16 +1,390 @@
+import { useRef, useEffect, useState } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 import { Mail, Phone, FileUp, FilePen } from 'lucide-react';
-import Pruemain from '../components/prue-main/index';
+import Bgmain from '../components/bg-main';
+import FilePreview from './components/filepreview';
 const Submission = () => {
+  const frontRef = useRef<HTMLDivElement>(null);
+  const backRef = useRef<HTMLDivElement>(null);
+  const circleRef = useRef<HTMLDivElement>(null);
+  const svgPathRef = useRef<SVGPathElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
+  const boxRef = useRef<HTMLDivElement>(null);
+  const svgContainerRef = useRef<HTMLDivElement>(null);
+  const [pathLength, setPathLength] = useState(0);
+  const [svgCoordinates, setSvgCoordinates] = useState({ x: 0, y: 0 });
+  const [pathGenerated, setPathGenerated] = useState(false);
+  const svgTimelineRef = useRef<gsap.core.Timeline | null>(null);
+  const backRotateTimelineRef = useRef<gsap.core.Timeline | null>(null);
+  const boxTimelineRef = useRef<gsap.core.Timeline | null>(null);
+  // 添加文件上传状态
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      setSelectedFile(file);
+    }
+  };
+
+  const handleClosePreview = () => {
+    setSelectedFile(null);
+  };
+
+  // 为boxRef添加渐现动画
+  useGSAP(() => {
+    if (boxRef.current) {
+      // 初始设置 - 隐藏box
+      gsap.set(boxRef.current, {
+        opacity: 0,
+        y: 30,
+      });
+
+      // 创建box渐现动画
+      const boxTimeline = gsap.timeline();
+      boxTimeline.to(boxRef.current, {
+        opacity: 1,
+        duration: 1.2,
+        ease: 'power2.out',
+        delay: 0.3, // 给一点延迟，让页面其他元素加载完
+      });
+
+      // 保存时间线引用
+      boxTimelineRef.current = boxTimeline;
+    }
+
+    return () => {
+      if (boxTimelineRef.current) {
+        boxTimelineRef.current.kill();
+      }
+    };
+  }, []); // 空依赖数组，确保只在组件挂载时执行一次
+
+  // 计算SVG路径和圆的位置
+  useEffect(() => {
+    // 延迟执行以确保DOM已完全加载
+    const timer = setTimeout(() => {
+      if (circleRef.current && svgPathRef.current) {
+        try {
+          // 获取circle元素的位置
+          const circleRect = circleRef.current.getBoundingClientRect();
+          const svgElement = svgPathRef.current.ownerSVGElement;
+
+          if (svgElement) {
+            // 获取窗口宽度
+            const windowWidth = window.innerWidth;
+            // 计算SVG的变换矩阵
+            const svgRect = svgElement.getBoundingClientRect();
+            const svgPoint = svgElement.createSVGPoint();
+
+            // 设置圆的中心点在屏幕坐标系中的位置
+            svgPoint.x = circleRect.left + circleRect.width / 2;
+            svgPoint.y = circleRect.top + circleRect.height / 2;
+
+            // 转换为SVG坐标系
+            const CTM = svgElement.getScreenCTM();
+            if (CTM) {
+              const coords = svgPoint.matrixTransform(CTM.inverse());
+              setSvgCoordinates(coords);
+
+              // 获取原始路径
+              const originalPath = svgPathRef.current;
+
+              // 计算SVG中的宽度比例
+              const svgWidthRatio = 1920 / svgRect.width;
+
+              // 调整起点和终点，确保它们在视口之外
+              const startX = -100 * svgWidthRatio; // 确保起点在视口左侧
+              const endX = (windowWidth + 100) * svgWidthRatio; // 确保终点在视口右侧
+
+              // 将圆的位置添加到路径的控制点中，并确保路径从左到右
+              originalPath.setAttribute(
+                'd',
+                `M${startX} 72.4997C206.5 -23.0005 386 -15.9998 ${coords.x} ${
+                  coords.y
+                }C${coords.x + 100} ${
+                  coords.y + 30
+                } 807.859 164.977 1073.5 126C1269.5 97.2413 1652 450 ${endX} 93.4997`
+              );
+
+              // 设置动画属性
+              const length = originalPath.getTotalLength();
+              setPathLength(length);
+              setPathGenerated(true);
+            }
+          }
+        } catch (error) {
+          console.error('Error calculating path:', error);
+        }
+      }
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // 使用GSAP创建动画
+  useGSAP(() => {
+    // 只有在路径生成后才创建动画
+    if (
+      pathGenerated &&
+      svgPathRef.current &&
+      backRef.current &&
+      svgContainerRef.current
+    ) {
+      // 创建SVG路径动画
+      const svgPath = svgPathRef.current;
+      const svgContainer = svgContainerRef.current;
+
+      // 初始设置
+      gsap.set(svgPath, {
+        strokeDasharray: pathLength,
+        strokeDashoffset: pathLength,
+      });
+
+      // 创建SVG路径绘制动画
+      const svgTimeline = gsap.timeline({
+        onStart: () => {
+          // 在动画开始时让SVG容器变为可见
+          gsap.to(svgContainer, {
+            opacity: 1,
+            duration: 0.5,
+            ease: 'power1.in',
+          });
+        },
+      });
+
+      svgTimeline.to(svgPath, {
+        strokeDashoffset: 0,
+        duration: 3,
+        ease: 'power2.inOut',
+      });
+
+      // 保存时间线引用
+      svgTimelineRef.current = svgTimeline;
+
+      // 创建背景旋转动画
+      const backElement = backRef.current;
+
+      // 初始设置
+      gsap.set(backElement, {
+        rotation: 0,
+        transformOrigin: 'top left',
+      });
+      gsap.from(titleRef.current, {
+        text: ' ',
+        duration: 2,
+      });
+
+      // 创建背景旋转动画，在路径经过圆圈时触发
+      const backTimeline = gsap.timeline();
+
+      // 计算动画开始的时间点
+      // 用圆的X坐标在SVG中的相对位置来估算时间点
+      const svgWidth = 1920; // SVG viewBox宽度
+      const animationTriggerPoint = svgCoordinates.x / svgWidth;
+
+      // 在SVG路径经过圆圈时触发背景旋转
+      backTimeline.to(
+        backElement,
+        {
+          rotation: 10,
+          delay: 1,
+          duration: 0.6,
+          ease: 'power2.in',
+        },
+        animationTriggerPoint * 3
+      ); // 调整时间点使动画在适当时机触发
+
+      // 保存时间线引用
+      backRotateTimelineRef.current = backTimeline;
+    }
+
+    // 清理函数将在组件卸载时自动执行
+    return () => {
+      // 清除动画时间线
+      if (svgTimelineRef.current) {
+        svgTimelineRef.current.kill();
+        svgTimelineRef.current = null;
+      }
+      if (backRotateTimelineRef.current) {
+        backRotateTimelineRef.current.kill();
+        backRotateTimelineRef.current = null;
+      }
+      if (boxTimelineRef.current) {
+        boxTimelineRef.current.kill();
+        boxTimelineRef.current = null;
+      }
+
+      // 清除SVG路径
+      if (svgPathRef.current) {
+        // 重置SVG路径的动画属性
+        gsap.set(svgPathRef.current, {
+          strokeDasharray: 'none',
+          strokeDashoffset: 0,
+          clearProps: 'all',
+        });
+      }
+
+      // 清除所有GSAP动画
+      gsap.killTweensOf(svgPathRef.current);
+      gsap.killTweensOf(backRef.current);
+      gsap.killTweensOf(titleRef.current);
+      gsap.killTweensOf(boxRef.current);
+      gsap.killTweensOf(svgContainerRef.current);
+    };
+  }, [pathGenerated, pathLength, svgCoordinates]); // 依赖项，当这些值改变时重新执行
+
+  // 组件卸载时清理资源
+  useEffect(() => {
+    return () => {
+      // 清除所有可能的定时器和事件监听器
+      window.removeEventListener('resize', handleResize);
+
+      // 清除所有GSAP动画
+      gsap.killTweensOf(svgPathRef.current);
+      gsap.killTweensOf(backRef.current);
+      gsap.killTweensOf(titleRef.current);
+      gsap.killTweensOf(boxRef.current);
+      gsap.killTweensOf(svgContainerRef.current);
+
+      // 重置状态
+      setPathGenerated(false);
+      setPathLength(0);
+    };
+  }, []);
+
+  // 提取handleResize函数到组件级别，以便在清理函数中引用
+  const handleResize = () => {
+    // 重置路径绘制状态，触发重新计算
+    setPathGenerated(false);
+
+    // 如果存在动画，停止并清除
+    if (svgTimelineRef.current) {
+      svgTimelineRef.current.kill();
+    }
+    if (backRotateTimelineRef.current) {
+      backRotateTimelineRef.current.kill();
+    }
+    if (boxTimelineRef.current) {
+      boxTimelineRef.current.kill();
+
+      // 重置boxRef的状态
+      if (boxRef.current) {
+        gsap.set(boxRef.current, {
+          opacity: 0,
+          y: 30,
+        });
+
+        // 重新创建盒子的动画
+        const boxTimeline = gsap.timeline();
+        boxTimeline.to(boxRef.current, {
+          opacity: 1,
+          y: 0,
+          duration: 1.2,
+          ease: 'power2.out',
+        });
+
+        boxTimelineRef.current = boxTimeline;
+      }
+    }
+
+    // 延迟执行以确保DOM更新
+    setTimeout(() => {
+      if (circleRef.current && svgPathRef.current) {
+        try {
+          // 获取circle元素位置
+          const circleRect = circleRef.current.getBoundingClientRect();
+          const svgElement = svgPathRef.current.ownerSVGElement;
+
+          if (svgElement) {
+            // 获取窗口宽度
+            const windowWidth = window.innerWidth;
+            const svgRect = svgElement.getBoundingClientRect();
+            const svgPoint = svgElement.createSVGPoint();
+
+            svgPoint.x = circleRect.left + circleRect.width / 2;
+            svgPoint.y = circleRect.top + circleRect.height / 2;
+
+            const CTM = svgElement.getScreenCTM();
+            if (CTM) {
+              const coords = svgPoint.matrixTransform(CTM.inverse());
+              setSvgCoordinates(coords);
+
+              const originalPath = svgPathRef.current;
+
+              // 计算SVG中的宽度比例
+              const svgWidthRatio = 1920 / svgRect.width;
+
+              // 调整起点和终点
+              const startX = -100 * svgWidthRatio;
+              const endX = (windowWidth + 100) * svgWidthRatio;
+
+              originalPath.setAttribute(
+                'd',
+                `M${startX} 72.4997C206.5 -23.0005 386 -15.9998 ${coords.x} ${
+                  coords.y
+                }C${coords.x + 100} ${
+                  coords.y + 30
+                } 807.859 164.977 1073.5 126C1269.5 97.2413 1652 450 ${endX} 93.4997`
+              );
+
+              const length = originalPath.getTotalLength();
+              setPathLength(length);
+              setPathGenerated(true);
+            }
+          }
+        } catch (error) {
+          console.error('Error recalculating path:', error);
+        }
+      }
+    }, 100);
+  };
+
+  // 窗口大小变化时重新计算
+  useEffect(() => {
+    // 添加窗口大小变化监听
+    window.addEventListener('resize', handleResize);
+
+    // 清除监听
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
-    <div className="relative h-screen">
-      <Pruemain />
+    <div className="relative h-screen overflow-hidden">
+      <Bgmain />
+      {/* 黑线条 */}
+      <div
+        ref={svgContainerRef}
+        className="absolute w-screen top-1/7 z-30 opacity-0">
+        <svg
+          className="w-full"
+          width="100%"
+          height="255"
+          preserveAspectRatio="none"
+          viewBox="0 0 1920 255"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            ref={svgPathRef}
+            d="M-5.5 72.4997C206.5 -23.0005 386 -15.9998 540 51.5C694 119 807.859 164.977 1073.5 126C1269.5 97.2413 1652 450 1920.5 93.4997"
+            stroke="#191a1e"
+            strokeWidth="1"
+            strokeLinecap="round"
+          />
+        </svg>
+      </div>
       {/* 盒子居中 */}
-      <div className="h-full w-full">
-        <div className="relative w-2/7 h-3/5 mx-auto bg-font-primary border rounded-tr-4xl ">
+      <div ref={boxRef} className="h-full w-full fixed top-1/4">
+        <div className="relative w-2/7 h-3/5 mx-auto">
           {/* 第一层 */}
-          <div className="w-full h-full bg-b-secondary rounded-tr-4xl origin-top-left hover:-rotate-6 transition-all duration-700">
+          <div
+            ref={frontRef}
+            className="absolute w-full h-full bg-b-secondary rounded-tr-4xl origin-top-left z-10">
             {/*圆孔 */}
-            <div className="w-6 h-6 absolute top-6 left-6  rounded-full bg-white">
+            <div
+              ref={circleRef}
+              className="w-6 h-6 absolute top-6 left-6  rounded-full bg-white">
               {''}
             </div>
 
@@ -18,7 +392,9 @@ const Submission = () => {
             <div className="absolute left-0 top-0 w-full h-full flex flex-col justify-center">
               {/* 简历投递 */}
               <div className="w-full relative font-bold font-PingFangSC flex justify-center items-center">
-                <div className="absolute text-center font-medium tracking-[0.2em] text-stroke-secondary text-transparent text-3xl opacity-20">
+                <div
+                  ref={titleRef}
+                  className="absolute text-center font-medium tracking-[0.2em] text-stroke-secondary text-transparent text-3xl opacity-20">
                   Resume submission
                 </div>
                 <div className="text-2xl text-white tracking-wider font-black z-10">
@@ -62,11 +438,19 @@ const Submission = () => {
                 </div>
 
                 {/* 上传 制作 */}
-                <div className="flex items-center justify-between text-font-quaternary w-3/5 mx-auto font-medium tracking-wider">
+                <div className="flex items-center justify-between text-font-quaternary w-3/5 mx-auto font-medium tracking-wider text-nowrap">
                   {/* 上传 */}
                   <div>
-                    <input type="file" id="resume" className="hidden" />{' '}
-                    <label htmlFor="resume" className="">
+                    <input
+                      type="file"
+                      id="resume"
+                      className="hidden"
+                      accept="application/pdf"
+                      onChange={handleFileChange}
+                    />{' '}
+                    <label
+                      htmlFor="resume"
+                      className="cursor-pointer hover:text-font-primary transition-colors">
                       <FileUp
                         strokeWidth={2}
                         size={20}
@@ -78,7 +462,9 @@ const Submission = () => {
                   </div>
                   {/* 制作 */}
                   <div>
-                    <a href="#" className="">
+                    <a
+                      href="#"
+                      className="hover:text-font-primary transition-colors">
                       <FilePen
                         strokeWidth={2}
                         size={20}
@@ -89,6 +475,7 @@ const Submission = () => {
                     </a>
                   </div>{' '}
                 </div>
+
                 {/* 提交 */}
                 <div className="flex items-center justify-between w-4/5 mx-auto">
                   <input
@@ -100,8 +487,17 @@ const Submission = () => {
               </form>
             </div>
           </div>
+          {/* 第二层 */}
+          <div
+            ref={backRef}
+            className="absolute flex items-center top-0 left-0 w-full h-full bg-font-primary rounded-tr-4xl">
+            {' '}
+          </div>
         </div>
       </div>
+      {selectedFile && (
+        <FilePreview file={selectedFile} onClose={handleClosePreview} />
+      )}
     </div>
   );
 };

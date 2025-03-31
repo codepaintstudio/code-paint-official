@@ -1,4 +1,4 @@
-const Cannot = () => {
+const NonPeriod = () => {
   return (
     <>
       {/* 未开放投递弹窗 */}
@@ -22,4 +22,4 @@ const Cannot = () => {
     </>
   );
 };
-export default Cannot;
+export default NonPeriod;
