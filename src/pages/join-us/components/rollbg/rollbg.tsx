@@ -29,7 +29,7 @@ const RollBg = () => {
   ); // 添加scope和cleanup选项确保组件卸载时清除动画
 
   return (
-    <div>
+    <div className="hidden md:block">
       {/* 背景文字 */}
       <div className="absolute top-2.5 w-full overflow-hidden whitespace-nowrap">
         <div

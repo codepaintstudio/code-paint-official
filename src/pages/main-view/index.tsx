@@ -1,4 +1,4 @@
-import {  forwardRef } from 'react';
+import { forwardRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -7,6 +7,8 @@ import About from '@/pages/main-view/components/about';
 import TechnologyPage from '@/pages/main-view/components/techology';
 import ScoreDisplay from '@/pages/main-view/components/score-display';
 import FrameworkPage from '@/pages/main-view/components/studio-framework';
+import MobileHome from '@/pages/main-view/components/mobile-home';
+import MobileHeader from '@/components/mobileheader/mobileheader';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -38,7 +40,9 @@ const MainView = forwardRef<HTMLDivElement, unknown>((_props, ref) => {
         document.body.style.overflow = 'auto';
       }}
     >
+      <MobileHeader />
       <Header />
+      <MobileHome />
       <About />
       <TechnologyPage />
       <div className="score-section">

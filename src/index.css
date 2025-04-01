@@ -1,7 +1,4 @@
 @import 'tailwindcss';
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 @font-face {
   font-family: 'PingFang SC';
@@ -60,13 +57,6 @@
   .font-semibold {
     font-weight: 600;
   }
-  .custom-bg {
-    background-image: url('../public/images/JoinUs/orange_lace.webp');
-    background-repeat: no-repeat;
-  }
-  .line-bg {
-    background-image: url('../public/images/JoinUs/line.webp');
-  }
   .text-stroke {
     -webkit-text-stroke: 1px #0030ae; /* 描边宽度和颜色 */
   }
@@ -77,13 +67,16 @@
     -webkit-text-stroke: 0.5px #ffffff; /* 描边宽度和颜色 */
   }
   .text-stroke-quaternary {
-    -webkit-text-stroke: 3px #ffffff; /* 描边宽度和颜色 */
+    -webkit-text-stroke: 2px #ffffff; /* 描边宽度和颜色 */
   }
   .text-stroke-fifth {
     -webkit-text-stroke: 0.5px #888a90;
   }
   .text-stroke-sixth {
     -webkit-text-stroke: 0.5px #000000;
+  }
+  .text-stroke-seventh {
+    -webkit-text-stroke: 0.5px #0030ae;
   }
 }
 
@@ -96,7 +89,7 @@
   --color-font-tertiary: #d9d9d9;
   --color-font-quaternary: #ff6a00;
   --color-font-quinary: #85a2ee;
-  --color-font-senary: #2C2C2C;
+  --color-font-senary: #2c2c2c;
   --color-b-primary: #3359be;
   --color-b-secondary: #191a1e;
   --color-b-tertiary: #111111;

@@ -105,7 +105,7 @@ const Submission = () => {
                   coords.y
                 }C${coords.x + 100} ${
                   coords.y + 30
-                } 807.859 164.977 1073.5 126C1269.5 97.2413 1652 450 ${endX} 93.4997`
+                } 807.859 164.977 1073.5 126C1269.5 97.2413 1652 450 ${endX} 93.4997`,
               );
 
               // 设置动画属性
@@ -193,7 +193,7 @@ const Submission = () => {
           duration: 0.6,
           ease: 'power2.in',
         },
-        animationTriggerPoint * 3
+        animationTriggerPoint * 3,
       ); // 调整时间点使动画在适当时机触发
 
       // 保存时间线引用
@@ -326,7 +326,7 @@ const Submission = () => {
                   coords.y
                 }C${coords.x + 100} ${
                   coords.y + 30
-                } 807.859 164.977 1073.5 126C1269.5 97.2413 1652 450 ${endX} 93.4997`
+                } 807.859 164.977 1073.5 126C1269.5 97.2413 1652 450 ${endX} 93.4997`,
               );
 
               const length = originalPath.getTotalLength();
@@ -350,13 +350,75 @@ const Submission = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const mobilePathRef = useRef<SVGPathElement>(null);
+  const mobileSvgContainerRef = useRef<HTMLDivElement>(null);
+  const [mobilePathLength, setMobilePathLength] = useState(0);
+  const mobileTimelineRef = useRef<gsap.core.Timeline | null>(null);
+
+  // 计算移动端SVG路径长度
+  useEffect(() => {
+    if (mobilePathRef.current) {
+      const length = mobilePathRef.current.getTotalLength();
+      setMobilePathLength(length);
+    }
+  }, []);
+
+  // 移动端SVG动画
+  useGSAP(() => {
+    if (mobilePathRef.current && mobileSvgContainerRef.current) {
+      // 初始设置
+      gsap.set(mobilePathRef.current, {
+        strokeDasharray: mobilePathLength,
+        strokeDashoffset: mobilePathLength,
+      });
+
+      // 创建移动端SVG路径绘制动画
+      const mobileTimeline = gsap.timeline({
+        onStart: () => {
+          // 在动画开始时让SVG容器变为可见
+          gsap.to(mobileSvgContainerRef.current, {
+            opacity: 1,
+            duration: 0.5,
+            ease: 'power1.in',
+          });
+        },
+      });
+
+      mobileTimeline.to(mobilePathRef.current, {
+        strokeDashoffset: 0,
+        duration: 2,
+        ease: 'power2.inOut',
+      });
+
+      // 保存时间线引用
+      mobileTimelineRef.current = mobileTimeline;
+    }
+
+    return () => {
+      if (mobileTimelineRef.current) {
+        mobileTimelineRef.current.kill();
+        mobileTimelineRef.current = null;
+      }
+      if (mobilePathRef.current) {
+        gsap.set(mobilePathRef.current, {
+          strokeDasharray: 'none',
+          strokeDashoffset: 0,
+          clearProps: 'all',
+        });
+      }
+      gsap.killTweensOf(mobilePathRef.current);
+      gsap.killTweensOf(mobileSvgContainerRef.current);
+    };
+  }, [mobilePathLength]);
+
   return (
-    <div className="relative h-screen overflow-hidden">
+    <div className="relative h-screen overflow-hidden mt-16 md:mt-0">
       <Bgmain />
       {/* 黑线条 */}
       <div
         ref={svgContainerRef}
-        className="absolute w-screen top-1/7 z-30 opacity-0">
+        className="hidden md:block absolute w-screen top-1/7 z-30 opacity-0"
+      >
         <svg
           className="w-full"
           width="100%"
@@ -364,7 +426,8 @@ const Submission = () => {
           preserveAspectRatio="none"
           viewBox="0 0 1920 255"
           fill="none"
-          xmlns="http://www.w3.org/2000/svg">
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <path
             ref={svgPathRef}
             d="M-5.5 72.4997C206.5 -23.0005 386 -15.9998 540 51.5C694 119 807.859 164.977 1073.5 126C1269.5 97.2413 1652 450 1920.5 93.4997"
@@ -374,27 +437,62 @@ const Submission = () => {
           />
         </svg>
       </div>
+      {/* 移动端线条 */}
+      <div
+        ref={mobileSvgContainerRef}
+        className="md:hidden fixed top-1/8 opacity-0"
+      >
+        <svg
+          width="428"
+          height="181"
+          viewBox="0 0 428 181"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            ref={mobilePathRef}
+            d="M-10 1C10.1667 6.5 81.5 50.1 81.5 132.5C81.5 214.9 318.333 161 427.5 179.5"
+            stroke="#0030AE"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+        </svg>
+      </div>
+      <div className="md:hidden fixed w-full mt-20 font-PingFangSC">
+        <div className="absolute -translate-y-1 w-full text-5xl tracking-widest text-stroke-seventh text-transparent font-black text-center">
+          CodePaint
+        </div>
+        <div className="absolute w-full text-5xl tracking-widest text-stroke-seventh text-transparent font-black text-center">
+          CodePaint
+        </div>
+        <div className="relative top-6 text-center text-2xl tracking-wider font-black text-font-primary">
+          加入码绘，码上就绘
+        </div>
+      </div>
       {/* 盒子居中 */}
       <div ref={boxRef} className="h-full w-full fixed top-1/4">
-        <div className="relative w-2/7 h-3/5 mx-auto">
+        <div className="relative w-xs h-80 md:w-2/7 md:h-3/5 mx-auto">
           {/* 第一层 */}
           <div
             ref={frontRef}
-            className="absolute w-full h-full bg-b-secondary rounded-tr-4xl origin-top-left z-10">
+            className="absolute w-full h-full bg-b-secondary rounded-tr-4xl origin-top-left z-10"
+          >
             {/*圆孔 */}
             <div
               ref={circleRef}
-              className="w-6 h-6 absolute top-6 left-6  rounded-full bg-white">
+              className="w-6 h-6 absolute top-3 md:top-6 left-3 md:left-6  rounded-full bg-font-primary md:bg-white"
+            >
               {''}
             </div>
 
             {/* 简历投递+表单 */}
-            <div className="absolute left-0 top-0 w-full h-full flex flex-col justify-center">
+            <div className="absolute left-0 top-3 md:top-0 w-full h-full flex flex-col justify-center">
               {/* 简历投递 */}
               <div className="w-full relative font-bold font-PingFangSC flex justify-center items-center">
                 <div
                   ref={titleRef}
-                  className="absolute text-center font-medium tracking-[0.2em] text-stroke-secondary text-transparent text-3xl opacity-20">
+                  className="absolute text-center font-medium tracking-[0.2em] text-stroke-secondary text-transparent text-xl md:text-3xl opacity-20"
+                >
                   Resume submission
                 </div>
                 <div className="text-2xl text-white tracking-wider font-black z-10">
@@ -438,7 +536,7 @@ const Submission = () => {
                 </div>
 
                 {/* 上传 制作 */}
-                <div className="flex items-center justify-between text-font-quaternary w-3/5 mx-auto font-medium tracking-wider text-nowrap">
+                <div className="flex items-center justify-between text-font-quaternary w-3/5 mx-auto font-medium tracking-wider text-xs md:text-base text-nowrap">
                   {/* 上传 */}
                   <div>
                     <input
@@ -450,7 +548,8 @@ const Submission = () => {
                     />{' '}
                     <label
                       htmlFor="resume"
-                      className="cursor-pointer hover:text-font-primary transition-colors">
+                      className="cursor-pointer hover:text-font-primary transition-colors"
+                    >
                       <FileUp
                         strokeWidth={2}
                         size={20}
@@ -464,7 +563,8 @@ const Submission = () => {
                   <div>
                     <a
                       href="#"
-                      className="hover:text-font-primary transition-colors">
+                      className="hover:text-font-primary transition-colors"
+                    >
                       <FilePen
                         strokeWidth={2}
                         size={20}
@@ -477,11 +577,11 @@ const Submission = () => {
                 </div>
 
                 {/* 提交 */}
-                <div className="flex items-center justify-between w-4/5 mx-auto">
+                <div className="flex items-center justify-between w-20 md:w-4/5 mx-auto">
                   <input
                     type="submit"
                     value="提交"
-                    className="w-full h-10 bg-font-primary mt-12 text-white font-bold py-2 px-4 rounded-b-xl rounded-t-xl text-base"
+                    className="w-full h-10 bg-font-primary mt-5 md:mt-12 text-white font-bold py-2 px-4 rounded-b-xl rounded-t-xl text-xs md:text-base"
                   />
                 </div>
               </form>
@@ -490,7 +590,8 @@ const Submission = () => {
           {/* 第二层 */}
           <div
             ref={backRef}
-            className="absolute flex items-center top-0 left-0 w-full h-full bg-font-primary rounded-tr-4xl">
+            className="absolute flex items-center top-0 left-0 w-full h-full bg-font-primary rounded-tr-4xl"
+          >
             {' '}
           </div>
         </div>

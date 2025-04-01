@@ -34,7 +34,7 @@ const MouseFollowing = () => {
       viewBox="0 0 152 152"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="opacity-60 w-36 h-36 absolute z-50 pointer-events-none"
+      className="hidden md:block opacity-60 w-36 h-36 absolute z-50 pointer-events-none"
       style={{
         left: mousePosition.x - 76,
         top: mousePosition.y - 76,

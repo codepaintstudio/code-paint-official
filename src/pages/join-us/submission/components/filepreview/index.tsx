@@ -29,9 +29,11 @@ const FilePreview: React.FC<FilePreviewProps> = ({ file, onClose }) => {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black/60 flex items-center justify-center z-50 font-PingFangSC">
-      <div className="mx-auto p-10 flex flex-col items-center justify-between w-1/3 min-h-11/12 bg-white rounded-[8px] text-font-primary">
-        <div className="w-full flex justify-between">
-          <h3 className="w-full text-left opacity-100 text-xl">简历详情</h3>
+      <div className="mx-auto p-5 flex flex-col items-center justify-start md:justify-between w-full h-screen md:w-1/3 md:min-h-11/12 bg-white md:rounded-[8px] text-font-primary">
+        <div className="w-full flex justify-end md:justify-between">
+          <h3 className="hidden md:block w-full text-left opacity-100 text-2xl">
+            简历详情
+          </h3>
           <X
             color="#0030ae"
             size={24}
@@ -39,16 +41,19 @@ const FilePreview: React.FC<FilePreviewProps> = ({ file, onClose }) => {
             onClick={onClose}
           />
         </div>
+        <h3 className="md:hidden my-10 w-full text-center opacity-100 tracking-wider font-bold text-2xl">
+          简历详情
+        </h3>
         {/* 文件预览 */}
         {fileContent && (
           <iframe
-            className="my-5 w-full h-full grow"
+            className="md:my-5 w-full md:h-full h-1/2 md:grow bg-amber-50"
             src={fileContent}
             title="File Preview"
           />
         )}
         {/* 按钮 */}
-        <div className="w-2xs flex justify-between text-sm">
+        <div className="w-2xs flex justify-between text-sm  mt-20 md:mt-0">
           <button
             className="bg-font-primary text-white w-20 h-10 rounded-[8px]"
             aria-label="重传文件预览"
@@ -60,12 +65,14 @@ const FilePreview: React.FC<FilePreviewProps> = ({ file, onClose }) => {
               if (fileInput) {
                 fileInput.click();
               }
-            }}>
+            }}
+          >
             重新上传
           </button>
           <button
             className="bg-font-primary text-white w-20 h-10 rounded-[8px]"
-            aria-label="确认文件无误">
+            aria-label="确认文件无误"
+          >
             确认无误
           </button>
         </div>

@@ -6,7 +6,7 @@ import { useRef, useEffect, useCallback, useState } from 'react';
 import ProductsList from './components/products-list';
 import Lists from './components/lists';
 import ScrollBar from '@/pages/products/components/ScrollBar';
-
+import MobileHeader from '@/components/mobileheader/mobileheader';
 const Products = () => {
   gsap.registerPlugin(useGSAP);
   gsap.registerPlugin(ScrollTrigger);
@@ -180,19 +180,20 @@ const Products = () => {
   const currentProduct = Lists[currentProductIndex] || null;
 
   return (
-    <div className="h-screen">
+    <div className="h-screen font-PingFangSC mt-16 md:mt-0">
+      <MobileHeader />
       <Header />
       {/* 产品介绍区域 */}
-      <div className="bg-font-primary text-white w-full min-h-2/3 relative py-3 flex items-center z-20 overflow-hidden">
+      <div className="bg-font-primary text-white w-full h-60 md:min-h-2/3 relative py-3 flex items-center z-20 overflow-hidden">
         {/* 头部 */}
-        <div className="float-left w-4/11 p-14 pl-0 h-full rounded-r-[500px] border-1 border-b-primary border-l-0">
-          <div className="rounded-r-[500px] border-1 border-b-primary p-14 pl-0 border-l-0">
-            <div className="rounded-r-[500px] border-1 border-b-primary p-14 pl-0 border-l-0">
-              <div className="relative rounded-r-[500px] border-1 border-b-primary p-14 pl-0 border-l-0">
-                <h3 className="absolute -top-24 text-4xl left-20 font-bold">
+        <div className="w-1/2 md:w-4/11 p-8 pl-0 md:p-14 md:pl-0 h-full rounded-r-[500px] border-1 border-b-primary border-l-0">
+          <div className="rounded-r-[500px] w-full h-full border-1 border-b-primary pl-0 p-8 md:p-14 md:pl-0 border-l-0">
+            <div className="rounded-r-[500px] h-full border-1 border-b-primary pl-0 p-8 md:p-14 md:pl-0 border-l-0">
+              <div className="relative rounded-r-[500px] h-full border-1 border-b-primary pl-0 p-4 md:p-14 md:pl-0 border-l-0">
+                <h3 className="absolute -top-14 md:-top-24 left-4 md:text-4xl  text-xs md:left-20 font-bold">
                   PRODUCT
                 </h3>
-                <div className="absolute -top-8 left-20 text-base font-semibold font-PingFangSC">
+                <div className="absolute -top-5 md:-top-8 left-4 md:left-20 md:text-base text-xs md:font-semibold font-PingFangSC">
                   码绘产品
                 </div>
               </div>
@@ -204,25 +205,37 @@ const Products = () => {
         <div className="absolute bottom-1/4 -right-1/6 w-full">
           <h1
             ref={floatingTextRef}
-            className="text-9xl text-white opacity-10 text-clip font-PingFangSC tracking-wider text-nowrap -rotate-25 font-black will-change-transform"
+            className="md:text-9xl text-5xl text-white opacity-10 text-clip font-PingFangSC tracking-wider text-nowrap -rotate-25 font-black will-change-transform"
           >
             Code drawing products
           </h1>
         </div>
 
         {/* 头部文字内容 */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-          <div ref={titleRef} className="text-center font-medium text-4xl">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/4 md:-translate-y-1/2 w-5/6 md:w-1/2 tracking-wider md:tracking-normal">
+          <div
+            ref={titleRef}
+            className="text-center font-medium md:text-4xl text-base"
+          >
             欢迎来到码绘产品中心
           </div>
-          <div className="mt-6">
-            <div ref={paragraph1Ref} className="text-center pt-6 text-xs">
+          <div className="mt-3">
+            <div
+              ref={paragraph1Ref}
+              className="text-center pt-2  md:pt-6 text-xs opacity-85 md:opacity-100"
+            >
               这里是创意与技术的结晶，是实用与美学的完美结合
             </div>
-            <div ref={paragraph2Ref} className="text-center pt-6 text-xs">
+            <div
+              ref={paragraph2Ref}
+              className="text-center pt-2 md:pt-6 text-xs opacity-85 md:opacity-100"
+            >
               我们致力于将前沿的编程技术与独特的艺术视角相结合打造出令人耳目一新的产品
             </div>
-            <div ref={paragraph3Ref} className="text-center pt-6 text-xs">
+            <div
+              ref={paragraph3Ref}
+              className="text-center pt-2 md:pt-6 text-xs opacity-85 md:opacity-100"
+            >
               为用户带来前所未有的体验
             </div>
           </div>
@@ -231,7 +244,7 @@ const Products = () => {
       {/* 产品展示区域 */}
       <div
         ref={productRef}
-        className="px-20 pt-20 font-PingFangSC overflow-y-auto overflow-x-hidden h-screen flex relative"
+        className="hidden px-20 pt-20 font-PingFangSC overflow-y-auto overflow-x-hidden h-screen md:flex relative"
       >
         <svg
           className="absolute top-0 left-0 w-full h-full z-0 floating-svg"
@@ -273,6 +286,21 @@ const Products = () => {
         <div className="w-[calc(100%-2rem)] ml-10 z-10">
           <ProductsList setProductItemRef={setProductItemRef} />
         </div>
+      </div>
+      {/* 移动端样式 */}
+      <div className="my-6 md:hidden">
+        <h1 className="absolute text-center text-5xl w-full text-transparent font-black text-stroke-seventh tracking-widest">
+          PRODUCT
+        </h1>
+        <h1 className="relative top-0.5 text-center text-5xl w-full text-transparent font-black text-stroke-seventh tracking-widest">
+          PRODUCT
+        </h1>
+        <h3 className="relative -top-3 text-center text-2xl font-bold text-font-primary">
+          产品中心
+        </h3>
+      </div>
+      <div className="md:hidden">
+        <ProductsList setProductItemRef={setProductItemRef} />
       </div>
     </div>
   );
