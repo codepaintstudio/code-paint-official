@@ -28,7 +28,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
         className="fixed top-0 left-0 w-full bottom-0 bg-black opacity-60 z-10"
         onClick={onClose}
       />
-      <div className="absolute top-1/3 md:top-1/5 left-1/2 -translate-x-1/2 md:w-1/3 h-60 z-20 w-4/5">
+      <div className="absolute top-1/2 md:-translate-y-0 -translate-y-1/2 md:top-1/5 left-1/2 -translate-x-1/2 md:w-1/3 h-60 z-20 w-4/5">
         <div className="w-full h-full bg-white flex flex-col justify-center items-center rounded-xl text-sm relative">
           {/* 关闭按钮 */}
           <button

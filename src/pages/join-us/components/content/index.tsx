@@ -767,7 +767,7 @@ const Content = () => {
               />
 
               <div className="flex justify-between items-center text-center text-sm px-1 py-4 pb-12 h-full w-full z-10">
-                <p className="text-4xl text-white pl-3">办公室</p>
+                <p className="text-4xl text-white pl-8 vertical-text tracking-wide font-medium">办公室</p>
                 <p className="opacity-50 text-font-tertiary font-semibold w-2/3 self-start leading-5 tracking-widest text-left ">
                   展示可投递岗位和岗位内容简介展示可投递岗位和岗位内容简介展示可投递岗位和岗位内容简介展示可投递岗位和岗
                 </p>

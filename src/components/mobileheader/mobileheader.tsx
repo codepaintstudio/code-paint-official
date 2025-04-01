@@ -29,21 +29,22 @@ const MobileHeader = () => {
           {/* /!*菜单*!/ */}
           <button
             onClick={toggleMenu}
-            className="flex flex-col gap-2 cursor-pointer"
+            className="flex flex-col gap-1 cursor-pointer"
+            title="菜单"
           >
             <span
-              className={`w-8 border border-white rounded-xl transition-transform ${
-                isMenuOpen ? 'rotate-45 translate-y-[10px]' : ''
+              className={`w-5 border border-white rounded-xl transition-transform ${
+                isMenuOpen ? 'rotate-45 translate-y-[5.5px]' : ''
               }`}
             />
             <span
-              className={`w-8 border border-white rounded-xl transition-opacity ${
+              className={`w-5 border border-white rounded-xl transition-opacity ${
                 isMenuOpen ? 'opacity-0' : ''
               }`}
             />
             <span
-              className={`w-8 border border-white rounded-xl transition-transform ${
-                isMenuOpen ? '-rotate-45 -translate-y-[10px]' : ''
+              className={`w-5 border border-white rounded-xl transition-transform ${
+                isMenuOpen ? '-rotate-45 -translate-y-[5.5px]' : ''
               }`}
             />
           </button>
@@ -61,7 +62,7 @@ const MobileHeader = () => {
           isMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        <div className="flex flex-col items-start mt-14 h-full text-white text-2xl space-y-8">
+        <div className="flex flex-col items-start mt-14 h-full text-white space-y-8">
           <NavLink
             className="w-full border-gray-200 pl-4 py-4 mb-0 hover:bg-blue-primary hover:text-white flex items-center"
             to="/mainview"

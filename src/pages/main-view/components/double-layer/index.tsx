@@ -34,6 +34,7 @@ const View = () => {
   const CENTER = { x: 2.5, y: 2.5 };
   const navigate = useNavigate();
 
+
   const handleBtnHover = useCallback(
     (isHover: boolean) => {
       if (!isGlobalFlipped) return;
@@ -419,28 +420,32 @@ const View = () => {
       </div>
 
       {/*移动端样式*/}
-      <div className="md:hidden grid grid-cols-3 gap-0.5 p-1 bg-black">
+      <div className="md:hidden grid grid-cols-3 gap-0.5 p-1 bg-black h-screen overflow-hidden">
         {Array.from({ length: 27 }).map((_, index) => (
           <div
             key={`mobile-tile-${index}`}
-            className="bg-b-secondary w-full h-full min-h-[100px]"
+            className="bg-b-secondary w-full h-[calc(100vh/9)]"
           />
         ))}
 
-        <div className="absolute top-1/3 flex flex-col items-center font-PingFangSC w-full h-screen">
-          <h1 className="text-6xl font-bold text-white/90 tracking-wider my-6 text-nowrap">
+        <div className="absolute inset-0 flex flex-col items-center justify-center font-PingFangSC">
+          <h1
+            className="text-6xl font-bold text-white/90 tracking-wider my-6 text-nowrap"
+          >
             Code Paint
           </h1>
-          <h3 className="text-xl font-medium text-white/90 tracking-widest">
+          <h3
+            className="text-xl font-medium text-white/90 tracking-widest"
+          >
             加入码绘 码上就绘。
           </h3>
           <button
             onClick={() => {
               navigate('/mainview');
             }}
-            className="text-sm text-white font-light bg-white/10 w-24 h-9 rounded-xl mt-12 align-middle tracking-wider backdrop-blur-[2px] transition-all duration-300 hover:bg-white/20 hover:scale-110 hover:shadow-lg hover:shadow-white/20"
+            className="text-sm text-white font-light bg-white/30 w-24 h-9 rounded-xl mt-12 align-middle tracking-wider backdrop-blur-2xl "
           >
-            <p>进入码绘</p>
+            <p className="backdrop-blur-none">进入码绘</p>
           </button>
         </div>
       </div>

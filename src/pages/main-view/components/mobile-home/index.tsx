@@ -1,6 +1,6 @@
 const MobileHome = () => {
   return (
-    <div className="md:hidden flex justify-center flex-wrap bg-font-primary w-full h-80 font-PingFangSC text-white font-semibold">
+    <div className="md:hidden flex justify-center flex-wrap bg-font-primary w-full h-80 font-PingFangSC italic text-white font-semibold">
       <div className="mt-20 mb-2 flex items-end">
         <h1 className="text-transparent text-6xl font-black text-stroke-quaternary">
           码绘

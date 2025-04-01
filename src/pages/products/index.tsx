@@ -190,7 +190,7 @@ const Products = () => {
           <div className="rounded-r-[500px] w-full h-full border-1 border-b-primary pl-0 p-8 md:p-14 md:pl-0 border-l-0">
             <div className="rounded-r-[500px] h-full border-1 border-b-primary pl-0 p-8 md:p-14 md:pl-0 border-l-0">
               <div className="relative rounded-r-[500px] h-full border-1 border-b-primary pl-0 p-4 md:p-14 md:pl-0 border-l-0">
-                <h3 className="absolute -top-14 md:-top-24 left-4 md:text-4xl  text-xs md:left-20 font-bold">
+                <h3 className="absolute -top-14 md:-top-24 left-4 md:text-4xl  text-base md:left-20 font-bold">
                   PRODUCT
                 </h3>
                 <div className="absolute -top-5 md:-top-8 left-4 md:left-20 md:text-base text-xs md:font-semibold font-PingFangSC">
