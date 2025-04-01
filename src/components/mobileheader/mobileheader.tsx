@@ -21,7 +21,7 @@ const MobileHeader = () => {
               src="/public/images/mainview/mobile-cp.webp"
               alt="cp"
             />
-            <div className="display flex flex-col text-white text-xs ml-2">
+            <div className="display flex flex-col text-white ml-2">
               <div>码绘</div>
               <div>CodePaint Studio</div>
             </div>
@@ -58,7 +58,7 @@ const MobileHeader = () => {
         onClick={toggleMenu}
       />
       <div
-        className={`h-screen fixed right-0 bg-[#6C82C8] text-sm z-30 w-1/2 top-0 transition-transform duration-300 ease-in-out ${
+        className={`h-screen fixed right-0 bg-[#6C82C8] text-lg z-30 w-1/2 top-0 transition-transform duration-300 ease-in-out ${
           isMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
