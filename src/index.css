@@ -78,8 +78,11 @@
   .text-stroke-seventh {
     -webkit-text-stroke: 0.5px #0030ae;
   }
+  .vertical-text {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
 }
-
+}
 @theme {
   --font-PingFangSC: 'PingFang SC', sans-serif;
   --font-ZQK: "ZQKfreefont", sans-serif;
