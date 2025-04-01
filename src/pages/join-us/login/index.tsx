@@ -9,6 +9,7 @@ const Login = () => {
         <RollBg />
         <LoginCard />
       </div>
+      
     </>
   );
 };

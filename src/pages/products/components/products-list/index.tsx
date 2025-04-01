@@ -11,7 +11,7 @@ const ProductsList = ({ setProductItemRef }: ProductsListProps) => {
         <div
           key={product.id}
           ref={(el) => setProductItemRef && setProductItemRef(el, index)}
-          className="w-full mx-auto mb-28 flex flex-wrap justify-center"
+          className="hidden md:flex w-full mx-auto mb-28 flex-wrap justify-center"
         >
           {index % 2 === 0 ? (
             <>
@@ -78,6 +78,34 @@ const ProductsList = ({ setProductItemRef }: ProductsListProps) => {
               </div>
             </>
           )}
+        </div>
+      ))}
+      {/* 移动端产品模块 */}
+      {Lists.map((product) => (
+        <div key={product.id} className="md:hidden px-6 w-full my-10">
+          <div className="w-full flex justify-start">
+            <div className="w-11 h-11 rounded-b-full border-1 rounded-full">
+              <img
+                src={product.logo}
+                alt={`${product.title} logo`}
+                className="w-full h-full object-cover rounded-full"
+              />
+            </div>
+            <div className="font-medium tracking-wide mx-4 leading-11">
+              {product.title}
+            </div>
+          </div>
+          <div className="w-full h-60 rounded-xl my-4 bg-[#101010]/65">
+            <img
+              src={product.image}
+              alt={product.title}
+              className="w-full h-full object-cover rounded-xl"
+            />
+          </div>
+          <div className="w-full text-sm">{product.description}</div>
+          <a href={product.link} className="text-xs text-font-primary">
+            了解更多
+          </a>
         </div>
       ))}
     </div>

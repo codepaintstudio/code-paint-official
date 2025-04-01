@@ -8,6 +8,7 @@ const Register = () => {
         <RollBg />
         <RegisterCard />
       </div>
+    
     </>
   );
 };

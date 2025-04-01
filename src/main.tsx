@@ -12,6 +12,7 @@ import Activity from '@/pages/activity';
 import Register from './pages/join-us/register/index';
 import About from './pages/main-view/components/about/index';
 import View from './pages/main-view/components/double-layer/index';
+import MainView from './pages/main-view/index';
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
     <StrictMode>
@@ -24,6 +25,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="submission" element={<Submission />} />
         <Route path="activity" element={<Activity />} />
         <Route path="about" element={<About />} />
+        <Route path="mainview" element={<MainView />} />
       </Routes>
     </StrictMode>
   </BrowserRouter>,

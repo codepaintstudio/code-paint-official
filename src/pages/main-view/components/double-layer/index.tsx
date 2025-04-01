@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState, useMemo } from 'react';
 import { gsap } from 'gsap';
 import CustomEase from 'gsap/CustomEase';
+import { useNavigate } from 'react-router';
 import MainView from '@/pages/main-view/index';
 import MouseFollowing from '@/pages/main-view/components/mousefollowing';
 
@@ -31,6 +32,7 @@ const View = () => {
   const mainViewRef = useRef<HTMLDivElement | null>(null);
   const rollRef = useRef<HTMLDivElement | null>(null);
   const CENTER = { x: 2.5, y: 2.5 };
+  const navigate = useNavigate();
 
   const handleBtnHover = useCallback(
     (isHover: boolean) => {
@@ -264,7 +266,7 @@ const View = () => {
           ref={(el) => {
             tilesRef.current[row * 6 + col] = el;
           }}
-          className="relative w-full h-full transform-style-[preserve-3d] cursor-pointer min-h-0 will-change-transform backface-hidden"
+          className="hidden md:block relative w-full h-full transform-style-[preserve-3d] cursor-pointer min-h-0 will-change-transform backface-hidden"
           onMouseEnter={handleMouseEnter}
           style={{
             transformStyle: 'preserve-3d',
@@ -272,6 +274,7 @@ const View = () => {
             backfaceVisibility: 'hidden',
           }}
         >
+          <div className="bg-b-secondary w-full h-full md:hidden" />
           <div
             className="absolute w-full h-full backface-hidden overflow-hidden bg-[length:600%_600%] bg-center transform translate-z-0 rounded-[7px] "
             style={{
@@ -306,7 +309,7 @@ const View = () => {
     // 在闭包内固定当前 ref 值
     const currentTiles = tilesRef.current;
     const currentContainer = containerRef.current;
-  
+
     return () => {
       currentTiles.forEach((tile) => gsap.killTweensOf(tile));
       gsap.killTweensOf(currentContainer);
@@ -317,13 +320,16 @@ const View = () => {
     // 在 effect 内部固定当前 DOM 节点
     const node = containerRef.current; // 🌟 关键：捕获当前值
     if (!node) return;
-  
-    const observer = new IntersectionObserver(([entry]) => {
-      document.body.style.overflow = entry.isIntersecting ? 'hidden' : 'auto';
-    }, { threshold: 0.1 });
-  
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        document.body.style.overflow = entry.isIntersecting ? 'hidden' : 'auto';
+      },
+      { threshold: 0.1 },
+    );
+
     observer.observe(node);
-  
+
     return () => {
       observer.unobserve(node); // ✅ 直接使用闭包中的 node
       document.body.style.overflow = 'auto'; // 恢复滚动条（可选）
@@ -333,13 +339,16 @@ const View = () => {
   useEffect(() => {
     const node = mainViewRef.current; // 🌟 关键：用局部变量固定节点
     if (!node) return;
-  
-    const observer = new IntersectionObserver(([entry]) => {
-      document.body.style.overflow = entry.isIntersecting ? 'auto' : 'hidden';
-    }, { threshold: 0.1 });
-  
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        document.body.style.overflow = entry.isIntersecting ? 'auto' : 'hidden';
+      },
+      { threshold: 0.1 },
+    );
+
     observer.observe(node);
-  
+
     return () => {
       observer.unobserve(node); // ✅ 直接使用局部变量
       document.body.style.overflow = 'auto'; // 清理副作用
@@ -353,7 +362,7 @@ const View = () => {
     <div>
       <div
         ref={containerRef}
-        className="grid grid-cols-6 gap-0.5 w-full h-screen p-3.5 box-border auto-rows-fr perspective-distant bg-b-tertiary m-0"
+        className="hidden mid:block md:grid grid-cols-6 gap-0.5 w-full h-screen p-3.5 box-border auto-rows-fr perspective-distant bg-b-tertiary m-0"
         onWheel={handleWheel}
         onMouseEnter={() => {
           document.body.style.overflow = 'hidden';
@@ -362,13 +371,13 @@ const View = () => {
         {tiles}
         <div
           ref={cpRef}
-          className="absolute bottom-44 left-1/2 -translate-x-1/2 pointer-events-none max-w-full max-h-[40vh]"
+          className="hidden md:block absolute bottom-44 left-1/2 -translate-x-1/2 pointer-events-none max-w-full max-h-[40vh]"
         >
           <img src={IMAGE_PATHS.CP} alt="cp" className="max-w-full h-auto" />
         </div>
         <div
           ref={btnRef}
-          className="absolute bottom-52 left-1/2 -translate-x-1/2 cursor-pointer opacity-0 pointer-events-auto scale-100 max-w-[80%]"
+          className="hidden md:block absolute bottom-52 left-1/2 -translate-x-1/2 cursor-pointer opacity-0 pointer-events-auto scale-100 max-w-[80%]"
           onMouseEnter={() => handleBtnHover(true)}
           onMouseLeave={() => handleBtnHover(false)}
           onClick={() => {
@@ -386,7 +395,7 @@ const View = () => {
         {/*CodePaint滚动*/}
         <div
           ref={rollRef}
-          className="opacity-0 marquee-section absolute h-32 z-0 -bottom-2.5 right-0 text-transparent/10 text-stroke-fifth text-9xl pointer-events-none select-none overflow-hidden w-full font-black tracking-wider"
+          className="hidden md:block opacity-0 marquee-section absolute h-32 z-0 -bottom-2.5 right-0 text-transparent/10 text-stroke-fifth text-9xl pointer-events-none select-none overflow-hidden w-full font-black tracking-wider"
         >
           <div className="flex marquee-container whitespace-nowrap">
             <div className="flex">
@@ -404,9 +413,37 @@ const View = () => {
           </div>
         </div>
       </div>
-
       <MouseFollowing />
-      <MainView ref={mainViewRef} />
+      <div className="hidden md:block">
+        <MainView ref={mainViewRef} />
+      </div>
+
+      {/*移动端样式*/}
+      <div className="md:hidden grid grid-cols-3 gap-0.5 p-1 bg-black">
+        {Array.from({ length: 27 }).map((_, index) => (
+          <div
+            key={`mobile-tile-${index}`}
+            className="bg-b-secondary w-full h-full min-h-[100px]"
+          />
+        ))}
+
+        <div className="absolute top-1/3 flex flex-col items-center font-PingFangSC w-full h-screen">
+          <h1 className="text-6xl font-bold text-white/90 tracking-wider my-6 text-nowrap">
+            Code Paint
+          </h1>
+          <h3 className="text-xl font-medium text-white/90 tracking-widest">
+            加入码绘 码上就绘。
+          </h3>
+          <button
+            onClick={() => {
+              navigate('/mainview');
+            }}
+            className="text-sm text-white font-light bg-white/10 w-24 h-9 rounded-xl mt-12 align-middle tracking-wider backdrop-blur-[2px] transition-all duration-300 hover:bg-white/20 hover:scale-110 hover:shadow-lg hover:shadow-white/20"
+          >
+            <p>进入码绘</p>
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

@@ -69,7 +69,8 @@ const ArticleItem: React.FC<ArticleItemProps> = ({
 
           <div className="flex items-center ml-2">
             <div
-              className="group flex justify-center items-center w-10 h-10 rounded-full hover:bg-blue-700 transition-colors">
+              className="group flex justify-center items-center w-10 h-10 rounded-full hover:bg-blue-700 transition-colors"
+            >
               <NavLink to={'/'}>
                 <img
                   src="/svg/arrow-right-blue.svg"

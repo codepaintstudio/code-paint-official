@@ -20,15 +20,15 @@ const FrameworkPage: React.FC = () => {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
-        start: "top center", // 当容器顶部到达视窗中心时触发
-        toggleActions: "play none none reverse", // 播放一次，反向滚动时反转
-      }
+        start: 'top center', // 当容器顶部到达视窗中心时触发
+        toggleActions: 'play none none reverse', // 播放一次，反向滚动时反转
+      },
     });
 
     // 按照前端->UI->办公室的顺序依次显示
-    tl.to('.frontend-item', { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" })
-      .to('.ui-item', { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, "-=0.3") // 略微重叠动画，使过渡更流畅
-      .to('.office-item', { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, "-=0.3");
+    tl.to('.frontend-item', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' })
+      .to('.ui-item', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.3') // 略微重叠动画，使过渡更流畅
+      .to('.office-item', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.3');
 
   }, { scope: containerRef });
 
