@@ -535,7 +535,7 @@ const Content = () => {
           {/* 第一层 */}
           <div
             ref={frontRef1}
-            className="absolute flex flex-col justify-center items-center top-0 left-0 px-4 h-full bg-black z-10 rounded-tr-4xl"
+            className="absolute flex flex-col justify-center items-center top-0 left-0 px-4 w-full h-full bg-black z-10 rounded-tr-4xl"
           >
             {/*圆孔 */}
             <div
@@ -581,7 +581,7 @@ const Content = () => {
           {/* 第一层 */}
           <div
             ref={frontRef2}
-            className="absolute flex flex-col justify-center items-center top-0 left-0 px-4 h-full bg-black z-10 rounded-tr-4xl origin-top-left"
+            className="absolute flex flex-col justify-center items-center top-0 left-0 px-4 w-full h-full bg-black z-10 rounded-tr-4xl origin-top-left"
           >
             {/*圆孔 */}
             <div
@@ -627,7 +627,7 @@ const Content = () => {
           {/* 第一层 */}
           <div
             ref={frontRef3}
-            className="absolute flex flex-col justify-center items-center top-0 left-0 px-4 h-full bg-black z-10 rounded-tr-4xl"
+            className="absolute flex flex-col justify-center items-center top-0 left-0 px-4 w-full h-full bg-black z-10 rounded-tr-4xl"
           >
             {/*圆孔 */}
             <div
@@ -736,7 +736,7 @@ const Content = () => {
                 <p className="opacity-50 text-font-tertiary font-semibold w-2/3 self-start p-0 ml-4 leading-5 tracking-widest text-left ">
                   展示可投递岗位和岗位内容简介展示可投递岗位和岗位内容简介展示可投递岗位和岗位内容简介展示可投递岗位和岗
                 </p>
-                <p className="font-medium text-6xl text-white pr-3">UI</p>
+                <p className="font-medium text-5xl text-white pr-3">UI</p>
               </div>
 
               <Palette
