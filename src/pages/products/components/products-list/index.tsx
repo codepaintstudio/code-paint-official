@@ -14,10 +14,10 @@ const ProductsList = ({ setProductItemRef }: ProductsListProps) => {
           className="hidden md:flex w-full mx-auto mb-28 flex-wrap justify-center"
         >
           {index % 2 === 0 ? (
-            <>
+            <div className="w-full flex justify-evenly">
               {/* logo 与文字 */}
-              <div className="flex w-1/2 max-w-full justify-end">
-                <div className="aspect-1/1 border-2 border-white size-20 ml-10 rounded-full mt-6 text-center leading-20 flex-shrink-0">
+              <div className="flex w-1/2 justify-end h-80">
+                <div className="aspect-1/1 border-2 border-white size-20 ml-10 rounded-full mt-6 text-center">
                   <img
                     src={product.logo}
                     alt={`${product.title} logo`}
@@ -25,11 +25,11 @@ const ProductsList = ({ setProductItemRef }: ProductsListProps) => {
                   />
                 </div>
                 {/* 产品信息 */}
-                <div className="mx-6 font-semibold md:tracking-wider flex-grow min-w-0">
+                <div className="font-semibold md:tracking-wider flex-grow min-w-0">
                   <h3 className="inline-block mt-16 text-2xl">
                     {product.title}
                   </h3>
-                  <p className=" my-6 text-base font-medium leading-6 break-words">
+                  <p className=" my-6 text-base font-medium leading-6">
                     {product.description}
                   </p>
                   <a href={product.link} className="text-font-primary">
@@ -37,17 +37,17 @@ const ProductsList = ({ setProductItemRef }: ProductsListProps) => {
                   </a>
                 </div>
               </div>
-              <div className="bg-amber-50 max-w-2xl mx-16 w-96 h-80 rounded-2xl flex-shrink-0">
+              <div className="bg-amber-50 w-96 h-80 shrink rounded-2xl ">
                 <img
                   src={product.image}
                   alt={product.title}
                   className="w-full h-full object-cover rounded-2xl"
                 />
               </div>
-            </>
+            </div>
           ) : (
-            <>
-              <div className="bg-amber-50 max-w-2xl mx-16 w-96 h-80 rounded-2xl flex-shrink-0">
+            <div className="w-full flex justify-evenly">
+              <div className="bg-amber-50 w-96 h-80 shrink rounded-2xl ">
                 <img
                   src={product.image}
                   alt={product.title}
@@ -55,8 +55,8 @@ const ProductsList = ({ setProductItemRef }: ProductsListProps) => {
                 />
               </div>
               {/* logo 与文字 */}
-              <div className="flex w-1/2 max-w-full justify-end">
-                <div className="aspect-1/1 border-2 border-white size-20 ml-10 rounded-full mt-6 text-center leading-20 flex-shrink-0">
+              <div className="flex w-1/2 justify-end h-80">
+                <div className="aspect-1/1 border-2 border-white size-20 ml-10 rounded-full mt-6 text-center">
                   <img
                     src={product.logo}
                     alt={`${product.title} logo`}
@@ -64,11 +64,11 @@ const ProductsList = ({ setProductItemRef }: ProductsListProps) => {
                   />
                 </div>
                 {/* 产品信息 */}
-                <div className="mx-6 font-semibold md:tracking-wider flex-grow min-w-0">
+                <div className="font-semibold md:tracking-wider flex-grow min-w-0">
                   <h3 className="inline-block mt-16 text-2xl">
                     {product.title}
                   </h3>
-                  <p className="my-6 text-base font-medium leading-6 break-words">
+                  <p className=" my-6 text-base font-medium leading-6">
                     {product.description}
                   </p>
                   <a href={product.link} className="text-font-primary">
@@ -76,7 +76,7 @@ const ProductsList = ({ setProductItemRef }: ProductsListProps) => {
                   </a>
                 </div>
               </div>
-            </>
+            </div>
           )}
         </div>
       ))}

@@ -34,7 +34,7 @@ const MobileHeader = () => {
           >
             <span
               className={`w-5 border border-white rounded-xl transition-transform ${
-                isMenuOpen ? 'rotate-45 translate-y-[5.3px]' : ''
+                isMenuOpen ? 'rotate-45 translate-y-[5.5px]' : ''
               }`}
             />
             <span
@@ -44,7 +44,7 @@ const MobileHeader = () => {
             />
             <span
               className={`w-5 border border-white rounded-xl transition-transform ${
-                isMenuOpen ? '-rotate-45 -translate-y-[5.7px]' : ''
+                isMenuOpen ? '-rotate-45 -translate-y-[5.5px]' : ''
               }`}
             />
           </button>

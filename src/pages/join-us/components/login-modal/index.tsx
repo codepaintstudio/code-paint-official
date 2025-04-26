@@ -63,7 +63,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
               <path
                 d="M2.98828 53.474C16.8435 29.316 38.1593 29.3159 53.0804 53.4738"
                 stroke="#E5E5E5"
-                stroke-width="5"
+                strokeWidth="5"
               />
               <circle
                 cx="27.4992" cy="15.1056" r="14.9211"
