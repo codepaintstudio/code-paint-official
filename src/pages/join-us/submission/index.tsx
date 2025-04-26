@@ -4,6 +4,10 @@ import { useGSAP } from '@gsap/react';
 import { Mail, Phone, FileUp, FilePen } from 'lucide-react';
 import Bgmain from '../components/bg-main';
 import FilePreview from './components/filepreview';
+import { useLocation } from 'react-router';
+import axios from 'axios';
+import { API_URL } from '@/const';
+
 const Submission = () => {
   const frontRef = useRef<HTMLDivElement>(null);
   const backRef = useRef<HTMLDivElement>(null);
@@ -12,24 +16,36 @@ const Submission = () => {
   const titleRef = useRef<HTMLDivElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
   const svgContainerRef = useRef<HTMLDivElement>(null);
+  // 文件url
+  const [fileUrl, setFileUrl] = useState<string | null>(null);
+  // 文件预览状态
+  const [filePreview, setFilePreview] = useState(false);
+  // 添加文件上传状态
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [pathLength, setPathLength] = useState(0);
   const [svgCoordinates, setSvgCoordinates] = useState({ x: 0, y: 0 });
   const [pathGenerated, setPathGenerated] = useState(false);
   const svgTimelineRef = useRef<gsap.core.Timeline | null>(null);
   const backRotateTimelineRef = useRef<gsap.core.Timeline | null>(null);
   const boxTimelineRef = useRef<gsap.core.Timeline | null>(null);
-  // 添加文件上传状态
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  
+  const location = useLocation();
+  const recrType = location.state?.recrType;
+  
+  const handleFileUrl = (fileUrl: string) => {
+    setFileUrl(fileUrl);
+  };
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files && files.length > 0) {
+      setFilePreview(true);
       const file = files[0];
       setSelectedFile(file);
     }
   };
-
   const handleClosePreview = () => {
-    setSelectedFile(null);
+    // setSelectedFile(null);
+    setFilePreview(false);
   };
 
   // 为boxRef添加渐现动画
@@ -411,6 +427,41 @@ const Submission = () => {
     };
   }, [mobilePathLength]);
 
+  // 添加状态来存储表单数据
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+
+  // 处理表单提交
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); // 阻止默认表单提交行为
+    
+    const access_token = localStorage.getItem('access_token'); // 假设token存储在localStorage中
+    const userId = localStorage.getItem('userId'); // 从localStorage中获取userId
+    console.log(userId,email,phone,recrType);
+    if (!userId) {
+      console.error('User ID not found');
+      return;
+    }
+   
+    try {
+      await axios.post(`${API_URL}/api/recruitment`, {
+        userId: userId, 
+        email,
+        phone,
+        recrType,
+        resumeFilePath: 'http://sudn75g3f.hd-bkt.clouddn.com/前端开发_邓军辉.pdf',
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${access_token}`,
+        },
+      });
+      alert('提交成功');
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
+  };
+  
   return (
     <div className="relative h-screen overflow-hidden mt-16 md:mt-0">
       <Bgmain />
@@ -501,7 +552,7 @@ const Submission = () => {
               </div>
 
               {/* 表单 */}
-              <form className="max-w-md mx-auto p-4 w-full font-PingFangSC">
+              <form className="max-w-md mx-auto p-4 w-full font-PingFangSC" onSubmit={handleSubmit}>
                 {/* 邮箱 */}
                 <div className="flex text-white items-center w-4/5 h-10 mx-auto my-4 border-white border-1 rounded-xl rounded-t-xl">
                   <div className="flex items-center h-4/5 ml-1.5 border-r-3 border-border-primary opacity-30">
@@ -516,6 +567,8 @@ const Submission = () => {
                     name="email"
                     placeholder="邮箱"
                     className="w-full py-2 px-3 placeholder:font-normal placeholder:tracking-widest placeholder:opacity-50 focus:outline-none focus:ring-0 focus:border-transparent"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 {/* 电话 */}
@@ -532,6 +585,8 @@ const Submission = () => {
                     name="tel"
                     placeholder="电话"
                     className="w-full py-2 px-3 placeholder:font-normal placeholder:tracking-widest placeholder:opacity-50 border-none focus:outline-none focus:ring-0 focus:border-transparent"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
                   />
                 </div>
 
@@ -556,7 +611,7 @@ const Submission = () => {
                         color="#FF6A00"
                         className="inline-block"
                       />
-                      上传简历
+                      {selectedFile ? selectedFile.name : '上传简历'}
                     </label>
                   </div>
                   {/* 制作 */}
@@ -596,8 +651,8 @@ const Submission = () => {
           </div>
         </div>
       </div>
-      {selectedFile && (
-        <FilePreview file={selectedFile} onClose={handleClosePreview} />
+      {filePreview && selectedFile && (
+        <FilePreview file={selectedFile} onClose={handleClosePreview} onFileUrl={handleFileUrl} />
       )}
     </div>
   );

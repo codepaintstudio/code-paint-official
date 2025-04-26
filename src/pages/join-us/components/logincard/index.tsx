@@ -1,10 +1,66 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, FormEvent, ChangeEvent } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { Lock, Mail, Eye, EyeOff } from 'lucide-react';
+import {useNavigate} from 'react-router';
+import axios from 'axios';
+import { Lock, UserRound, Eye, EyeOff,ArrowLeft } from 'lucide-react';
+import {API_URL} from '@/const/index';
+// import { AxiosError } from 'axios';
+
 
 const LoginCard = () => {
   const [showPassword, setShowPassword] = useState(false);
+  // 表单状态管理
+  const [credentials, setCredentials] = useState({
+    username: '',
+    password: '',
+  });
+  const [errorMsg, setErrorMsg] = useState('');
+  const navigate = useNavigate();
+  // 处理输入变化
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setCredentials({ ...credentials, [name]: value });
+  };
+  // 处理表单提交
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setErrorMsg('');
+    try {
+      const response = await axios.post(
+        `${API_URL}/api/auth/login`,
+        {
+          userName: credentials.username,
+          userPassword: credentials.password,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+
+      if (response.data.success) {
+        // 存储双令牌
+        localStorage.setItem('access_token', response.data.data.access_token);
+        localStorage.setItem('refresh_token', response.data.data.refresh_token);
+        localStorage.setItem('userId', response.data.data.userId);
+        setErrorMsg('');
+        alert('登录成功');
+        navigate('/submission');
+      } else {
+        setErrorMsg(response.data.message || '登录失败');
+      }
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        if (err.response?.data?.code === 401) {
+          setErrorMsg('密码错误');
+        } else if (err.response?.data?.code === 500) {
+          setErrorMsg('该用户不存在');
+        }
+      }
+    }
+  };
   const titleRef = useRef(null);
   useGSAP(() => {
     gsap.from(titleRef.current, {
@@ -15,8 +71,10 @@ const LoginCard = () => {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+  
   return (
     <div>
+      {/* pc登录页面样式 */}
       <div className="hidden md:flex absolute top-1/8 left-1/8 bottom-1/8 right-1/8 justify-between bg-black py-1.5 pr-3 rounded-xl">
         {/* left */}
         <div className="w-1/2 h-full flex justify-center">
@@ -50,19 +108,22 @@ const LoginCard = () => {
             </div>
             {/* 表单 */}
 
-            <form className="w-3/5 mx-auto">
+            <form className="w-3/5 mx-auto" onSubmit={handleSubmit}>
               <p className="text-base font-semibold">登录以开始使用</p>
-              {/* 邮箱 */}
+              {/* 用户名 */}
               <div className="flex text-white items-center h-10 mx-auto my-4  border-white border-1 rounded-xl">
                 <div className="flex items-center h-4/5">
-                  {/* 信icon */}
-                  <Mail size={20} className="mx-2" />
+                  {/* 个人icon */}
+                  <UserRound size={20} className="mx-2" />
                 </div>
                 <input
-                  type="email"
-                  name="email"
-                  placeholder="电子邮件"
+                  type="text"
+                  name="username"
+                  placeholder="用户名"
                   className="w-full py-2 px-3 placeholder:opacity-60 placeholder:text-sm placeholder:tracking-widest placeholder:font-normal focus:outline-none focus:ring-0 focus:border-transparent"
+                  required
+                  value={credentials.username}
+                  onChange={handleInputChange}
                 />
               </div>
               {/* 密码 */}
@@ -76,6 +137,9 @@ const LoginCard = () => {
                   placeholder="密码"
                   className="w-full py-2 px-3 border-none placeholder:opacity-60 placeholder:text-sm placeholder:tracking-widest placeholder:font-normal focus:outline-none focus:ring-0 focus:border-transparent [&::-ms-reveal]:hidden [&::-ms-clear]:hidden"
                   autoComplete="new-password"
+                  required
+                  value={credentials.password}
+                  onChange={handleInputChange}
                 />
                 <div
                   className="flex items-center h-4/5 mr-2 cursor-pointer"
@@ -96,6 +160,9 @@ const LoginCard = () => {
                   value="登录"
                 />
               </div>
+              {errorMsg && (
+                <div className="text-xs text-red-500 mt-2 whitespace-pre-line text-center">{errorMsg}</div>
+              )}
             </form>
           </div>
           {/* 小药丸 */}
@@ -160,7 +227,10 @@ const LoginCard = () => {
         </div>
       </div>
       {/* 移动端注册页面样式 */}
-      <div className="md:hidden bg-b-secondary w-full h-screen  overflow-hidden">
+      <div className="md:hidden bg-b-secondary w-full h-screen overflow-hidden pt-6 pl-3">
+        <div>
+          <div onClick={() =>navigate(-1)} className="cursor-pointer hover:opacity-80 px-3 py-2 w-fit bg-white/15 rounded-2xl z-50"><ArrowLeft size={30} color="#fff" strokeWidth={2} /></div>
+        </div>
         <img
           src="/public/images/Login/cp.webp"
           alt="cp"
@@ -183,19 +253,22 @@ const LoginCard = () => {
             </div>
           </div>
           {/* 表单 */}
-          <form className="w-3/5 mx-auto">
-            <p className="text-base font-semibold">创建用户以开始使用</p>
-            {/* 邮箱 */}
+          <form className="w-3/5 mx-auto" onSubmit={handleSubmit}>
+            <p className="text-base font-semibold">登录以开始使用</p>
+            {/* 用户名 */}
             <div className="flex text-white items-center h-10 mx-auto my-4  border-white border-1 rounded-xl">
               <div className="flex items-center h-4/5">
                 {/* 信icon */}
-                <Mail size={20} color="#bdbdbe" className="mx-2" />
+                <UserRound size={20} color="#bdbdbe" className="mx-2" />
               </div>
               <input
-                type="email"
-                name="email"
-                placeholder="电子邮件"
+                type="text"
+                name="username"
+                placeholder="用户名"
                 className="w-full py-2 px-3 placeholder:opacity-60 placeholder:text-sm placeholder:tracking-widest placeholder:font-normal focus:outline-none focus:ring-0 focus:border-transparent"
+                required
+                value={credentials.username}
+                onChange={handleInputChange}
               />
             </div>
             {/* 密码 */}
@@ -209,6 +282,9 @@ const LoginCard = () => {
                 placeholder="密码"
                 className="w-full py-2 px-3 border-none placeholder:opacity-60 placeholder:text-sm placeholder:tracking-widest placeholder:font-normal focus:outline-none focus:ring-0 focus:border-transparent [&::-ms-reveal]:hidden [&::-ms-clear]:hidden"
                 autoComplete="new-password"
+                required
+                value={credentials.password}
+                onChange={handleInputChange}
               />
               <div
                 className="flex items-center h-4/5 mr-2 cursor-pointer"
@@ -229,10 +305,13 @@ const LoginCard = () => {
                 value="登录"
               />
             </div>
+            {errorMsg && (
+              <div className="text-xs text-red-500 mt-2 whitespace-pre-line text-center">{errorMsg}</div>
+            )}
           </form>
         </div>
         {/* 小药丸 */}
-        <div className="fixed bottom-0 flex w-full h-full mx-auto font-PingFangSC font-semibold text-xs text-center text-white/40">
+        <div className="fixed bottom-0 flex w-full h-1/2 mx-auto font-PingFangSC font-semibold text-xs text-center text-white/40">
           {/* 加入码绘 马上就会 */}
           <div
             className="absolute left-0 bottom-0 w-fit rounded-2xl px-3 p-2 border-white/20 border-[0.5px] scale-90 bg-radial to-white/25  from-font-tertiary/15 backdrop-blur-[15px]

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
-
+import axios from 'axios';
+import { API_URL } from '@/const';
 interface FilePreviewProps {
   file: File | null; // 接收文件作为属性
   onClose: () => void; // 关闭预览的回调
+  onFileUrl: (fileUrl: string) => void; // 上传文件的回调
 }
 
-const FilePreview: React.FC<FilePreviewProps> = ({ file, onClose }) => {
+const FilePreview: React.FC<FilePreviewProps> = ({ file, onClose, onFileUrl }) => {
   const [fileContent, setFileContent] = useState<string | null>(null);
 
   useEffect(() => {
@@ -26,6 +28,27 @@ const FilePreview: React.FC<FilePreviewProps> = ({ file, onClose }) => {
       }
     }
   }, [file]);
+
+  const handleUpload = async () => {
+    if (!file) return;
+    const formData = new FormData();
+    formData.append('file', file);
+    const access_token = localStorage.getItem('access_token'); // 假设token存储在localStorage中
+    try {
+      const response = await axios.post(`${ API_URL}/api/upload`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Authorization': `Bearer ${access_token}`,
+        },
+      });
+      const fileUrl = response.data.url;
+      console.log('File uploaded successfully:', fileUrl);
+      // 你可以在这里使用fileUrl，例如更新状态或显示在UI上
+      onFileUrl(fileUrl);
+    } catch (error) {
+      console.error('Error uploading file:', error);
+    }
+  };
 
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black/60 flex items-center justify-center z-50 font-PingFangSC">
@@ -72,6 +95,7 @@ const FilePreview: React.FC<FilePreviewProps> = ({ file, onClose }) => {
           <button
             className="bg-font-primary text-white w-20 h-10 rounded-[8px]"
             aria-label="确认文件无误"
+            onClick={onClose}
           >
             确认无误
           </button>

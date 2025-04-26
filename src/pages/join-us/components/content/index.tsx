@@ -1,8 +1,10 @@
 import { useState, useRef } from 'react';
 import { Keyboard, Palette, CalendarDays } from 'lucide-react';
-import LoginModal from '../login-modal/index';
+import LoginPop from '../login-pop/index';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import { isAuthenticated } from '../login-check/index';
+import { useNavigate } from 'react-router';
 
 const Content = () => {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -28,6 +30,7 @@ const Content = () => {
   const paragraph1Ref = useRef<HTMLDivElement>(null);
   const paragraph2Ref = useRef<HTMLDivElement>(null);
   const paragraph3Ref = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   useGSAP(() => {
     // 桌面端动画
@@ -479,8 +482,12 @@ const Content = () => {
     return bestLength;
   };
 
-  const handleLoginModal = () => {
-    setModalVisible(!isModalVisible);
+  const handleButtonClick = (recrType: number) => {
+    if (isAuthenticated()) {
+      navigate('/submission', { state: { recrType } });
+    } else {
+      setModalVisible(true);
+    }
   };
 
   return (
@@ -557,7 +564,7 @@ const Content = () => {
               <Keyboard color="#47484b" size={80} className="opacity-80" />
             </div>
             <button
-              onClick={handleLoginModal}
+              onClick={() => handleButtonClick(1)}
               className="absolute bottom-1/9 border-font-quaternary text-font-quaternary border-2 w-1/2 h-1/13 rounded-4xl cursor-pointer hover:opacity-80"
             >
               投递
@@ -603,7 +610,7 @@ const Content = () => {
               <Palette color="#47484b" size={80} className="opacity-80" />
             </div>
             <button
-              onClick={handleLoginModal}
+              onClick={() => handleButtonClick(2)}
               className="absolute bottom-1/9 border-font-quaternary text-font-quaternary border-2 w-1/2 h-1/13 rounded-4xl cursor-pointer hover:opacity-80"
             >
               投递
@@ -649,7 +656,7 @@ const Content = () => {
               <CalendarDays color="#47484b" size={100} className="opacity-80" />
             </div>
             <button
-              onClick={handleLoginModal}
+              onClick={() => handleButtonClick(3)}
               className="absolute bottom-1/9 border-font-quaternary text-font-quaternary border-2 w-1/2 h-1/13 rounded-4xl cursor-pointer hover:opacity-80"
             >
               投递
@@ -666,7 +673,7 @@ const Content = () => {
           </div>
         </div>
         {isModalVisible ? (
-          <LoginModal onClose={() => setModalVisible(false)} />
+          <LoginPop onClose={() => setModalVisible(false)} />
         ) : null}
       </div>
       {/* 移动端 */}
@@ -712,7 +719,7 @@ const Content = () => {
               />
 
               <button
-                onClick={handleLoginModal}
+                onClick={() => handleButtonClick(1)}
                 className="absolute right-4 bottom-4 border-font-quaternary text-font-quaternary border-1 w-20 h-8 rounded-lg text-sm z-20 cursor-pointer hover:opacity-80"
               >
                 投递
@@ -746,7 +753,7 @@ const Content = () => {
               />
 
               <button
-                onClick={handleLoginModal}
+                onClick={() => handleButtonClick(2)}
                 className="absolute left-4 bottom-4 border-font-quaternary text-font-quaternary border-1 w-20 h-8 rounded-lg text-sm cursor-pointer hover:opacity-80 z-50"
               >
                 投递
@@ -780,7 +787,7 @@ const Content = () => {
               />
 
               <button
-                onClick={handleLoginModal}
+                onClick={() => handleButtonClick(3)}
                 className="absolute right-4 bottom-4 border-font-quaternary text-font-quaternary border-1 w-20 h-8 rounded-lg text-sm cursor-pointer hover:opacity-80 z-50"
               >
                 投递
@@ -792,7 +799,7 @@ const Content = () => {
           </div>
         </div>
         {isModalVisible ? (
-          <LoginModal onClose={() => setModalVisible(false)} />
+          <LoginPop onClose={() => setModalVisible(false)} />
         ) : null}
       </div>
     </div>

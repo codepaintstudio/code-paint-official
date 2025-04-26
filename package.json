@@ -13,6 +13,7 @@
     "@gsap/react": "^2.1.2",
     "@tailwindcss/vite": "^4.0.8",
     "@types/lodash": "^4.17.16",
+    "axios": "^1.8.4",
     "gsap": "^3.12.7",
     "lodash": "^4.17.21",
     "lucide-react": "^0.483.0",

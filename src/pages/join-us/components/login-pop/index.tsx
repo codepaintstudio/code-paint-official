@@ -1,25 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
 
-interface LoginModalProps {
+interface LoginPopProps {
   onClose: () => void;
 }
-
-const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
+const LoginPop: React.FC<LoginPopProps> = ({ onClose }) => {
   const navigate = useNavigate();
-  const handleLogin = () => {
-    // 假设有一个函数 isAuthenticated() 用于检查用户是否已登录
-    const isAuthenticated = () => {
-      // 这里可以是检查用户登录状态的逻辑，比如检查 token 或 session
-      return Boolean(localStorage.getItem('userToken'));
-    };
-
-    if (isAuthenticated()) {
-      navigate('/submission');
-    } else {
-      navigate('/register');
-    }
-  };
 
   return (
     <>
@@ -75,7 +61,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
             您未登录
           </p>
           <button
-            onClick={handleLogin}
+            onClick={() => navigate('/register')}
             className="bg-font-primary text-white tracking-wider rounded-lg w-24 h-9 cursor-pointer hover:opacity-80"
           >
             登录
@@ -86,4 +72,4 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
   );
 };
 
-export default LoginModal;
+export default LoginPop;
