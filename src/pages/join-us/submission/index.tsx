@@ -34,6 +34,7 @@ const Submission = () => {
   
   const handleFileUrl = (fileUrl: string) => {
     setFileUrl(fileUrl);
+    // console.log('文件地址', fileUrl);
   };
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -430,16 +431,46 @@ const Submission = () => {
   // 添加状态来存储表单数据
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [phoneError, setPhoneError] = useState('');
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setPhone(value);
+    if (value && !validatePhone(value)) {
+      setPhoneError('请输入有效的手机号');
+    } else {
+      setPhoneError('');
+    }
+  };
+
+  const validatePhone = (phone: string) => {
+    // 中国大陆手机号正则
+    return /^1[3-9]\d{9}$/.test(phone);
+  };
 
   // 处理表单提交
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); // 阻止默认表单提交行为
-    
+    event.preventDefault();
+
+    // 邮箱和手机号已由 input 的 required 校验
+    if (!fileUrl) {
+      alert('请上传简历');
+      return;
+    }
+    // if (!validatePhone(phone)) {
+    //   setPhoneError('请输入有效的手机号');
+    //   return;
+    // }
+
     const access_token = localStorage.getItem('access_token'); // 假设token存储在localStorage中
     const userId = localStorage.getItem('userId'); // 从localStorage中获取userId
     console.log(userId,email,phone,recrType);
     if (!userId) {
       console.error('User ID not found');
+      return;
+    }
+    if (typeof recrType === 'undefined') {
+      alert('上传异常，请返回');
       return;
     }
    
@@ -449,7 +480,7 @@ const Submission = () => {
         email,
         phone,
         recrType,
-        resumeFilePath: 'http://sudn75g3f.hd-bkt.clouddn.com/前端开发_邓军辉.pdf',
+        resumeFilePath: fileUrl,
       }, {
         headers: {
           'Content-Type': 'application/json',
@@ -468,7 +499,7 @@ const Submission = () => {
       {/* 黑线条 */}
       <div
         ref={svgContainerRef}
-        className="hidden md:block absolute w-screen top-1/7 z-30 opacity-0"
+        className="hidden md:block absolute w-screen top-1/7 opacity-0"
       >
         <svg
           className="w-full"
@@ -569,10 +600,11 @@ const Submission = () => {
                     className="w-full py-2 px-3 placeholder:font-normal placeholder:tracking-widest placeholder:opacity-50 focus:outline-none focus:ring-0 focus:border-transparent"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    required
                   />
                 </div>
                 {/* 电话 */}
-                <div className="flex text-white items-center w-4/5 h-10 mx-auto my-4  border-white border-1 rounded-xl [image-rendering:crisp-edges]">
+                <div className="flex text-white items-center w-4/5 h-10 mx-auto mt-4  border-white border-1 rounded-xl [image-rendering:crisp-edges]">
                   <div className="flex items-center h-4/5 ml-1.5 border-r-3 border-border-primary opacity-30">
                     <Phone
                       size={24}
@@ -586,12 +618,15 @@ const Submission = () => {
                     placeholder="电话"
                     className="w-full py-2 px-3 placeholder:font-normal placeholder:tracking-widest placeholder:opacity-50 border-none focus:outline-none focus:ring-0 focus:border-transparent"
                     value={phone}
+                    onBlur={handlePhoneChange}
                     onChange={(e) => setPhone(e.target.value)}
+                    required
                   />
                 </div>
+                {phoneError && <div className="text-red-500 text-xs mt-1 text-center">{phoneError}</div>}
 
                 {/* 上传 制作 */}
-                <div className="flex items-center justify-between text-font-quaternary w-3/5 mx-auto font-medium tracking-wider text-xs md:text-base text-nowrap">
+                <div className="flex items-center justify-between text-font-quaternary mt-4 w-3/5 mx-auto font-medium tracking-wider text-xs md:text-base text-nowrap">
                   {/* 上传 */}
                   <div>
                     <input
@@ -636,7 +671,7 @@ const Submission = () => {
                   <input
                     type="submit"
                     value="提交"
-                    className="w-full h-10 bg-font-primary mt-5 md:mt-12 text-white font-bold py-2 px-4 rounded-b-xl rounded-t-xl text-xs md:text-base"
+                    className="w-full h-10 bg-font-primary mt-5 md:mt-12 text-white font-bold py-2 px-4 rounded-b-xl rounded-t-xl cursor-pointer text-xs md:text-base"
                   />
                 </div>
               </form>

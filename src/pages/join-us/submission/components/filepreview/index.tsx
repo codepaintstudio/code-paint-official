@@ -30,21 +30,23 @@ const FilePreview: React.FC<FilePreviewProps> = ({ file, onClose, onFileUrl }) =
   }, [file]);
 
   const handleUpload = async () => {
+    onClose();
     if (!file) return;
     const formData = new FormData();
     formData.append('file', file);
     const access_token = localStorage.getItem('access_token'); // 假设token存储在localStorage中
     try {
-      const response = await axios.post(`${ API_URL}/api/upload`, formData, {
+      const response = await axios.post(`${API_URL}/api/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${access_token}`,
         },
       });
-      const fileUrl = response.data.url;
-      console.log('File uploaded successfully:', fileUrl);
+      const fileUrl = response.data.data.url;
+    
+      // console.log('File uploaded successfully:', fileUrl,response);
       // 你可以在这里使用fileUrl，例如更新状态或显示在UI上
-      onFileUrl(fileUrl);
+      onFileUrl(`${API_URL}${fileUrl}`);
     } catch (error) {
       console.error('Error uploading file:', error);
     }
@@ -78,7 +80,7 @@ const FilePreview: React.FC<FilePreviewProps> = ({ file, onClose, onFileUrl }) =
         {/* 按钮 */}
         <div className="w-2xs flex justify-between text-sm  mt-20 md:mt-0">
           <button
-            className="bg-font-primary text-white w-20 h-10 rounded-[8px]"
+            className="bg-font-primary text-white w-20 h-10 rounded-[8px] cursor-pointer"
             aria-label="重传文件预览"
             onClick={() => {
               // 触发文件重新上传
@@ -93,9 +95,9 @@ const FilePreview: React.FC<FilePreviewProps> = ({ file, onClose, onFileUrl }) =
             重新上传
           </button>
           <button
-            className="bg-font-primary text-white w-20 h-10 rounded-[8px]"
+            className="bg-font-primary text-white w-20 h-10 rounded-[8px] cursor-pointer"
             aria-label="确认文件无误"
-            onClick={onClose}
+            onClick={handleUpload}
           >
             确认无误
           </button>

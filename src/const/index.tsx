@@ -1,1 +1,1 @@
-export const API_URL = 'http://47.109.193.161:8543';
+export const API_URL = 'https://cp-center-server.hub.feashow.cn';
