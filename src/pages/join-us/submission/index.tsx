@@ -464,7 +464,7 @@ const Submission = () => {
 
     const access_token = localStorage.getItem('access_token'); // 假设token存储在localStorage中
     const userId = localStorage.getItem('userId'); // 从localStorage中获取userId
-    console.log(userId,email,phone,recrType);
+    // console.log(userId,email,phone,recrType);
     if (!userId) {
       console.error('User ID not found');
       return;
