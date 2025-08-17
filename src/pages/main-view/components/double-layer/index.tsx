@@ -24,10 +24,7 @@ interface ImageState {
 
 const View = () => {
   // 检测是否是首次访问
-  const isFirstVisit = !sessionStorage.getItem("hasVisited");
-  const [isGlobalFlipped, setIsGlobalFlipped] = useState<boolean>(
-    !isFirstVisit
-  );
+  const [isGlobalFlipped, setIsGlobalFlipped] = useState<boolean>();
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
   const [images, setImages] = useState<ImageState>({ front: null, back: null });
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -38,47 +35,6 @@ const View = () => {
   const rollRef = useRef<HTMLDivElement | null>(null);
   const CENTER = { x: 2.5, y: 2.5 };
   const navigate = useNavigate();
-
-  // 标记用户已访问过，并处理非首次访问的逻辑
-  useEffect(() => {
-    sessionStorage.setItem("hasVisited", "true");
-
-    // 如果不是首次访问，等待组件挂载完成后自动滚动到主页
-    if (!isFirstVisit) {
-      const timer = setTimeout(() => {
-        if (mainViewRef.current) {
-          mainViewRef.current.scrollIntoView({ behavior: "smooth" });
-        }
-      }, 500); // 给组件一些时间完成渲染
-
-      return () => clearTimeout(timer);
-    }
-  }, [isFirstVisit]);
-
-  // 初始化瓦片状态（非首次访问时直接设置为翻转状态）
-  useEffect(() => {
-    if (!isFirstVisit && images.front && images.back) {
-      // 直接设置所有瓦片为翻转状态，无动画
-      tilesRef.current.forEach((tile) => {
-        if (tile) {
-          gsap.set(tile, { rotateX: 180 });
-        }
-      });
-
-      // 设置按钮和滚动元素的状态
-      if (btnRef.current) {
-        gsap.set(btnRef.current, {
-          opacity: 1,
-          scale: 1.05,
-          pointerEvents: "auto",
-        });
-      }
-
-      if (rollRef.current) {
-        gsap.set(rollRef.current, { opacity: 1 });
-      }
-    }
-  }, [isFirstVisit, images]);
 
   const handleBtnHover = useCallback(
     (isHover: boolean) => {
