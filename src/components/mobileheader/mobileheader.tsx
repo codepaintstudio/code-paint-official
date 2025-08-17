@@ -1,5 +1,6 @@
-import { NavLink } from 'react-router';
-import { useState } from 'react';
+import { NavLink } from "react-router";
+import { useState } from "react";
+import mobilecp from "@/assets/mainview/mobile-cp.webp";
 
 const MobileHeader = () => {
   // 移动端菜单
@@ -18,7 +19,7 @@ const MobileHeader = () => {
           <div className="flex items-center">
             <img
               className="w-13 h-13 bg-contain bg-no-repeat"
-              src="/public/images/mainview/mobile-cp.webp"
+              src={mobilecp}
               alt="cp"
             />
             <div className="display flex flex-col text-white ml-2">
@@ -34,17 +35,17 @@ const MobileHeader = () => {
           >
             <span
               className={`w-5 border border-white rounded-xl transition-transform ${
-                isMenuOpen ? 'rotate-45 translate-y-[5.5px]' : ''
+                isMenuOpen ? "rotate-45 translate-y-[5.5px]" : ""
               }`}
             />
             <span
               className={`w-5 border border-white rounded-xl transition-opacity ${
-                isMenuOpen ? 'opacity-0' : ''
+                isMenuOpen ? "opacity-0" : ""
               }`}
             />
             <span
               className={`w-5 border border-white rounded-xl transition-transform ${
-                isMenuOpen ? '-rotate-45 -translate-y-[5.5px]' : ''
+                isMenuOpen ? "-rotate-45 -translate-y-[5.5px]" : ""
               }`}
             />
           </button>
@@ -53,13 +54,13 @@ const MobileHeader = () => {
       {/* 背景遮罩 */}
       <div
         className={`fixed inset-0 bg-black bg-opacity-50 z-20 transition-opacity duration-300 ${
-          isMenuOpen ? 'opacity-30' : 'opacity-0 pointer-events-none'
+          isMenuOpen ? "opacity-30" : "opacity-0 pointer-events-none"
         }`}
         onClick={toggleMenu}
       />
       <div
         className={`h-screen fixed right-0 bg-[#6C82C8] text-lg z-30 w-1/2 top-0 transition-transform duration-300 ease-in-out ${
-          isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+          isMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         <div className="flex flex-col items-start mt-14 h-full text-white space-y-8">
@@ -69,13 +70,6 @@ const MobileHeader = () => {
             onClick={toggleMenu}
           >
             首页
-          </NavLink>
-          <NavLink
-            className="border-t w-full border-gray-200 pl-4 py-4 mb-0 hover:bg-blue-primary hover:text-white flex items-center"
-            to="/activity"
-            onClick={toggleMenu}
-          >
-            活动中心
           </NavLink>
           <NavLink
             className="border-t w-full border-gray-200 pl-4 py-4 mb-0 hover:bg-blue-primary hover:text-white flex items-center"
