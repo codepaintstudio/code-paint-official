@@ -7,20 +7,20 @@ const Index = () => {
       index: 0,
       title: "前端",
       img: cp,
-      description: "前端",
+      description: "基于现代Web技术栈，构建高性能、跨平台的用户界面应用，涵盖Web、移动端和桌面端开发",
     },
     {
       index: 1,
       title: "UI",
       img: cp,
       description:
-        "无界软创UI组由UI方向负责老师领队，团队制定完善的学习路线与专业规划，以提高艺术审美、提前培养相关技术人才为宗旨。望广纳优秀同学，共享优质资源。",
+        "以用户为中心的界面设计，创造美观易用的数字产品体验，提升用户满意度和品牌价值",
     },
     {
       index: 2,
       title: "工作室",
       img: cp,
-      description: "工作室",
+      description: "通过智能化工具和流程优化，提升办公效率，减少重复性工作，实现数字化办公转型",
     },
   ];
   return (
