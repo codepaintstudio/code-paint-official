@@ -1,28 +1,56 @@
+import { forwardRef } from 'react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import CoverInside from './components/cover-inside/index';
-import CoverOutside from './components/cover-outside/index';
-import Header from '@/components/header';
+import Header from '@/components/header/index';
 import About from '@/pages/main-view/components/about';
 import TechnologyPage from '@/pages/main-view/components/techology';
 import ScoreDisplay from '@/pages/main-view/components/score-display';
 import FrameworkPage from '@/pages/main-view/components/studio-framework';
+import MobileHome from '@/pages/main-view/components/mobile-home';
+import MobileHeader from '@/components/mobileheader/mobileheader';
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const MainView = () => {
+const MainView = forwardRef<HTMLDivElement, unknown>((_props, ref) => {
+  useGSAP(() => {
+    const mm = gsap.matchMedia();
+
+    mm.add('(min-width: 768px)', () => {
+      gsap.to('body', {
+        backgroundColor: '#000000',
+        ease: 'power1.out',
+        immediateRender: true,
+        scrollTrigger: {
+          trigger: '.score-section',
+          start: '20% bottom',
+          end: 'top top',
+          toggleActions: 'play none none reverse',
+          scrub: 0.5,
+          // markers: true,
+        },
+      });
+    });
+  }, []);
+
   return (
-    <>
-
-      <CoverOutside />
-      <CoverInside />
+    <div
+      ref={ref}
+      onMouseEnter={() => {
+        document.body.style.overflow = 'auto';
+      }}
+    >
+      <MobileHeader />
       <Header />
+      <MobileHome />
       <About />
       <TechnologyPage />
-      <ScoreDisplay />
-      <FrameworkPage />
-    </>
+      <div className="score-section">
+        <ScoreDisplay />
+        <FrameworkPage />
+      </div>
+    </div>
   );
-};
+});
 
 export default MainView;
