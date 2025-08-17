@@ -1,11 +1,9 @@
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 import { Keyboard, Palette, CalendarDays } from 'lucide-react';
-import LoginModal from '../login-modal/index';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 
 const Content = () => {
-  const [isModalVisible, setModalVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const svgRef1 = useRef<SVGSVGElement>(null);
   const boxRef1 = useRef<HTMLDivElement>(null);
@@ -479,8 +477,17 @@ const Content = () => {
     return bestLength;
   };
 
-  const handleLoginModal = () => {
-    setModalVisible(!isModalVisible);
+  const handleEmailSubmit = () => {
+    // 直接打开邮件应用
+    const mailtoUrl = 'mailto:wujieruanchuang@163.com?subject=简历投递&body=您好，我想投递简历加入码绘工作室。%0D%0A%0D%0A期待您的回复！';
+    
+    // 创建隐藏链接来触发邮件应用
+    const link = document.createElement('a');
+    link.href = mailtoUrl;
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -499,10 +506,10 @@ const Content = () => {
       </div>
       <div className="p-20 md:p-0 w-full mx-auto text-center flex flex-col items-center text-sm font-thin">
         <p ref={paragraph1Ref} className="leading-6 md:p-2.5">
-          展示可投递岗位和岗位内容简介展示可投递岗位和岗位内
+          加入码绘工作室，与我们一起创造精彩的数字世界
         </p>
         <p ref={paragraph2Ref} className="hidden md:block md:p-2.5">
-          容简介展示可投递容简介简介
+          我们诚邀有才华的你成为团队的一员
         </p>
       </div>
       {/* 桌面端样式 */}
@@ -550,14 +557,14 @@ const Content = () => {
             <div className="text-center text-xs/7">
               <p className="text-4xl mb-6 text-white">前端</p>
               <p className="opacity-50">
-                展示可投递岗位和岗位内容简介展示可投递岗位和岗位内容简介展示可投递岗位和岗位内容简介展示可投递岗位和岗
+                负责前端产品开发，使用现代框架构建用户界面，提供优质的用户体验和交互设计
               </p>
             </div>
             <div>
               <Keyboard color="#47484b" size={80} className="opacity-80" />
             </div>
             <button
-              onClick={handleLoginModal}
+              onClick={handleEmailSubmit}
               className="absolute bottom-1/9 border-font-quaternary text-font-quaternary border-2 w-1/2 h-1/13 rounded-4xl cursor-pointer hover:opacity-80"
             >
               投递
@@ -569,7 +576,7 @@ const Content = () => {
             className="absolute flex items-center top-0 left-0 px-4 w-full h-full bg-font-primary rounded-tr-4xl text-xs/7"
           >
             <p className="text-center opacity-50">
-              展示可投递岗位和岗位内容简介展示可投递岗位和岗位内容简介展示可投递岗位和岗位内容简介展示可投递岗位和岗
+              我们寻找熟悉React、Vue等主流框架的前端开发者，与设计师紧密合作，将创意转化为优秀的数字产品
             </p>
           </div>
         </div>
@@ -596,14 +603,14 @@ const Content = () => {
             <div className="text-center text-xs/7">
               <p className="text-4xl mb-6 text-white">UI</p>
               <p className="opacity-50">
-                展示可投递岗位和岗位内容简介展示可投递岗位和岗位内容简介展示可投递岗位和岗位内容简介展示可投递岗位和岗
+                负责产品界面设计，创造美观易用的用户界面，提升产品的视觉体验和品牌价值
               </p>
             </div>
             <div>
               <Palette color="#47484b" size={80} className="opacity-80" />
             </div>
             <button
-              onClick={handleLoginModal}
+              onClick={handleEmailSubmit}
               className="absolute bottom-1/9 border-font-quaternary text-font-quaternary border-2 w-1/2 h-1/13 rounded-4xl cursor-pointer hover:opacity-80"
             >
               投递
@@ -615,7 +622,7 @@ const Content = () => {
             className="absolute flex items-center top-0 left-0 w-full h-full px-4 bg-font-primary rounded-tr-4xl text-xs/7"
           >
             <p className="text-center opacity-50">
-              展示可投递岗位和岗位内容简介展示可投递岗位和岗位内容简介展示可投递岗位和岗位内容简介展示可投递岗位和岗
+              我们需要具有创新思维的UI设计师，熟练使用Figma、Sketch等设计工具，能够准确理解用户需求并转化为视觉设计
             </p>
           </div>
         </div>
@@ -637,19 +644,19 @@ const Content = () => {
               {''}
             </div>
             <div className="absolute top-9 left-1 text-xs text-white tracking-wider">
-              OFFICE
+              OPERATION
             </div>
             <div className="text-center text-xs/7">
-              <p className="text-4xl mb-6 text-white">办公室</p>
+              <p className="text-4xl mb-6 text-white">运营</p>
               <p className="opacity-50">
-                展示可投递岗位和岗位内容简介展示可投递岗位和岗位内容简介展示可投递岗位和岗位内容简介展示可投递岗位和岗
+                负责工作室日常运营管理，协调项目进度，维护客户关系，推动业务发展
               </p>
             </div>
             <div className="scale-75">
               <CalendarDays color="#47484b" size={100} className="opacity-80" />
             </div>
             <button
-              onClick={handleLoginModal}
+              onClick={handleEmailSubmit}
               className="absolute bottom-1/9 border-font-quaternary text-font-quaternary border-2 w-1/2 h-1/13 rounded-4xl cursor-pointer hover:opacity-80"
             >
               投递
@@ -661,13 +668,10 @@ const Content = () => {
             className="absolute flex items-center top-0 left-0 w-full h-full px-4 bg-font-primary rounded-tr-4xl text-xs/7"
           >
             <p className="text-center opacity-50">
-              展示可投递岗位和岗位内容简介展示可投递岗位和岗位内容简介展示可投递岗位和岗位内容简介展示可投递岗位和岗
+              我们寻找具有良好沟通能力和项目管理经验的运营人才，能够统筹协调各部门工作，确保项目顺利推进
             </p>
           </div>
         </div>
-        {isModalVisible ? (
-          <LoginModal onClose={() => setModalVisible(false)} />
-        ) : null}
       </div>
       {/* 移动端 */}
       <div className="md:hidden">
@@ -701,7 +705,7 @@ const Content = () => {
               <div className="flex justify-between items-center text-center text-sm px-1 py-4 pb-12 h-full w-full z-10">
                 <p className="text-4xl text-white pl-3">前端</p>
                 <p className="opacity-50 text-font-tertiary font-semibold w-2/3 self-start leading-5 tracking-widest text-left ">
-                  展示可投递岗位和岗位内容简介展示可投递岗位和岗位内容简介展示可投递岗位和岗位内容简介展示可投递岗位和岗
+                  负责前端产品开发，使用现代框架构建用户界面，提供优质的用户体验
                 </p>
               </div>
 
@@ -712,7 +716,7 @@ const Content = () => {
               />
 
               <button
-                onClick={handleLoginModal}
+                onClick={handleEmailSubmit}
                 className="absolute right-4 bottom-4 border-font-quaternary text-font-quaternary border-1 w-20 h-8 rounded-lg text-sm z-20 cursor-pointer hover:opacity-80"
               >
                 投递
@@ -734,7 +738,7 @@ const Content = () => {
 
               <div className="flex justify-between items-center text-center text-sm py-4 pb-12 h-full w-full z-10">
                 <p className="opacity-50 text-font-tertiary font-semibold w-2/3 self-start p-0 ml-4 leading-5 tracking-widest text-left ">
-                  展示可投递岗位和岗位内容简介展示可投递岗位和岗位内容简介展示可投递岗位和岗位内容简介展示可投递岗位和岗
+                  负责产品界面设计，创造美观易用的用户界面，提升产品视觉体验
                 </p>
                 <p className="font-medium text-6xl text-white pr-3">UI</p>
               </div>
@@ -746,7 +750,7 @@ const Content = () => {
               />
 
               <button
-                onClick={handleLoginModal}
+                onClick={handleEmailSubmit}
                 className="absolute left-4 bottom-4 border-font-quaternary text-font-quaternary border-1 w-20 h-8 rounded-lg text-sm cursor-pointer hover:opacity-80 z-50"
               >
                 投递
@@ -767,9 +771,9 @@ const Content = () => {
               />
 
               <div className="flex justify-between items-center text-center text-sm px-1 py-4 pb-12 h-full w-full z-10">
-                <p className="text-4xl text-white pl-8 vertical-text tracking-wide font-medium">办公室</p>
+                <p className="text-4xl text-white pl-8 vertical-text tracking-wide font-medium">运营</p>
                 <p className="opacity-50 text-font-tertiary font-semibold w-2/3 self-start leading-5 tracking-widest text-left ">
-                  展示可投递岗位和岗位内容简介展示可投递岗位和岗位内容简介展示可投递岗位和岗位内容简介展示可投递岗位和岗
+                  负责工作室日常运营管理，协调项目进度，维护客户关系
                 </p>
               </div>
 
@@ -780,7 +784,7 @@ const Content = () => {
               />
 
               <button
-                onClick={handleLoginModal}
+                onClick={handleEmailSubmit}
                 className="absolute right-4 bottom-4 border-font-quaternary text-font-quaternary border-1 w-20 h-8 rounded-lg text-sm cursor-pointer hover:opacity-80 z-50"
               >
                 投递
@@ -791,9 +795,6 @@ const Content = () => {
             <div className="absolute flex justify-between px-4 w-4/5 h-44 bg-font-primary rounded-md origin-top-left rotate-3  -translate-y-2" />
           </div>
         </div>
-        {isModalVisible ? (
-          <LoginModal onClose={() => setModalVisible(false)} />
-        ) : null}
       </div>
     </div>
   );

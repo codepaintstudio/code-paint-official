@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+
+# 主要页面
+Allow: /
+Allow: /products
+Allow: /join
+Allow: /about
+Allow: /mainview
+
+# 静态资源
+Allow: /images/
+Allow: /svg/
+Allow: /fonts/
+
+# 禁止访问的路径
+Disallow: /src/
+Disallow: /node_modules/
+Disallow: /*.json$
+Disallow: /*.js.map$
+
+# 站点地图
+Sitemap: https://cp.hub.feashow.cn/sitemap.xml
+
+# 爬取延迟（可选）
+Crawl-delay: 1

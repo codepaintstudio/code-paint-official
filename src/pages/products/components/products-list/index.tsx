@@ -1,4 +1,4 @@
-import Lists from '../lists/index';
+import Lists from "../lists/index";
 
 interface ProductsListProps {
   setProductItemRef?: (el: HTMLDivElement | null, index: number) => void;
@@ -21,7 +21,7 @@ const ProductsList = ({ setProductItemRef }: ProductsListProps) => {
                   <img
                     src={product.logo}
                     alt={`${product.title} logo`}
-                    className="w-full h-full object-cover rounded-full"
+                    className="w-full h-full object-contain rounded-full"
                   />
                 </div>
                 {/* 产品信息 */}
@@ -32,7 +32,7 @@ const ProductsList = ({ setProductItemRef }: ProductsListProps) => {
                   <p className=" my-6 text-base font-medium leading-6 break-words">
                     {product.description}
                   </p>
-                  <a href={product.link} className="text-font-primary">
+                  <a href={product.link} target="_blank" className="text-font-primary">
                     了解更多
                   </a>
                 </div>
@@ -41,7 +41,7 @@ const ProductsList = ({ setProductItemRef }: ProductsListProps) => {
                 <img
                   src={product.image}
                   alt={product.title}
-                  className="w-full h-full object-cover rounded-2xl"
+                  className="w-full h-full object-contain rounded-2xl"
                 />
               </div>
             </>
@@ -51,7 +51,7 @@ const ProductsList = ({ setProductItemRef }: ProductsListProps) => {
                 <img
                   src={product.image}
                   alt={product.title}
-                  className="w-full h-full object-cover rounded-2xl"
+                  className="w-full h-full object-contain rounded-2xl"
                 />
               </div>
               {/* logo 与文字 */}
@@ -60,7 +60,7 @@ const ProductsList = ({ setProductItemRef }: ProductsListProps) => {
                   <img
                     src={product.logo}
                     alt={`${product.title} logo`}
-                    className="w-full h-full object-cover rounded-full"
+                    className="w-full h-full object-contain rounded-full"
                   />
                 </div>
                 {/* 产品信息 */}
@@ -88,7 +88,7 @@ const ProductsList = ({ setProductItemRef }: ProductsListProps) => {
               <img
                 src={product.logo}
                 alt={`${product.title} logo`}
-                className="w-full h-full object-cover rounded-full"
+                className="w-full h-full object-contain rounded-full"
               />
             </div>
             <div className="font-medium tracking-wide mx-4 leading-11">
@@ -99,7 +99,7 @@ const ProductsList = ({ setProductItemRef }: ProductsListProps) => {
             <img
               src={product.image}
               alt={product.title}
-              className="w-full h-full object-cover rounded-xl"
+              className="w-full h-full object-contain rounded-xl"
             />
           </div>
           <div className="w-full text-sm">{product.description}</div>

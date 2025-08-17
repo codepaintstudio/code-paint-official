@@ -1,12 +1,13 @@
-import Header from '@/components/header/index';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import ScrollTrigger from 'gsap/ScrollTrigger';
-import { useRef, useEffect, useCallback, useState } from 'react';
-import ProductsList from './components/products-list';
-import Lists from './components/lists';
-import ScrollBar from '@/pages/products/components/ScrollBar';
-import MobileHeader from '@/components/mobileheader/mobileheader';
+import Header from "@/components/header/index";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+import { useRef, useEffect, useCallback, useState } from "react";
+import ProductsList from "./components/products-list";
+import Lists from "./components/lists";
+import ScrollBar from "@/pages/products/components/ScrollBar";
+import MobileHeader from "@/components/mobileheader/mobileheader";
+import SEO from "@/components/SEO";
 const Products = () => {
   gsap.registerPlugin(useGSAP);
   gsap.registerPlugin(ScrollTrigger);
@@ -95,14 +96,14 @@ const Products = () => {
     if (!productElement) return;
 
     // 添加滚动事件监听
-    productElement.addEventListener('scroll', handleScroll);
+    productElement.addEventListener("scroll", handleScroll);
 
     // 页面加载时初始化一次滚动条位置
     setTimeout(handleScroll, 100);
 
     // 组件卸载时移除监听
     return () => {
-      productElement.removeEventListener('scroll', handleScroll);
+      productElement.removeEventListener("scroll", handleScroll);
       if (scrollingTimerRef.current) {
         window.clearTimeout(scrollingTimerRef.current);
       }
@@ -113,24 +114,24 @@ const Products = () => {
   useGSAP(() => {
     // 文本动画
     gsap.from(titleRef.current, {
-      text: '',
+      text: "",
       duration: 1.5,
     });
 
     gsap.from(paragraph1Ref.current, {
-      text: '',
+      text: "",
       duration: 1.5,
       delay: 1.5,
     });
 
     gsap.from(paragraph2Ref.current, {
-      text: '',
+      text: "",
       duration: 3,
       delay: 3,
     });
 
     gsap.from(paragraph3Ref.current, {
-      text: '',
+      text: "",
       duration: 2,
       delay: 6,
     });
@@ -140,47 +141,74 @@ const Products = () => {
       y: 20,
       x: 10,
       duration: 3,
-      ease: 'sine.inOut',
+      ease: "sine.inOut",
       yoyo: true,
       repeat: -1,
       repeatRefresh: true,
     });
 
     // 添加滚动文本动画
-    gsap.to('.marquee-container', {
-      x: '-50%',
+    gsap.to(".marquee-container", {
+      x: "-50%",
       duration: 15,
-      ease: 'linear',
+      ease: "linear",
       repeat: -1,
     });
 
     // 为SVG背景添加飘动效果
-    gsap.to('.floating-svg', {
+    gsap.to(".floating-svg", {
       y: 15,
       x: 5,
       duration: 5,
-      ease: 'sine.inOut',
+      ease: "sine.inOut",
       yoyo: true,
       repeat: -1,
     });
 
     // 为SVG路径添加轻微变形效果
-    gsap.to('.floating-path', {
+    gsap.to(".floating-path", {
       scale: 1.03,
       opacity: 0.08,
       duration: 4,
-      ease: 'power1.inOut',
+      ease: "power1.inOut",
       yoyo: true,
       repeat: -1,
-      transformOrigin: 'center center',
+      transformOrigin: "center center",
     });
   }, []);
 
   // 获取当前产品信息
   const currentProduct = Lists[currentProductIndex] || null;
 
+  const productsStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: "产品服务 - CodePaint码绘",
+    description:
+      "CodePaint码绘工作室的产品服务展示，包括网站开发、移动应用、数据分析、邮件群发等数字化解决方案",
+    url: "https://cp.hub.feashow.cn/products",
+    mainEntity: {
+      "@type": "ItemList",
+      name: "CodePaint产品服务",
+      numberOfItems: Lists.length,
+      itemListElement: Lists.map((product, index) => ({
+        "@type": "Product",
+        position: index + 1,
+        name: product.title,
+        description: product.description,
+      })),
+    },
+  };
+
   return (
     <div className="h-screen font-PingFangSC mt-16 md:mt-0">
+      <SEO
+        title="产品服务 - CodePaint码绘 | 专业数字化解决方案"
+        description="CodePaint码绘工作室提供专业的数字化产品服务，包括网站开发、移动应用开发、数据分析、邮件群发等一站式解决方案，助力企业数字化转型。"
+        keywords="CodePaint产品,网站开发,移动应用,数据分析,邮件群发,数字化解决方案,企业服务,软件开发,码绘产品"
+        ogUrl="https://cp.hub.feashow.cn/products"
+        structuredData={productsStructuredData}
+      />
       <MobileHeader />
       <Header />
       {/* 产品介绍区域 */}

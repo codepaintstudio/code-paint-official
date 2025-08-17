@@ -1,13 +1,14 @@
-import { useCallback, useEffect, useRef, useState, useMemo } from 'react';
-import { gsap } from 'gsap';
-import CustomEase from 'gsap/CustomEase';
-import { useNavigate } from 'react-router';
-import MainView from '@/pages/main-view/index';
-import MouseFollowing from '@/pages/main-view/components/mousefollowing';
+import { useCallback, useEffect, useRef, useState, useMemo } from "react";
+import { gsap } from "gsap";
+import CustomEase from "gsap/CustomEase";
+import { useNavigate } from "react-router";
+import MainView from "@/pages/main-view/index";
+import MouseFollowing from "@/pages/main-view/components/mousefollowing";
+import SEO from "@/components/SEO";
 
 // 注册自定义缓动曲线（需在组件外初始化）
 gsap.registerPlugin(CustomEase);
-CustomEase.create('smoothEase', '0.4,0,0.2,1');
+CustomEase.create("smoothEase", "0.4,0,0.2,1");
 
 interface ImagePaths {
   FRONT: string;
@@ -22,7 +23,11 @@ interface ImageState {
 }
 
 const View = () => {
-  const [isGlobalFlipped, setIsGlobalFlipped] = useState<boolean>(false);
+  // 检测是否是首次访问
+  const isFirstVisit = !sessionStorage.getItem("hasVisited");
+  const [isGlobalFlipped, setIsGlobalFlipped] = useState<boolean>(
+    !isFirstVisit
+  );
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
   const [images, setImages] = useState<ImageState>({ front: null, back: null });
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -34,6 +39,46 @@ const View = () => {
   const CENTER = { x: 2.5, y: 2.5 };
   const navigate = useNavigate();
 
+  // 标记用户已访问过，并处理非首次访问的逻辑
+  useEffect(() => {
+    sessionStorage.setItem("hasVisited", "true");
+
+    // 如果不是首次访问，等待组件挂载完成后自动滚动到主页
+    if (!isFirstVisit) {
+      const timer = setTimeout(() => {
+        if (mainViewRef.current) {
+          mainViewRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 500); // 给组件一些时间完成渲染
+
+      return () => clearTimeout(timer);
+    }
+  }, [isFirstVisit]);
+
+  // 初始化瓦片状态（非首次访问时直接设置为翻转状态）
+  useEffect(() => {
+    if (!isFirstVisit && images.front && images.back) {
+      // 直接设置所有瓦片为翻转状态，无动画
+      tilesRef.current.forEach((tile) => {
+        if (tile) {
+          gsap.set(tile, { rotateX: 180 });
+        }
+      });
+
+      // 设置按钮和滚动元素的状态
+      if (btnRef.current) {
+        gsap.set(btnRef.current, {
+          opacity: 1,
+          scale: 1.05,
+          pointerEvents: "auto",
+        });
+      }
+
+      if (rollRef.current) {
+        gsap.set(rollRef.current, { opacity: 1 });
+      }
+    }
+  }, [isFirstVisit, images]);
 
   const handleBtnHover = useCallback(
     (isHover: boolean) => {
@@ -42,10 +87,10 @@ const View = () => {
       gsap.to(btnRef.current, {
         scale: isHover ? 1.15 : 1.05,
         duration: 0.3,
-        ease: 'back.out(3)',
+        ease: "back.out(3)",
       });
     },
-    [isGlobalFlipped],
+    [isGlobalFlipped]
   );
 
   const handleMouseEnter = useCallback(
@@ -58,8 +103,8 @@ const View = () => {
 
       const tl = gsap.timeline({
         defaults: {
-          ease: 'none',
-          overwrite: 'auto',
+          ease: "none",
+          overwrite: "auto",
           force3D: true,
         },
       });
@@ -75,25 +120,25 @@ const View = () => {
       tl.to(tile, {
         rotationX: 0,
         duration: 0.8,
-        ease: 'elastic.easeIn',
+        ease: "elastic.easeIn",
         onStart: () => {
-          gsap.set(tile, { willChange: 'transform' });
+          gsap.set(tile, { willChange: "transform" });
           return void 0;
         },
         onComplete: () => {
-          gsap.set(tile, { willChange: 'auto' });
+          gsap.set(tile, { willChange: "auto" });
           return void 0;
         },
       });
     },
-    [isGlobalFlipped, isAnimating],
+    [isGlobalFlipped, isAnimating]
   );
 
   const IMAGE_PATHS: ImagePaths = {
-    FRONT: 'images/mainview/front.webp',
-    BACK: 'images/mainview/back.webp',
-    CP: 'images/mainview/cp.webp',
-    BTN: 'images/mainview/btn.webp',
+    FRONT: "images/mainview/front.webp",
+    BACK: "images/mainview/back.webp",
+    CP: "images/mainview/cp.webp",
+    BTN: "images/mainview/btn.webp",
   };
 
   useEffect(() => {
@@ -105,7 +150,7 @@ const View = () => {
         ]);
         setImages({ front, back });
       } catch (error) {
-        console.error('图片加载失败:', error);
+        console.error("图片加载失败:", error);
       }
     };
     loadImages();
@@ -131,12 +176,12 @@ const View = () => {
       return gsap.to(tile, {
         duration: 1.5,
         rotateX: targetFlip,
-        ease: 'elastic.out(0.8, 0.3)',
+        ease: "elastic.out(0.8, 0.3)",
         delay: delay / 1000,
       });
     },
     //  eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
+    []
   );
 
   const handleWheel = useCallback(
@@ -151,15 +196,15 @@ const View = () => {
 
       gsap.to(containerRef.current, {
         duration: 2,
-        backgroundColor: targetFlip === 180 ? '#0030ae' : '#111111',
+        backgroundColor: targetFlip === 180 ? "#0030ae" : "#111111",
         gap: targetFlip === 180 ? 0 : 2,
-        ease: 'expo.out',
+        ease: "expo.out",
       });
 
       gsap.to(cpRef.current, {
         duration: 0.3,
         opacity: targetFlip === 180 ? 0 : 1,
-        ease: 'power1.in',
+        ease: "power1.in",
       });
 
       const btnAnimation = gsap.timeline();
@@ -169,15 +214,15 @@ const View = () => {
           .to(btnRef.current, {
             duration: 0.3,
             opacity: 1,
-            ease: 'sine.inOut',
+            ease: "sine.inOut",
             onComplete: () => {
               if (btnRef.current) {
-                btnRef.current.style.pointerEvents = 'auto';
+                btnRef.current.style.pointerEvents = "auto";
                 gsap.killTweensOf(btnRef.current, { y: true });
                 gsap.to(btnRef.current, {
                   duration: 1.2,
                   y: 10,
-                  ease: 'sine.inOut',
+                  ease: "sine.inOut",
                   yoyo: true,
                   repeat: -1,
                   repeatRefresh: true,
@@ -190,19 +235,19 @@ const View = () => {
             {
               duration: 0.3,
               opacity: 1,
-              ease: 'sine.inOut',
+              ease: "sine.inOut",
             },
-            '<',
+            "<"
           );
       } else {
         btnAnimation
           .to(btnRef.current, {
             duration: 0.3,
             opacity: 0,
-            ease: 'sine.inOut',
+            ease: "sine.inOut",
             onComplete: () => {
               if (btnRef.current) {
-                btnRef.current.style.pointerEvents = 'none';
+                btnRef.current.style.pointerEvents = "none";
                 gsap.killTweensOf(btnRef.current, { y: true });
               }
             },
@@ -212,9 +257,9 @@ const View = () => {
             {
               duration: 0.3,
               opacity: 0,
-              ease: 'sine.inOut',
+              ease: "sine.inOut",
             },
-            '<',
+            "<"
           );
       }
 
@@ -231,7 +276,7 @@ const View = () => {
         setIsAnimating(false);
       });
     },
-    [isAnimating, isGlobalFlipped, performTileAnimation],
+    [isAnimating, isGlobalFlipped, performTileAnimation]
   );
 
   const debounce = useCallback(
@@ -242,7 +287,7 @@ const View = () => {
         timeout = setTimeout(() => func(...args), wait);
       };
     },
-    [],
+    []
   );
 
   useEffect(() => {
@@ -250,8 +295,8 @@ const View = () => {
       // 这里可以添加布局调整逻辑
     }, 200);
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [debounce]);
 
   const createTile = useCallback(
@@ -270,9 +315,9 @@ const View = () => {
           className="hidden md:block relative w-full h-full transform-style-[preserve-3d] cursor-pointer min-h-0 will-change-transform backface-hidden"
           onMouseEnter={handleMouseEnter}
           style={{
-            transformStyle: 'preserve-3d',
-            pointerEvents: isGlobalFlipped ? 'none' : 'auto',
-            backfaceVisibility: 'hidden',
+            transformStyle: "preserve-3d",
+            pointerEvents: isGlobalFlipped ? "none" : "auto",
+            backfaceVisibility: "hidden",
           }}
         >
           <div className="bg-b-secondary w-full h-full md:hidden" />
@@ -281,7 +326,7 @@ const View = () => {
             style={{
               backgroundImage: `url(${images.front?.src})`,
               backgroundPosition: `${frontPos.x}% ${frontPos.y}%`,
-              transform: 'translateZ(0.1px)',
+              transform: "translateZ(0.1px)",
             }}
           />
           <div
@@ -289,20 +334,20 @@ const View = () => {
             style={{
               backgroundImage: `url(${images.back?.src})`,
               backgroundPosition: `${frontPos.x}% ${frontPos.y}%`,
-              transform: 'rotateX(180deg) translateZ(0.1px)',
+              transform: "rotateX(180deg) translateZ(0.1px)",
             }}
           />
         </div>
       );
     },
-    [images.front, images.back, isGlobalFlipped, handleMouseEnter],
+    [images.front, images.back, isGlobalFlipped, handleMouseEnter]
   );
 
   const tiles = useMemo(() => {
     if (!images.front || !images.back) return null;
 
     return Array.from({ length: 6 }, (_, row) =>
-      Array.from({ length: 6 }, (_, col) => createTile(row, col)),
+      Array.from({ length: 6 }, (_, col) => createTile(row, col))
     );
   }, [images.front, images.back, createTile]);
 
@@ -324,16 +369,16 @@ const View = () => {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        document.body.style.overflow = entry.isIntersecting ? 'hidden' : 'auto';
+        document.body.style.overflow = entry.isIntersecting ? "hidden" : "auto";
       },
-      { threshold: 0.1 },
+      { threshold: 0.1 }
     );
 
     observer.observe(node);
 
     return () => {
       observer.unobserve(node); // ✅ 直接使用闭包中的 node
-      document.body.style.overflow = 'auto'; // 恢复滚动条（可选）
+      document.body.style.overflow = "auto"; // 恢复滚动条（可选）
     };
   }, []); // ✅ 空依赖，仅在挂载/卸载时运行
 
@@ -343,30 +388,51 @@ const View = () => {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        document.body.style.overflow = entry.isIntersecting ? 'auto' : 'hidden';
+        document.body.style.overflow = entry.isIntersecting ? "auto" : "hidden";
       },
-      { threshold: 0.1 },
+      { threshold: 0.1 }
     );
 
     observer.observe(node);
 
     return () => {
       observer.unobserve(node); // ✅ 直接使用局部变量
-      document.body.style.overflow = 'auto'; // 清理副作用
+      document.body.style.overflow = "auto"; // 清理副作用
     };
   }, []); // ✅ 空依赖：仅在挂载/卸载时执行
 
   if (!images.front || !images.back)
     return <div className="text-white">Loading...</div>;
 
+  const homeStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: "CodePaint码绘 - 首页",
+    description:
+      "CodePaint码绘工作室首页，专业的数字创新团队，提供前端开发、后端开发、UI设计、AIGC和自动化办公等技术服务",
+    url: "https://cp.hub.feashow.cn",
+    mainEntity: {
+      "@type": "Organization",
+      name: "CodePaint Studio",
+      alternateName: "码绘工作室",
+    },
+  };
+
   return (
     <div>
+      <SEO
+        title="CodePaint码绘 | 专业前端开发与UI设计工作室"
+        description="CodePaint码绘是一家专业的数字创新工作室，专注于前端开发、后端开发、UI设计、AIGC和自动化办公等技术领域。加入码绘，码上就绘！"
+        keywords="CodePaint,码绘,前端开发,后端开发,UI设计,AIGC,自动化办公,工作室,数字化解决方案,React,Vue,Node.js,Python,设计,开发"
+        ogUrl="https://cp.hub.feashow.cn"
+        structuredData={homeStructuredData}
+      />
       <div
         ref={containerRef}
         className="hidden mid:block md:grid grid-cols-6 gap-0.5 w-full h-screen p-3.5 box-border auto-rows-fr perspective-distant bg-b-tertiary m-0"
         onWheel={handleWheel}
         onMouseEnter={() => {
-          document.body.style.overflow = 'hidden';
+          document.body.style.overflow = "hidden";
         }}
       >
         {tiles}
@@ -383,7 +449,7 @@ const View = () => {
           onMouseLeave={() => handleBtnHover(false)}
           onClick={() => {
             if (mainViewRef.current) {
-              mainViewRef.current.scrollIntoView({ behavior: 'smooth' });
+              mainViewRef.current.scrollIntoView({ behavior: "smooth" });
             }
           }}
         >
@@ -429,19 +495,15 @@ const View = () => {
         ))}
 
         <div className="absolute inset-0 flex flex-col items-center justify-center font-PingFangSC">
-          <h1
-            className="text-6xl font-bold text-white/90 tracking-wider my-6 text-nowrap"
-          >
+          <h1 className="text-6xl font-bold text-white/90 tracking-wider my-6 text-nowrap">
             Code Paint
           </h1>
-          <h3
-            className="text-xl font-medium text-white/90 tracking-widest"
-          >
+          <h3 className="text-xl font-medium text-white/90 tracking-widest">
             加入码绘 码上就绘。
           </h3>
           <button
             onClick={() => {
-              navigate('/mainview');
+              navigate("/mainview");
             }}
             className="text-sm text-white font-light bg-white/30 w-24 h-9 rounded-xl mt-12 align-middle tracking-wider backdrop-blur-2xl "
           >
