@@ -81,7 +81,7 @@ const FrameworkPage: React.FC = () => {
               {/* UI标题方框 - 添加ui-item类 */}
               <div className="bg-white rounded-md p-4 max-w-xs z-10 intro-item ui-item">
                 <p className="w-36 text-lg text-gray-400 leading-tight ">
-                  无界软创UI组由UI方向负责老师领队，团队制定完善的学习路线与专业规划，以提高艺术审美、提前培养相关技术人才为宗旨，望广纳优秀同学，共享优质资源。
+                  UI组负责产品界面设计和用户体验优化。学习Figma、Sketch等设计工具，掌握色彩搭配和布局原理。参与真实项目的界面设计，提升审美能力和设计实战经验。
                 </p>
               </div>
               <div className="h-20 w-px bg-gray-300 m-4 z-0 intro-item ui-item" />
@@ -105,7 +105,7 @@ const FrameworkPage: React.FC = () => {
               {/* 前端说明文本框 */}
               <div className="bg-white rounded-md p-4 max-w-xs z-10 intro-item frontend-item">
                 <p className="w-36 text-base text-gray-400 leading-tight ">
-                  无界软创UI组由UI方向负责老师领队，团队制定完善的学习路线与专业规划，以提高艺术审美、提前培养相关技术人才为宗旨，望广纳优秀同学，共享优质资源。
+                  前端组主要负责网站和应用的开发工作。从HTML、CSS、JavaScript基础开始，逐步学习React等框架。通过实际项目练手，解决真实的技术问题，积累开发经验。
                 </p>
               </div>
             </div>
@@ -122,7 +122,7 @@ const FrameworkPage: React.FC = () => {
               {/* 办公室说明文本框 */}
               <div className="bg-white rounded-md p-4 max-w-xs intro-item office-item">
                 <p className="w-36 text-base text-gray-400 leading-tight ">
-                  确保工作室日常正常运行的核心部门，及时传达信息，参与活动的前期准备，中期推动，后期复盘，活动记录。全力协调好各部门之间的分工与合作。可以锻炼组织、沟通能力，培养细心、严谨的工作习惯，全方面提升综合素质。
+                  办公室负责工作室的日常事务管理。包括会议组织、活动策划、文档整理和部门协调等工作。在这里可以锻炼沟通协调能力，学习项目管理方法。
                 </p>
               </div>
             </div>

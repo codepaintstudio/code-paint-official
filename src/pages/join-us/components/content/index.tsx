@@ -477,17 +477,10 @@ const Content = () => {
     return bestLength;
   };
 
-  const handleEmailSubmit = () => {
-    // 直接打开邮件应用
-    const mailtoUrl = 'mailto:wujieruanchuang@163.com?subject=简历投递&body=您好，我想投递简历加入码绘工作室。%0D%0A%0D%0A期待您的回复！';
-    
-    // 创建隐藏链接来触发邮件应用
-    const link = document.createElement('a');
-    link.href = mailtoUrl;
-    link.style.display = 'none';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const handleJoinSubmit = () => {
+    // 打开QQ群链接
+    const qqGroupUrl = 'https://qm.qq.com/q/TXO0pFt4EQ';
+    window.open(qqGroupUrl, '_blank');
   };
 
   return (
@@ -564,10 +557,10 @@ const Content = () => {
               <Keyboard color="#47484b" size={80} className="opacity-80" />
             </div>
             <button
-              onClick={handleEmailSubmit}
+              onClick={handleJoinSubmit}
               className="absolute bottom-1/9 border-font-quaternary text-font-quaternary border-2 w-1/2 h-1/13 rounded-4xl cursor-pointer hover:opacity-80"
             >
-              投递
+              加入我们
             </button>
           </div>
           {/* 第二层 */}
@@ -610,10 +603,10 @@ const Content = () => {
               <Palette color="#47484b" size={80} className="opacity-80" />
             </div>
             <button
-              onClick={handleEmailSubmit}
+              onClick={handleJoinSubmit}
               className="absolute bottom-1/9 border-font-quaternary text-font-quaternary border-2 w-1/2 h-1/13 rounded-4xl cursor-pointer hover:opacity-80"
             >
-              投递
+              加入我们
             </button>
           </div>
           {/* 第二层 */}
@@ -647,19 +640,19 @@ const Content = () => {
               OPERATION
             </div>
             <div className="text-center text-xs/7">
-              <p className="text-4xl mb-6 text-white">运营</p>
+              <p className="text-4xl mb-6 text-white">办公室</p>
               <p className="opacity-50">
-                负责工作室日常运营管理，协调项目进度，维护客户关系，推动业务发展
+                负责工作室日常事务管理，协调项目进度，组织活动和会议，维护部门合作
               </p>
             </div>
             <div className="scale-75">
               <CalendarDays color="#47484b" size={100} className="opacity-80" />
             </div>
             <button
-              onClick={handleEmailSubmit}
+              onClick={handleJoinSubmit}
               className="absolute bottom-1/9 border-font-quaternary text-font-quaternary border-2 w-1/2 h-1/13 rounded-4xl cursor-pointer hover:opacity-80"
             >
-              投递
+              加入我们
             </button>
           </div>
           {/* 第二层 */}
@@ -668,7 +661,7 @@ const Content = () => {
             className="absolute flex items-center top-0 left-0 w-full h-full px-4 bg-font-primary rounded-tr-4xl text-xs/7"
           >
             <p className="text-center opacity-50">
-              我们寻找具有良好沟通能力和项目管理经验的运营人才，能够统筹协调各部门工作，确保项目顺利推进
+              我们寻找具有良好沟通能力和组织协调经验的办公室人才，能够统筹管理各部门日常事务，确保工作室高效运行
             </p>
           </div>
         </div>
@@ -716,10 +709,10 @@ const Content = () => {
               />
 
               <button
-                onClick={handleEmailSubmit}
+                onClick={handleJoinSubmit}
                 className="absolute right-4 bottom-4 border-font-quaternary text-font-quaternary border-1 w-20 h-8 rounded-lg text-sm z-20 cursor-pointer hover:opacity-80"
               >
-                投递
+                加入我们
               </button>
             </div>
 
@@ -750,10 +743,10 @@ const Content = () => {
               />
 
               <button
-                onClick={handleEmailSubmit}
+                onClick={handleJoinSubmit}
                 className="absolute left-4 bottom-4 border-font-quaternary text-font-quaternary border-1 w-20 h-8 rounded-lg text-sm cursor-pointer hover:opacity-80 z-50"
               >
-                投递
+                加入我们
               </button>
             </div>
 
@@ -771,9 +764,9 @@ const Content = () => {
               />
 
               <div className="flex justify-between items-center text-center text-sm px-1 py-4 pb-12 h-full w-full z-10">
-                <p className="text-4xl text-white pl-8 vertical-text tracking-wide font-medium">运营</p>
+                <p className="text-4xl text-white pl-8 vertical-text tracking-wide font-medium">办公室</p>
                 <p className="opacity-50 text-font-tertiary font-semibold w-2/3 self-start leading-5 tracking-widest text-left ">
-                  负责工作室日常运营管理，协调项目进度，维护客户关系
+                  负责工作室日常事务管理，协调项目进度，组织活动和会议
                 </p>
               </div>
 
@@ -784,10 +777,10 @@ const Content = () => {
               />
 
               <button
-                onClick={handleEmailSubmit}
+                onClick={handleJoinSubmit}
                 className="absolute right-4 bottom-4 border-font-quaternary text-font-quaternary border-1 w-20 h-8 rounded-lg text-sm cursor-pointer hover:opacity-80 z-50"
               >
-                投递
+                加入我们
               </button>
             </div>
 

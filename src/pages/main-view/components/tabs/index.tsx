@@ -24,43 +24,56 @@ const Index = () => {
     },
   ];
   return (
-    <div className="px-8">
+    <div className="px-6 pb-8">
       {/*tabPanel*/}
-      <div className="w-52 grid grid-cols-3 border border-blue-primary rounded-md overflow-hidden">
-        <div
-          onClick={() => setTabIndex(0)}
-          className={`flex justify-center ${
-            tabIndex === 0
-              ? "bg-blue-primary text-white"
-              : "bg-white" + " text-blue-primary"
-          }`}
-        >
-          前端
-        </div>
-        <div
-          onClick={() => setTabIndex(1)}
-          className={`flex justify-center border-x border-blue-primary ${
-            tabIndex === 1
-              ? "bg-blue-primary" + " text-white"
-              : "bg-white" + " text-blue-primary"
-          }`}
-        >
-          UI
-        </div>
-        <div
-          onClick={() => setTabIndex(2)}
-          className={`flex justify-center rounded-r-md ${
-            tabIndex === 2
-              ? "bg-blue-primary text-white"
-              : "bg-white" + " text-blue-primary"
-          }`}
-        >
-          办公室
+      <div className="flex justify-center mb-6">
+        <div className="grid grid-cols-3 border-2 border-blue-600 rounded-lg overflow-hidden shadow-lg bg-white">
+          <button
+            onClick={() => setTabIndex(0)}
+            className={`px-4 py-3 text-sm font-medium transition-all duration-300 ${
+              tabIndex === 0
+                ? "bg-gradient-to-r from-[#0047FF] to-[#001448] text-white shadow-inner"
+                : "bg-white text-blue-600 hover:bg-blue-50"
+            }`}
+          >
+            前端
+          </button>
+          <button
+            onClick={() => setTabIndex(1)}
+            className={`px-4 py-3 text-sm font-medium border-x border-blue-600 transition-all duration-300 ${
+              tabIndex === 1
+                ? "bg-gradient-to-r from-[#0047FF] to-[#001448] text-white shadow-inner"
+                : "bg-white text-blue-600 hover:bg-blue-50"
+            }`}
+          >
+            UI
+          </button>
+          <button
+            onClick={() => setTabIndex(2)}
+            className={`px-4 py-3 text-sm font-medium transition-all duration-300 ${
+              tabIndex === 2
+                ? "bg-gradient-to-r from-[#0047FF] to-[#001448] text-white shadow-inner"
+                : "bg-white text-blue-600 hover:bg-blue-50"
+            }`}
+          >
+            办公室
+          </button>
         </div>
       </div>
+      
       {/*tabContent*/}
-      <div className="flex justify-center flex-wrap" key={info[tabIndex].index}>
-        <div className="w-full">{info[tabIndex].description}</div>
+      <div 
+        className="mx-4 p-6 bg-gradient-to-br from-blue-50/30 to-indigo-50/50 rounded-xl shadow-md border border-blue-200/40 backdrop-blur-sm"
+        key={info[tabIndex].index}
+      >
+        <div className="text-center">
+          <h3 className="text-xl font-bold text-blue-800 mb-4">
+            {info[tabIndex].title}
+          </h3>
+          <p className="text-blue-700/80 leading-relaxed text-sm">
+            {info[tabIndex].description}
+          </p>
+        </div>
       </div>
     </div>
   );

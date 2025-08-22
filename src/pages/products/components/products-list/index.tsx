@@ -1,10 +1,38 @@
+import React, { useState } from 'react';
 import Lists from "../lists/index";
+import ImageModal from "@/components/ImageModal";
 
 interface ProductsListProps {
   setProductItemRef?: (el: HTMLDivElement | null, index: number) => void;
 }
 
 const ProductsList = ({ setProductItemRef }: ProductsListProps) => {
+  const [modalState, setModalState] = useState<{
+    isOpen: boolean;
+    imageUrl: string;
+    imageAlt: string;
+  }>({
+    isOpen: false,
+    imageUrl: '',
+    imageAlt: ''
+  });
+
+  const openImageModal = (imageUrl: string, imageAlt: string) => {
+    setModalState({
+      isOpen: true,
+      imageUrl,
+      imageAlt
+    });
+  };
+
+  const closeImageModal = () => {
+    setModalState({
+      isOpen: false,
+      imageUrl: '',
+      imageAlt: ''
+    });
+  };
+
   return (
     <div className="font-PingFangSC w-full">
       {Lists.map((product, index) => (
@@ -37,21 +65,23 @@ const ProductsList = ({ setProductItemRef }: ProductsListProps) => {
                   </a>
                 </div>
               </div>
-              <div className="bg-amber-50 max-w-2xl mx-16 w-96 h-80 rounded-2xl flex-shrink-0">
+              <div className="bg-amber-50 max-w-2xl mx-16 w-96 h-80 rounded-2xl flex-shrink-0 cursor-pointer hover:opacity-90 transition-opacity">
                 <img
                   src={product.image}
                   alt={product.title}
-                  className="w-full h-full object-contain rounded-2xl"
+                  className="w-full h-full object-cover rounded-2xl"
+                  onClick={() => openImageModal(product.image, product.title)}
                 />
               </div>
             </>
           ) : (
             <>
-              <div className="bg-amber-50 max-w-2xl mx-16 w-96 h-80 rounded-2xl flex-shrink-0">
+              <div className="bg-amber-50 max-w-2xl mx-16 w-96 h-80 rounded-2xl flex-shrink-0 cursor-pointer hover:opacity-90 transition-opacity">
                 <img
                   src={product.image}
                   alt={product.title}
-                  className="w-full h-full object-contain rounded-2xl"
+                  className="w-full h-full object-cover rounded-2xl"
+                  onClick={() => openImageModal(product.image, product.title)}
                 />
               </div>
               {/* logo 与文字 */}
@@ -95,11 +125,12 @@ const ProductsList = ({ setProductItemRef }: ProductsListProps) => {
               {product.title}
             </div>
           </div>
-          <div className="w-full h-60 rounded-xl my-4 bg-[#101010]/65">
+          <div className="w-full h-60 rounded-xl my-4 bg-[#101010]/65 cursor-pointer hover:opacity-90 transition-opacity">
             <img
               src={product.image}
               alt={product.title}
-              className="w-full h-full object-contain rounded-xl"
+              className="w-full h-full object-cover rounded-xl"
+              onClick={() => openImageModal(product.image, product.title)}
             />
           </div>
           <div className="w-full text-sm">{product.description}</div>
@@ -108,6 +139,14 @@ const ProductsList = ({ setProductItemRef }: ProductsListProps) => {
           </a>
         </div>
       ))}
+      
+      {/* 图片预览模态框 */}
+      <ImageModal
+        isOpen={modalState.isOpen}
+        imageUrl={modalState.imageUrl}
+        imageAlt={modalState.imageAlt}
+        onClose={closeImageModal}
+      />
     </div>
   );
 };
